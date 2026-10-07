@@ -1,0 +1,96 @@
+syntax = "proto3";
+
+package seasnail.v1;
+
+// Cleanup 是纯 ASR transcript 成功落盘后的可失败增强结果。
+// 文件使用账户 K_files 与 cleanup 专用 AAD 加密为 cleanup.pb.enc；不得包含
+// credential、完整 endpoint/prompt 或 marker。成功结果可以保存不含 context payload 的
+// 本地展示位置，使 daemon 重启后仍能从独立加密的 context.pb.enc 恢复原位展示。
+message CleanupFile {
+  uint32 schema_version = 1;             // 当前 1
+  string session_id = 2;                 // 与 sessions.id 一致
+  string account_id = 3;                 // AAD 外的第二重归属校验
+  CleanupOutcome outcome = 4;
+  string cleaned_text = 5;               // 成功时的无 marker 纯正文
+  repeated Correction corrections = 6;  // 仅保留已通过业务校验的词汇级修正
+  string provider_config_id = 7;
+  string model = 8;
+  bytes prompt_sha256 = 9;                // 有效 prompt 的 32-byte SHA-256
+  string error_code = 10;                // 失败时的稳定脱敏错误码
+  uint64 elapsed_ms = 11;
+  PlaceholderValidationStatus placeholder_validation = 12;
+  // marker 校验通过后派生的可选本地展示位置；不包含 marker 或 clipboard context 内容。
+  // byte_offset 是 event 插入 cleaned_text 前的 UTF-8 字节偏移，允许多个 event 同位。
+  // 扩展无效时仍保留核心 cleanup 正文，并由展示层降级为 separate 布局。
+  repeated CleanupContextPlacement context_placements = 64;
+  // 可选诊断扩展。该子结构损坏或版本未知不得使核心 cleanup 结果失效。
+  CleanupDiagnostics diagnostics = 32;
+
+  reserved 13 to 31;
+  reserved 33 to 63;
+}
+
+message CleanupContextPlacement {
+  uint32 event_sequence = 1;             // 对应 context.pb.enc ContextEvent.sequence
+  uint64 byte_offset = 2;                // cleaned_text 的 UTF-8 字节边界
+
+  reserved 3 to 15;
+}
+
+// 单次 live cleanup 的可移除诊断快照。应用不主动加入请求正文、Authorization、
+// credential、完整 endpoint 或其他请求头；疑似回显这些内容的 provider body 被标记
+// REDACTED，且不保存原始字节。
+message CleanupDiagnostics {
+  uint32 schema_version = 1;              // 当前 1；独立于 CleanupFile 演进
+  string trace_id = 2;
+  int64 request_started_at_ms = 3;
+  int64 response_started_at_ms = 4;       // 收到响应 headers；未收到时为 0
+  int64 response_completed_at_ms = 5;     // 受限 body 读取结束；未结束时为 0
+  optional uint32 http_status = 6;
+  string response_content_type = 7;
+  string provider_request_id = 8;
+  bytes raw_response_body = 9;            // 最多 256 KiB，保留原始字节
+  bytes response_sha256 = 10;              // 成功捕获 body 时为 32-byte SHA-256
+  uint64 response_body_bytes = 11;
+  DiagnosticCaptureStatus capture_status = 12;
+  optional uint64 local_transcription_elapsed_ms = 13;
+
+  reserved 14 to 31;
+}
+
+enum DiagnosticCaptureStatus {
+  DIAGNOSTIC_CAPTURE_STATUS_UNSPECIFIED = 0;
+  DIAGNOSTIC_CAPTURE_STATUS_NOT_RECEIVED = 1;
+  DIAGNOSTIC_CAPTURE_STATUS_COMPLETE = 2;
+  DIAGNOSTIC_CAPTURE_STATUS_TOO_LARGE = 3;
+  DIAGNOSTIC_CAPTURE_STATUS_READ_FAILED = 4;
+  DIAGNOSTIC_CAPTURE_STATUS_REDACTED = 5;
+}
+
+enum CleanupOutcome {
+  CLEANUP_OUTCOME_UNSPECIFIED = 0;
+  CLEANUP_OUTCOME_SUCCEEDED = 1;
+  CLEANUP_OUTCOME_FAILED = 2;
+}
+
+message Correction {
+  string original_text = 1;
+  string corrected_text = 2;
+  CorrectionKind kind = 3;
+
+  reserved 4 to 15;
+}
+
+enum CorrectionKind {
+  CORRECTION_KIND_UNSPECIFIED = 0;
+  CORRECTION_KIND_PHONETIC = 1;
+  CORRECTION_KIND_PROPER_NOUN = 2;
+  CORRECTION_KIND_OTHER_ASR = 3;
+}
+
+enum PlaceholderValidationStatus {
+  PLACEHOLDER_VALIDATION_STATUS_UNSPECIFIED = 0;
+  PLACEHOLDER_VALIDATION_NOT_RUN = 1;
+  PLACEHOLDER_VALIDATION_PASSED = 2;
+  PLACEHOLDER_VALIDATION_FAILED = 3;
+}

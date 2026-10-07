@@ -1,0 +1,23 @@
+[package]
+license = "Apache-2.0"
+name = "seasnail-api-regression-tests"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[workspace]
+
+[[bin]]
+name = "seasnail-api-test-host"
+path = "rust/host.rs"
+
+[dependencies]
+seasnail-daemon = { path = "../../crates/daemon" }
+seasnail-crypto = { path = "../../crates/crypto" }
+seasnail-runtime = { path = "../../crates/runtime" }
+tokio = { version = "1", features = ["full"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+async-trait = "0.1"
+anyhow = "1"
+tempfile = "3"

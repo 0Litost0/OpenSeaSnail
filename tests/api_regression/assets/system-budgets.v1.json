@@ -1,0 +1,15 @@
+{
+  "version": "system-budgets-v1",
+  "milliseconds": {
+    "SYSTEM-001": 240000,
+    "SYSTEM-003": 1200000,
+    "child_run": 480000,
+    "child_force_stop_wait": 15000,
+    "mutation_build": 300000,
+    "runner_total": 3600000,
+    "acceptance_runner_total": 7200000,
+    "SYSTEM-004": 120000,
+    "SYSTEM-002": 300000
+  },
+  "basis": "Explicit controller ceilings for repeated CLI runs and isolated Cargo compilation. SYSTEM-001 first complete observation was 135.6 seconds. SYSTEM-002 includes independent environment checks and real sidecar interruption; SYSTEM-004 covers list and new-case single/combined runs. These ceilings do not change approved per-request/business/model/teardown or ASR quality budgets. Exceedance is failure/incomplete, never silently extended."
+}

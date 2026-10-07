@@ -1,0 +1,1059 @@
+{
+  "date": "2026-10-02",
+  "purpose": "framework selection PoC, not full product acceptance",
+  "recommendation": "Prefer independent Node Vitest API tests for existing-toolchain reuse; retain Rust deep tests; Playwright remains a viable alternative. Pending design confirmation.",
+  "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+  "repository_commit": "892e50468f0d2789359b0f5fbe5cc8649e1d1253",
+  "versions": {
+    "playwright": "1.63.0",
+    "vitest": "4.1.10",
+    "vite": "8.2.1",
+    "nextest": "0.9.146",
+    "node": "22.12.0",
+    "pnpm": "9.15.9"
+  },
+  "comparison_experiments": [
+    {
+      "name": "pw-list",
+      "command": [
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "comparison.spec.ts",
+        "--list"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "duration_seconds": 0.733,
+      "matches_expectation": true
+    },
+    {
+      "name": "vitest-list",
+      "command": [
+        "pnpm",
+        "exec",
+        "vitest",
+        "list",
+        "--json"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "duration_seconds": 1.181,
+      "matches_expectation": true
+    },
+    {
+      "name": "rust-list",
+      "command": [
+        "<POC_NEXTEST>",
+        "nextest",
+        "list",
+        "--manifest-path",
+        "Cargo.toml",
+        "--target-dir",
+        "../../../target",
+        "--offline",
+        "--test",
+        "comparison",
+        "--message-format",
+        "json"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "duration_seconds": 7.23,
+      "matches_expectation": true
+    },
+    {
+      "name": "pw-pass-1",
+      "command": [
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "comparison.spec.ts"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "duration_seconds": 4.806,
+      "matches_expectation": true
+    },
+    {
+      "name": "pw-pass-2",
+      "command": [
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "comparison.spec.ts"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "duration_seconds": 2.695,
+      "matches_expectation": true
+    },
+    {
+      "name": "pw-pass-3",
+      "command": [
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "comparison.spec.ts"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "duration_seconds": 2.645,
+      "matches_expectation": true
+    },
+    {
+      "name": "pw-failure",
+      "command": [
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "comparison.spec.ts"
+      ],
+      "exit_code": 1,
+      "expected_exit": 1,
+      "duration_seconds": 2.641,
+      "matches_expectation": true
+    },
+    {
+      "name": "pw-reproduce",
+      "command": [
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "comparison.spec.ts",
+        "--grep",
+        "DICT-001"
+      ],
+      "exit_code": 1,
+      "expected_exit": 1,
+      "duration_seconds": 2.668,
+      "matches_expectation": true
+    },
+    {
+      "name": "pw-repair",
+      "command": [
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "comparison.spec.ts",
+        "--grep",
+        "DICT-001"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "duration_seconds": 2.744,
+      "matches_expectation": true
+    },
+    {
+      "name": "vitest-pass-1",
+      "command": [
+        "pnpm",
+        "exec",
+        "vitest",
+        "run",
+        "comparison.test.ts"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "duration_seconds": 2.313,
+      "matches_expectation": true
+    },
+    {
+      "name": "vitest-pass-2",
+      "command": [
+        "pnpm",
+        "exec",
+        "vitest",
+        "run",
+        "comparison.test.ts"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "duration_seconds": 2.226,
+      "matches_expectation": true
+    },
+    {
+      "name": "vitest-pass-3",
+      "command": [
+        "pnpm",
+        "exec",
+        "vitest",
+        "run",
+        "comparison.test.ts"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "duration_seconds": 2.223,
+      "matches_expectation": true
+    },
+    {
+      "name": "vitest-failure",
+      "command": [
+        "pnpm",
+        "exec",
+        "vitest",
+        "run",
+        "comparison.test.ts"
+      ],
+      "exit_code": 1,
+      "expected_exit": 1,
+      "duration_seconds": 2.255,
+      "matches_expectation": true
+    },
+    {
+      "name": "vitest-reproduce",
+      "command": [
+        "pnpm",
+        "exec",
+        "vitest",
+        "run",
+        "comparison.test.ts",
+        "-t",
+        "DICT-001"
+      ],
+      "exit_code": 1,
+      "expected_exit": 1,
+      "duration_seconds": 2.21,
+      "matches_expectation": true
+    },
+    {
+      "name": "vitest-repair",
+      "command": [
+        "pnpm",
+        "exec",
+        "vitest",
+        "run",
+        "comparison.test.ts",
+        "-t",
+        "DICT-001"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "duration_seconds": 2.208,
+      "matches_expectation": true
+    },
+    {
+      "name": "rust-pass-1",
+      "command": [
+        "<POC_NEXTEST>",
+        "nextest",
+        "run",
+        "--manifest-path",
+        "Cargo.toml",
+        "--target-dir",
+        "../../../target",
+        "--offline",
+        "--test",
+        "comparison",
+        "--profile",
+        "poc"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "duration_seconds": 5.383,
+      "matches_expectation": true
+    },
+    {
+      "name": "rust-pass-2",
+      "command": [
+        "<POC_NEXTEST>",
+        "nextest",
+        "run",
+        "--manifest-path",
+        "Cargo.toml",
+        "--target-dir",
+        "../../../target",
+        "--offline",
+        "--test",
+        "comparison",
+        "--profile",
+        "poc"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "duration_seconds": 4.083,
+      "matches_expectation": true
+    },
+    {
+      "name": "rust-pass-3",
+      "command": [
+        "<POC_NEXTEST>",
+        "nextest",
+        "run",
+        "--manifest-path",
+        "Cargo.toml",
+        "--target-dir",
+        "../../../target",
+        "--offline",
+        "--test",
+        "comparison",
+        "--profile",
+        "poc"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "duration_seconds": 3.873,
+      "matches_expectation": true
+    },
+    {
+      "name": "rust-failure",
+      "command": [
+        "<POC_NEXTEST>",
+        "nextest",
+        "run",
+        "--manifest-path",
+        "Cargo.toml",
+        "--target-dir",
+        "../../../target",
+        "--offline",
+        "--test",
+        "comparison",
+        "--profile",
+        "poc"
+      ],
+      "exit_code": 100,
+      "expected_exit": 100,
+      "duration_seconds": 3.374,
+      "matches_expectation": true
+    },
+    {
+      "name": "rust-reproduce",
+      "command": [
+        "<POC_NEXTEST>",
+        "nextest",
+        "run",
+        "--manifest-path",
+        "Cargo.toml",
+        "--target-dir",
+        "../../../target",
+        "--offline",
+        "--test",
+        "comparison",
+        "--profile",
+        "poc",
+        "-E",
+        "test(dict_001_crud_restart)"
+      ],
+      "exit_code": 100,
+      "expected_exit": 100,
+      "duration_seconds": 3.399,
+      "matches_expectation": true
+    },
+    {
+      "name": "rust-repair",
+      "command": [
+        "<POC_NEXTEST>",
+        "nextest",
+        "run",
+        "--manifest-path",
+        "Cargo.toml",
+        "--target-dir",
+        "../../../target",
+        "--offline",
+        "--test",
+        "comparison",
+        "--profile",
+        "poc",
+        "-E",
+        "test(dict_001_crud_restart)"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "duration_seconds": 3.423,
+      "matches_expectation": true
+    },
+    {
+      "name": "pw-flaky",
+      "command": [
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "comparison.spec.ts",
+        "--retries=1"
+      ],
+      "exit_code": 1,
+      "expected_exit": 1,
+      "duration_seconds": 4.604,
+      "matches_expectation": true
+    }
+  ],
+  "rust_junit_recapture": [
+    {
+      "name": "rust-list",
+      "command": [
+        "<POC_NEXTEST>",
+        "nextest",
+        "list",
+        "--manifest-path",
+        "Cargo.toml",
+        "--target-dir",
+        "../../../target",
+        "--offline",
+        "--test",
+        "comparison",
+        "--message-format",
+        "json"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "duration_seconds": 0.372,
+      "matches_expectation": true
+    },
+    {
+      "name": "rust-pass-1",
+      "command": [
+        "<POC_NEXTEST>",
+        "nextest",
+        "run",
+        "--manifest-path",
+        "Cargo.toml",
+        "--target-dir",
+        "../../../target",
+        "--offline",
+        "--test",
+        "comparison",
+        "--profile",
+        "poc"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "duration_seconds": 5.268,
+      "matches_expectation": true
+    },
+    {
+      "name": "rust-pass-2",
+      "command": [
+        "<POC_NEXTEST>",
+        "nextest",
+        "run",
+        "--manifest-path",
+        "Cargo.toml",
+        "--target-dir",
+        "../../../target",
+        "--offline",
+        "--test",
+        "comparison",
+        "--profile",
+        "poc"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "duration_seconds": 3.554,
+      "matches_expectation": true
+    },
+    {
+      "name": "rust-pass-3",
+      "command": [
+        "<POC_NEXTEST>",
+        "nextest",
+        "run",
+        "--manifest-path",
+        "Cargo.toml",
+        "--target-dir",
+        "../../../target",
+        "--offline",
+        "--test",
+        "comparison",
+        "--profile",
+        "poc"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "duration_seconds": 4.083,
+      "matches_expectation": true
+    },
+    {
+      "name": "rust-failure",
+      "command": [
+        "<POC_NEXTEST>",
+        "nextest",
+        "run",
+        "--manifest-path",
+        "Cargo.toml",
+        "--target-dir",
+        "../../../target",
+        "--offline",
+        "--test",
+        "comparison",
+        "--profile",
+        "poc"
+      ],
+      "exit_code": 100,
+      "expected_exit": 100,
+      "duration_seconds": 3.389,
+      "matches_expectation": true
+    },
+    {
+      "name": "rust-reproduce",
+      "command": [
+        "<POC_NEXTEST>",
+        "nextest",
+        "run",
+        "--manifest-path",
+        "Cargo.toml",
+        "--target-dir",
+        "../../../target",
+        "--offline",
+        "--test",
+        "comparison",
+        "--profile",
+        "poc",
+        "-E",
+        "test(dict_001_crud_restart)"
+      ],
+      "exit_code": 100,
+      "expected_exit": 100,
+      "duration_seconds": 3.425,
+      "matches_expectation": true
+    },
+    {
+      "name": "rust-repair",
+      "command": [
+        "<POC_NEXTEST>",
+        "nextest",
+        "run",
+        "--manifest-path",
+        "Cargo.toml",
+        "--target-dir",
+        "../../../target",
+        "--offline",
+        "--test",
+        "comparison",
+        "--profile",
+        "poc",
+        "-E",
+        "test(dict_001_crud_restart)"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "duration_seconds": 3.967,
+      "matches_expectation": true
+    }
+  ],
+  "followup_experiments": [
+    {
+      "name": "vitest-annotations-failure",
+      "command": [
+        "pnpm",
+        "exec",
+        "vitest",
+        "run",
+        "annotations.test.ts",
+        "--reporter=agent",
+        "--reporter=json",
+        "--reporter=junit"
+      ],
+      "exit_code": 1,
+      "expected_exit": 1,
+      "matches_expectation": true,
+      "duration_seconds": 2.26
+    },
+    {
+      "name": "vitest-annotations-repair",
+      "command": [
+        "pnpm",
+        "exec",
+        "vitest",
+        "run",
+        "annotations.test.ts"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "matches_expectation": true,
+      "duration_seconds": 2.237
+    },
+    {
+      "name": "pw-clean",
+      "command": [
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "pipeline.spec.ts",
+        "--grep",
+        "CLEAN"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "matches_expectation": true,
+      "duration_seconds": 23.515
+    },
+    {
+      "name": "vitest-clean",
+      "command": [
+        "pnpm",
+        "exec",
+        "vitest",
+        "run",
+        "pipeline.test.ts",
+        "-t",
+        "CLEAN"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "matches_expectation": true,
+      "duration_seconds": 23.225
+    },
+    {
+      "name": "pw-sherpa",
+      "command": [
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "pipeline.spec.ts",
+        "--grep",
+        "SHERPA"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "matches_expectation": true,
+      "duration_seconds": 52.851
+    },
+    {
+      "name": "vitest-sherpa",
+      "command": [
+        "pnpm",
+        "exec",
+        "vitest",
+        "run",
+        "pipeline.test.ts",
+        "-t",
+        "SHERPA"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "matches_expectation": true,
+      "duration_seconds": 52.587
+    },
+    {
+      "name": "pw-lifecycle",
+      "command": [
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "lifecycle.spec.ts"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "matches_expectation": true,
+      "duration_seconds": 1.208
+    },
+    {
+      "name": "pw-timeout",
+      "command": [
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "lifecycle.spec.ts",
+        "--grep",
+        "LIFE-timeout"
+      ],
+      "exit_code": 1,
+      "expected_exit": 1,
+      "matches_expectation": true,
+      "duration_seconds": 2.561
+    },
+    {
+      "name": "pw-missing",
+      "command": [
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "pipeline.spec.ts",
+        "--grep",
+        "SHERPA"
+      ],
+      "exit_code": 1,
+      "expected_exit": 1,
+      "matches_expectation": true,
+      "duration_seconds": 1.058
+    },
+    {
+      "name": "vitest-missing",
+      "command": [
+        "pnpm",
+        "exec",
+        "vitest",
+        "run",
+        "pipeline.test.ts",
+        "-t",
+        "SHERPA"
+      ],
+      "exit_code": 1,
+      "expected_exit": 1,
+      "matches_expectation": true,
+      "duration_seconds": 0.681
+    }
+  ],
+  "sample_failure": {
+    "playwright": {
+      "status": "failed",
+      "steps": [
+        {
+          "title": "创建账户",
+          "failed": false
+        },
+        {
+          "title": "词典增改删查",
+          "failed": false
+        },
+        {
+          "title": "真正重启服务",
+          "failed": false
+        },
+        {
+          "title": "重启后读取",
+          "failed": true
+        }
+      ],
+      "lifecycle": [
+        {
+          "event": "ready",
+          "pid": 6560,
+          "runtime": "mock"
+        },
+        {
+          "event": "stopped",
+          "pid": 6560,
+          "code": 0,
+          "signal": null
+        },
+        {
+          "event": "ready",
+          "pid": 6562,
+          "runtime": "mock"
+        },
+        {
+          "event": "stopped",
+          "pid": 6562,
+          "code": 0,
+          "signal": null
+        },
+        {
+          "event": "directory-removed"
+        }
+      ]
+    },
+    "vitest": {
+      "status": "failed",
+      "meta": {
+        "businessSteps": [
+          {
+            "name": "创建账户",
+            "status": "passed"
+          },
+          {
+            "name": "词典增改删查",
+            "status": "passed"
+          },
+          {
+            "name": "真正重启服务",
+            "status": "passed"
+          },
+          {
+            "name": "重启后读取",
+            "status": "failed"
+          }
+        ],
+        "lifecycle": [
+          {
+            "event": "ready",
+            "pid": 6918,
+            "runtime": "mock"
+          },
+          {
+            "event": "stopped",
+            "pid": 6918,
+            "code": 0,
+            "signal": null
+          },
+          {
+            "event": "ready",
+            "pid": 6930,
+            "runtime": "mock"
+          },
+          {
+            "event": "stopped",
+            "pid": 6930,
+            "code": 0,
+            "signal": null
+          },
+          {
+            "event": "directory-removed"
+          }
+        ]
+      }
+    },
+    "nextest": {
+      "name": "dict_001_crud_restart",
+      "failure": "thread 'dict_001_crud_restart' (16939135) panicked at rust/comparison.rs:170:5:\nassertion `left == right` failed: DICT-001 / 重启后读取\n  left: [\"SeaSnail v2\"]\n right: [\"INJECTED_WRONG_EXPECTATION\"]\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\nPOC cleanup: graceful=true, host_pids=[6873, 6874]",
+      "step_log": "STEP 创建账户\nSTEP 词典增改删查\nSTEP 真正重启服务\nSTEP 重启后读取\n\nthread 'dict_001_crud_restart' (16939135) panicked at rust/comparison.rs:170:5:\nassertion `left == right` failed: DICT-001 / 重启后读取\n  left: [\"SeaSnail v2\"]\n right: [\"INJECTED_WRONG_EXPECTATION\"]\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\nPOC cleanup: graceful=true, host_pids=[6873, 6874]\n"
+    }
+  },
+  "retry": {
+    "playwright": {
+      "outcome": "flaky",
+      "attempts": [
+        "failed",
+        "passed"
+      ],
+      "exit_code": 1
+    },
+    "vitest_native": {
+      "status": "passed",
+      "attempts": [
+        {
+          "attempt": 0,
+          "steps": [
+            {
+              "name": "创建账户",
+              "status": "passed"
+            },
+            {
+              "name": "词典增改删查",
+              "status": "passed"
+            },
+            {
+              "name": "真正重启服务",
+              "status": "passed"
+            },
+            {
+              "name": "重启后读取",
+              "status": "failed"
+            }
+          ],
+          "status": "failed",
+          "lifecycle": [
+            {
+              "event": "ready",
+              "pid": 6130,
+              "runtime": "mock"
+            },
+            {
+              "event": "stopped",
+              "pid": 6130,
+              "code": 0,
+              "signal": null
+            },
+            {
+              "event": "ready",
+              "pid": 6131,
+              "runtime": "mock"
+            },
+            {
+              "event": "stopped",
+              "pid": 6131,
+              "code": 0,
+              "signal": null
+            },
+            {
+              "event": "directory-removed"
+            }
+          ]
+        },
+        {
+          "attempt": 1,
+          "steps": [
+            {
+              "name": "创建账户",
+              "status": "passed"
+            },
+            {
+              "name": "词典增改删查",
+              "status": "passed"
+            },
+            {
+              "name": "真正重启服务",
+              "status": "passed"
+            },
+            {
+              "name": "重启后读取",
+              "status": "passed"
+            }
+          ],
+          "status": "passed",
+          "lifecycle": [
+            {
+              "event": "ready",
+              "pid": 6132,
+              "runtime": "mock"
+            },
+            {
+              "event": "stopped",
+              "pid": 6132,
+              "code": 0,
+              "signal": null
+            },
+            {
+              "event": "ready",
+              "pid": 6133,
+              "runtime": "mock"
+            },
+            {
+              "event": "stopped",
+              "pid": 6133,
+              "code": 0,
+              "signal": null
+            },
+            {
+              "event": "directory-removed"
+            }
+          ]
+        }
+      ],
+      "exit_code": 0
+    },
+    "vitest_strict": {
+      "flaky": [
+        "FLAKY-001 preserve first failure and retry"
+      ],
+      "accepted": false,
+      "exit_code": 1
+    }
+  },
+  "timeout": {
+    "playwright": {
+      "status": "timedOut",
+      "lifecycle": [
+        {
+          "event": "ready",
+          "pid": 6236,
+          "runtime": "mock"
+        },
+        {
+          "event": "stopped",
+          "pid": 6236,
+          "code": 0,
+          "signal": null
+        },
+        {
+          "event": "directory-removed"
+        }
+      ]
+    },
+    "vitest": [
+      {
+        "status": "passed",
+        "meta": {
+          "lifecycle": [
+            {
+              "event": "ready",
+              "pid": 6407,
+              "runtime": "mock"
+            },
+            {
+              "event": "stopped",
+              "pid": 6407,
+              "code": null,
+              "signal": "SIGKILL"
+            },
+            {
+              "event": "directory-removed"
+            }
+          ]
+        }
+      },
+      {
+        "status": "failed",
+        "meta": {
+          "lifecycle": [
+            {
+              "event": "ready",
+              "pid": 6408,
+              "runtime": "mock"
+            },
+            {
+              "event": "stopped",
+              "pid": 6408,
+              "code": 0,
+              "signal": null
+            },
+            {
+              "event": "directory-removed"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "real_runner_crash": {
+    "runnerKilled": true,
+    "hostExited": true,
+    "ownedSidecarsExited": 1,
+    "directoryRemoved": true,
+    "runtime": "sherpa"
+  },
+  "sherpa": {
+    "playwright": {
+      "sha256": "df6b20f1ddd6dd5e4be28c95346ea8e5bd6c629c7c3094d385065a1a1d36742d",
+      "reference": "Welcome to SeaSnail. This is a regression test. Please save this recording.",
+      "actual": "Snail This is a regression test. Please save this recording.",
+      "scope": "PoC sample only; not release quality acceptance"
+    },
+    "vitest": {
+      "sha256": "df6b20f1ddd6dd5e4be28c95346ea8e5bd6c629c7c3094d385065a1a1d36742d",
+      "reference": "Welcome to SeaSnail. This is a regression test. Please save this recording.",
+      "actual": "Snail This is a regression test. Please save this recording.",
+      "scope": "PoC sample only; not release quality acceptance"
+    }
+  },
+  "identities_at_real_runtime_validation": {
+    "host": {
+      "sha256": "ab50695a7d16b7b178651bc6a9c2e60f699f0899392e3d18f4a89fa6dc27c699",
+      "bytes": 58814672
+    },
+    "artifact_manifest": {
+      "sha256": "c2e2548be277f00de73601c12bfe17c4b414bfaa75f46d0c1d4bd4018fc32e73",
+      "bytes": 1757
+    },
+    "audio": {
+      "sha256": "df6b20f1ddd6dd5e4be28c95346ea8e5bd6c629c7c3094d385065a1a1d36742d",
+      "bytes": 150538
+    },
+    "node_lock": {
+      "sha256": "4fc4498501d4ca803e1d9f8bacef063abda16cd131535c858dd265800ccb97fe",
+      "bytes": 22772
+    },
+    "rust_lock": {
+      "sha256": "f76295414a22273ba02992562e2ee5c3fc08b07e9d8075d50149adf53aa6f10d",
+      "bytes": 73641
+    }
+  },
+  "secret_audit": {
+    "scope": [
+      "artifacts/final-comparison",
+      "artifacts/final-rust",
+      "artifacts/validation",
+      "artifacts/final-vitest-annotations",
+      "artifacts/real-runner-crash",
+      "artifacts/vitest-strict-retries",
+      "artifacts/vitest-timeout",
+      "artifacts/vitest-flaky"
+    ],
+    "checked_files_and_embedded_items": 202,
+    "matches": [],
+    "passed": true,
+    "limitation": "Only declared synthetic canaries and full SeaSnail token syntax; not proof of general secret redaction."
+  },
+  "limitations": [
+    "sample speech omits beginning of reference; only predeclared PoC phrases passed",
+    "not production daemon entrypoint or real OS keychain validation",
+    "no Windows or paid provider validation",
+    "SIGKILL directory recovery performed by outer experiment controller",
+    "controlled wrong assertion is not a product mutation test",
+    "initial source-snapshot canary exposure and startup errors preserved in ignored early artifacts",
+    "timings are small-sample observations, not benchmarks"
+  ]
+}

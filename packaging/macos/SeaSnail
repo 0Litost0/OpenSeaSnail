@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# M6.0 开发版 app launcher。M6.1 的 Tauri 可执行文件将替代它，但保持同一 Resources
+# 布局与 daemon 发现方式。
+set -euo pipefail
+
+MACOS_DIR="$(cd "$(dirname "$0")" && pwd)"
+RESOURCES_DIR="$(cd "$MACOS_DIR/../Resources" && pwd)"
+DAEMON="$MACOS_DIR/seasnail-daemon"
+FUNASR="$RESOURCES_DIR/funasr"
+
+verify_resources() {
+  [[ -x "$DAEMON" ]] || { printf '%s\n' "missing daemon: $DAEMON" >&2; return 1; }
+  [[ -x "$FUNASR/python/bin/python3" ]] || { printf '%s\n' 'missing bundled Python' >&2; return 1; }
+  [[ -f "$FUNASR/sidecar.py" ]] || { printf '%s\n' 'missing FunASR sidecar' >&2; return 1; }
+  for component in asr vad punc spk; do
+    [[ -d "$FUNASR/models/$component" ]] || { printf '%s\n' "missing FunASR model: $component" >&2; return 1; }
+  done
+  if [[ ! -x "$RESOURCES_DIR/ffmpeg" ]]; then
+    printf '%s\n' 'warning: ffmpeg is not bundled yet; file-import transcription is unavailable in this development app' >&2
+  fi
+  printf '%s\n' 'SeaSnail development app resources verified'
+}
+
+case "${1:-}" in
+  --verify-resources) verify_resources; exit 0 ;;
+  --help) printf '%s\n' 'Usage: SeaSnail [--verify-resources]' ; exit 0 ;;
+esac
+
+exec "$DAEMON" "$@"

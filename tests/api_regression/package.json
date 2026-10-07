@@ -1,0 +1,21 @@
+{
+  "name": "seasnail-api-regression-tests",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "api-test": "node cli/api-test.mjs",
+    "build": "tsc --noEmit && node cli/build-host.mjs",
+    "typecheck": "tsc --noEmit",
+    "test:environment": "node --test scripts/test_environment.mjs",
+    "check:contracts": "python3 scripts/check_contracts.py all && python3 scripts/check_assets.py"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "typescript": "5.9.3",
+    "@types/node": "26.2.0"
+  },
+  "license": "Apache-2.0",
+  "scarfSettings": {
+    "enabled": false
+  }
+}

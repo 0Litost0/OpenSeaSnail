@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "runtime": "sherpa_onnx",
+  "catalog_id": "sensevoice-small-sherpa-int8",
+  "family": "sensevoice-small",
+  "variant": "int8",
+  "api_contract_version": 1,
+  "source_revisions": {
+    "onnxruntime": "df2ba1cf8108aa63627cf4cdf8f807880b938616",
+    "sherpa-onnx": "1cb484af5e69d3c7803c1eb0b3b5ab8041e0e911"
+  },
+  "files": [
+    {
+      "role": "model",
+      "path": "model/model.int8.onnx",
+      "sha256": "c71f0ce00bec95b07744e116345e33d8cbbe08cef896382cf907bf4b51a2cd51",
+      "size_bytes": 239233841,
+      "executable": false
+    },
+    {
+      "role": "onnxruntime",
+      "path": "lib/libonnxruntime.1.dylib",
+      "sha256": "76a28652c15d40227598bd032b02477ae7823e526b0cbe1fa76f7ff9f23ae57e",
+      "size_bytes": 26003544,
+      "executable": false,
+      "architecture": "arm64"
+    },
+    {
+      "role": "sherpa-onnx",
+      "path": "lib/libsherpa-onnx-c-api.dylib",
+      "sha256": "e268dcc37e0bd9d6235ed95d1748cc32210682ff4a302e9cad0d74460729588d",
+      "size_bytes": 2873224,
+      "executable": true,
+      "architecture": "arm64"
+    },
+    {
+      "role": "sidecar",
+      "path": "bin/seasnail-sherpa-sidecar",
+      "sha256": "b2521e74bf3470c87c4a6685655c41bafabeb27c1f124671564f3afd59a6b364",
+      "size_bytes": 68312,
+      "executable": true,
+      "architecture": "arm64"
+    },
+    {
+      "role": "tokens",
+      "path": "model/tokens.txt",
+      "sha256": "f449eb28dc567533d7fa59be34e2abca8784f771850c78a47fb731a31429a1dc",
+      "size_bytes": 315894,
+      "executable": false
+    },
+    {
+      "role": "vad",
+      "path": "model/silero_vad.onnx",
+      "sha256": "9e2449e1087496d8d4caba907f23e0bd3f78d91fa552479bb9c23ac09cbb1fd6",
+      "size_bytes": 643854,
+      "executable": false
+    }
+  ]
+}

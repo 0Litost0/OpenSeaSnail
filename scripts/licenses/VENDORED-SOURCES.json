@@ -1,0 +1,230 @@
+{
+  "schema_version": 1,
+  "files": [
+    {
+      "path": ".agents/skills/shadcn/SKILL.md",
+      "source": "https://github.com/shadcn-ui/ui/blob/6cd3f4c65c361ab6554e06a77e6a0af9cf8b6e37/skills/shadcn/SKILL.md",
+      "revision": "6cd3f4c65c361ab6554e06a77e6a0af9cf8b6e37",
+      "upstream_git_blob": "1b4c414c39e034b691a9bf3bfb69056145e16f28",
+      "sha256": "deba6c5152d9835892fa7dffeb1fedbb689ddac7e59e14e57ec5eaf9463309e4",
+      "comparison": "byte-identical",
+      "license": "MIT"
+    },
+    {
+      "path": ".agents/skills/shadcn/agents/openai.yml",
+      "source": "https://github.com/shadcn-ui/ui/blob/6cd3f4c65c361ab6554e06a77e6a0af9cf8b6e37/skills/shadcn/agents/openai.yml",
+      "revision": "6cd3f4c65c361ab6554e06a77e6a0af9cf8b6e37",
+      "upstream_git_blob": "ab636da86b5ee5b8721b0575af67faa88e4bf838",
+      "sha256": "35db91b1eef58b2abe01da9b88577de5a44e233b740cd93d692ddeeadd2afe4d",
+      "comparison": "byte-identical",
+      "license": "MIT"
+    },
+    {
+      "path": ".agents/skills/shadcn/assets/shadcn-small.png",
+      "source": "https://github.com/shadcn-ui/ui/blob/6cd3f4c65c361ab6554e06a77e6a0af9cf8b6e37/skills/shadcn/assets/shadcn-small.png",
+      "revision": "6cd3f4c65c361ab6554e06a77e6a0af9cf8b6e37",
+      "upstream_git_blob": "547154b97f2298335159c23eec1dac0d147a1246",
+      "sha256": "0ecc62d682727f68fc4937eed19960c706714fa084d44f63028d611ae02bf3d7",
+      "comparison": "byte-identical",
+      "license": "MIT"
+    },
+    {
+      "path": ".agents/skills/shadcn/assets/shadcn.png",
+      "source": "https://github.com/shadcn-ui/ui/blob/6cd3f4c65c361ab6554e06a77e6a0af9cf8b6e37/skills/shadcn/assets/shadcn.png",
+      "revision": "6cd3f4c65c361ab6554e06a77e6a0af9cf8b6e37",
+      "upstream_git_blob": "b7b6814acc25073e5f48099b1fd3f70c47bfb1c3",
+      "sha256": "7d60ad6fec4d89a0d44ba5a3c9283d2fea0047af5467f9227040e20d927d39b7",
+      "comparison": "byte-identical",
+      "license": "MIT"
+    },
+    {
+      "path": ".agents/skills/shadcn/cli.md",
+      "source": "https://github.com/shadcn-ui/ui/blob/6cd3f4c65c361ab6554e06a77e6a0af9cf8b6e37/skills/shadcn/cli.md",
+      "revision": "6cd3f4c65c361ab6554e06a77e6a0af9cf8b6e37",
+      "upstream_git_blob": "8a1d1958710902e2d38a3dd03d00aa09ab165dfe",
+      "sha256": "a381e35bf36fe7bb851952c13707e01e82434fd7a4a4e53f6df26c6370838904",
+      "comparison": "byte-identical",
+      "license": "MIT"
+    },
+    {
+      "path": ".agents/skills/shadcn/customization.md",
+      "source": "https://github.com/shadcn-ui/ui/blob/6cd3f4c65c361ab6554e06a77e6a0af9cf8b6e37/skills/shadcn/customization.md",
+      "revision": "6cd3f4c65c361ab6554e06a77e6a0af9cf8b6e37",
+      "upstream_git_blob": "16954f56b158da368923e539b332746aa702bdac",
+      "sha256": "84c1d47168c4b8adb5840e4af30a4e373ae3377c1110478c8974f398dd63f5ba",
+      "comparison": "byte-identical",
+      "license": "MIT"
+    },
+    {
+      "path": ".agents/skills/shadcn/evals/evals.json",
+      "source": "https://github.com/shadcn-ui/ui/blob/6cd3f4c65c361ab6554e06a77e6a0af9cf8b6e37/skills/shadcn/evals/evals.json",
+      "revision": "6cd3f4c65c361ab6554e06a77e6a0af9cf8b6e37",
+      "upstream_git_blob": "c1b7bdd3102949f1617a4209ff5b285bc737166d",
+      "sha256": "58aca2760b0cc5265bb575f76cd8eed344b88544314b8cb2cd53e0b8007dc936",
+      "comparison": "byte-identical",
+      "license": "MIT"
+    },
+    {
+      "path": ".agents/skills/shadcn/mcp.md",
+      "source": "https://github.com/shadcn-ui/ui/blob/6cd3f4c65c361ab6554e06a77e6a0af9cf8b6e37/skills/shadcn/mcp.md",
+      "revision": "6cd3f4c65c361ab6554e06a77e6a0af9cf8b6e37",
+      "upstream_git_blob": "6539ddaa2d0bc9e9d1fdf07658e1b0955136b721",
+      "sha256": "8d696b4e45b7d0e337367248513bd9acebe8f3bcfd7b748c775e5a337c8f38c8",
+      "comparison": "byte-identical",
+      "license": "MIT"
+    },
+    {
+      "path": ".agents/skills/shadcn/registry.md",
+      "source": "https://github.com/shadcn-ui/ui/blob/6cd3f4c65c361ab6554e06a77e6a0af9cf8b6e37/skills/shadcn/registry.md",
+      "revision": "6cd3f4c65c361ab6554e06a77e6a0af9cf8b6e37",
+      "upstream_git_blob": "5369468bbe43126379161a403a53717ee86e2d9b",
+      "sha256": "4f239be36bd2b58e17047db1ca80ab7da00e15a8b73242e5e4d50d113c4caa05",
+      "comparison": "byte-identical",
+      "license": "MIT"
+    },
+    {
+      "path": ".agents/skills/shadcn/rules/base-vs-radix.md",
+      "source": "https://github.com/shadcn-ui/ui/blob/6cd3f4c65c361ab6554e06a77e6a0af9cf8b6e37/skills/shadcn/rules/base-vs-radix.md",
+      "revision": "6cd3f4c65c361ab6554e06a77e6a0af9cf8b6e37",
+      "upstream_git_blob": "c1ed7d111a0195cab801d2b3d38dee3aee0b8e10",
+      "sha256": "2b2deb47d004285220c1fc6b38bb2edc2d0ccbcdafd031b0b189d5d8ed0d1ba8",
+      "comparison": "byte-identical",
+      "license": "MIT"
+    },
+    {
+      "path": ".agents/skills/shadcn/rules/chat.md",
+      "source": "https://github.com/shadcn-ui/ui/blob/6cd3f4c65c361ab6554e06a77e6a0af9cf8b6e37/skills/shadcn/rules/chat.md",
+      "revision": "6cd3f4c65c361ab6554e06a77e6a0af9cf8b6e37",
+      "upstream_git_blob": "8ce62fe4bf4e46ae5f4ca30037053a8baf30dfa6",
+      "sha256": "fcbc4eb29a3998fa3e24e9f7f1cbb2b9f33e98cb5b66a153eeccdb74e78f9612",
+      "comparison": "byte-identical",
+      "license": "MIT"
+    },
+    {
+      "path": ".agents/skills/shadcn/rules/composition.md",
+      "source": "https://github.com/shadcn-ui/ui/blob/6cd3f4c65c361ab6554e06a77e6a0af9cf8b6e37/skills/shadcn/rules/composition.md",
+      "revision": "6cd3f4c65c361ab6554e06a77e6a0af9cf8b6e37",
+      "upstream_git_blob": "a8aa4274c1aaabf673fe7bdb69d90983ad56059d",
+      "sha256": "f282df828d83a91132a846ddb62eea149a7c7c94822e9ca88cfddf85af01aa41",
+      "comparison": "byte-identical",
+      "license": "MIT"
+    },
+    {
+      "path": ".agents/skills/shadcn/rules/forms.md",
+      "source": "https://github.com/shadcn-ui/ui/blob/6cd3f4c65c361ab6554e06a77e6a0af9cf8b6e37/skills/shadcn/rules/forms.md",
+      "revision": "6cd3f4c65c361ab6554e06a77e6a0af9cf8b6e37",
+      "upstream_git_blob": "f451e2f7bc17d9c5738691931964744a568ea5d6",
+      "sha256": "29593e14381e34626f8e0e9c15c59f3394b92a0623af6a6ec94585400123853c",
+      "comparison": "byte-identical",
+      "license": "MIT"
+    },
+    {
+      "path": ".agents/skills/shadcn/rules/icons.md",
+      "source": "https://github.com/shadcn-ui/ui/blob/6cd3f4c65c361ab6554e06a77e6a0af9cf8b6e37/skills/shadcn/rules/icons.md",
+      "revision": "6cd3f4c65c361ab6554e06a77e6a0af9cf8b6e37",
+      "upstream_git_blob": "bba8102f01ef9fd9bd7ce2adc73e562869d5d09e",
+      "sha256": "d4a58266648872d9ee07d0c2368843a1cb88b8253b7f528dd7bda9d68b6c2535",
+      "comparison": "byte-identical",
+      "license": "MIT"
+    },
+    {
+      "path": ".agents/skills/shadcn/rules/styling.md",
+      "source": "https://github.com/shadcn-ui/ui/blob/6cd3f4c65c361ab6554e06a77e6a0af9cf8b6e37/skills/shadcn/rules/styling.md",
+      "revision": "6cd3f4c65c361ab6554e06a77e6a0af9cf8b6e37",
+      "upstream_git_blob": "fe75197968ea5237afa15db44970b22e1db5b914",
+      "sha256": "47bd2c3b6216b96af0ab169063a83dfef7f80c58536cf69445a6f4d22753326c",
+      "comparison": "byte-identical",
+      "license": "MIT"
+    },
+    {
+      "path": ".agents/skills/migrate-radix-to-base/SKILL.md",
+      "source": "https://github.com/shadcn-ui/ui/blob/f3e7de11752b087b1c4bf61f4035a866f3a4f9ed/skills/migrate-radix-to-base/SKILL.md",
+      "revision": "f3e7de11752b087b1c4bf61f4035a866f3a4f9ed",
+      "upstream_git_blob": "5eb5dc5700eb2665e1f36075dd2f1587a63577d3",
+      "sha256": "64c879f6f1eab0decc306ca52ad32d41327c05c4d2fb7e708335e956c61dadf8",
+      "comparison": "byte-identical",
+      "license": "MIT"
+    },
+    {
+      "path": ".agents/skills/migrate-radix-to-base/class-mapping.md",
+      "source": "https://github.com/shadcn-ui/ui/blob/f3e7de11752b087b1c4bf61f4035a866f3a4f9ed/skills/migrate-radix-to-base/class-mapping.md",
+      "revision": "f3e7de11752b087b1c4bf61f4035a866f3a4f9ed",
+      "upstream_git_blob": "e6130b70cb6666cd05dc7d10f4593e645396ce58",
+      "sha256": "c288738167c663c6188caf958cdac6d72061b0ce44d6bce14d9dc6d40b4e79f9",
+      "comparison": "byte-identical",
+      "license": "MIT"
+    },
+    {
+      "path": ".agents/skills/migrate-radix-to-base/consumer-props.md",
+      "source": "https://github.com/shadcn-ui/ui/blob/f3e7de11752b087b1c4bf61f4035a866f3a4f9ed/skills/migrate-radix-to-base/consumer-props.md",
+      "revision": "f3e7de11752b087b1c4bf61f4035a866f3a4f9ed",
+      "upstream_git_blob": "92e1d90d2890fc41251e6980f45be69f4d63b87b",
+      "sha256": "f6f62f7173b95350339e930eb6ff2c9496b4d5df3571deed78d5b0159f91b1d0",
+      "comparison": "byte-identical",
+      "license": "MIT"
+    },
+    {
+      "path": ".agents/skills/migrate-radix-to-base/disclosure.md",
+      "source": "https://github.com/shadcn-ui/ui/blob/f3e7de11752b087b1c4bf61f4035a866f3a4f9ed/skills/migrate-radix-to-base/disclosure.md",
+      "revision": "f3e7de11752b087b1c4bf61f4035a866f3a4f9ed",
+      "upstream_git_blob": "2d40cdcdbf30818d78c204f6d8cd3dd5daae28f7",
+      "sha256": "f0962f90416ead3290f532b53a66b08a905d4a8fd6ea220b7df63521c9d993ce",
+      "comparison": "byte-identical",
+      "license": "MIT"
+    },
+    {
+      "path": ".agents/skills/migrate-radix-to-base/display-misc.md",
+      "source": "https://github.com/shadcn-ui/ui/blob/f3e7de11752b087b1c4bf61f4035a866f3a4f9ed/skills/migrate-radix-to-base/display-misc.md",
+      "revision": "f3e7de11752b087b1c4bf61f4035a866f3a4f9ed",
+      "upstream_git_blob": "9623e44c4f9d75ef6d1347ba8175279865aa0f9e",
+      "sha256": "76dd486105df7f0412e8d526fbeec6fa485c866ff1bf781ddccdc4d87eace0c3",
+      "comparison": "byte-identical",
+      "license": "MIT"
+    },
+    {
+      "path": ".agents/skills/migrate-radix-to-base/form-controls.md",
+      "source": "https://github.com/shadcn-ui/ui/blob/f3e7de11752b087b1c4bf61f4035a866f3a4f9ed/skills/migrate-radix-to-base/form-controls.md",
+      "revision": "f3e7de11752b087b1c4bf61f4035a866f3a4f9ed",
+      "upstream_git_blob": "829de397b8e268ea1650686551f34e04e5a7d0b1",
+      "sha256": "66c69dd4077e3e8852a33348f7797bdb5e934192a0cc97ce8f1264ebd137b846",
+      "comparison": "byte-identical",
+      "license": "MIT"
+    },
+    {
+      "path": ".agents/skills/migrate-radix-to-base/menus.md",
+      "source": "https://github.com/shadcn-ui/ui/blob/f3e7de11752b087b1c4bf61f4035a866f3a4f9ed/skills/migrate-radix-to-base/menus.md",
+      "revision": "f3e7de11752b087b1c4bf61f4035a866f3a4f9ed",
+      "upstream_git_blob": "128e13d73bd3f5b5918d46b6397e738990b01a18",
+      "sha256": "44188b70c3221a7d18f782641dc7f1a954bc1fa6eb42b788a1935a6613f376d9",
+      "comparison": "byte-identical",
+      "license": "MIT"
+    },
+    {
+      "path": ".agents/skills/migrate-radix-to-base/overlays.md",
+      "source": "https://github.com/shadcn-ui/ui/blob/f3e7de11752b087b1c4bf61f4035a866f3a4f9ed/skills/migrate-radix-to-base/overlays.md",
+      "revision": "f3e7de11752b087b1c4bf61f4035a866f3a4f9ed",
+      "upstream_git_blob": "ea950e1ddffc88981bd671506c54fc4c8dcc7cae",
+      "sha256": "8d9fe2b05eb22a1664637b22e6112190de88a4368420d9cb36002adc108e8a03",
+      "comparison": "byte-identical",
+      "license": "MIT"
+    },
+    {
+      "path": ".agents/skills/migrate-radix-to-base/universal-patterns.md",
+      "source": "https://github.com/shadcn-ui/ui/blob/f3e7de11752b087b1c4bf61f4035a866f3a4f9ed/skills/migrate-radix-to-base/universal-patterns.md",
+      "revision": "f3e7de11752b087b1c4bf61f4035a866f3a4f9ed",
+      "upstream_git_blob": "424cf9e45d98b3a57b04485d14e8e7b630ef4091",
+      "sha256": "c520a81a21c9abd1135b52ad1ecc3d4a127904bbf33199f8d26ae389679346ce",
+      "comparison": "byte-identical",
+      "license": "MIT"
+    },
+    {
+      "path": ".agents/skills/migrate-radix-to-base/wrapper-shapes.md",
+      "source": "https://github.com/shadcn-ui/ui/blob/f3e7de11752b087b1c4bf61f4035a866f3a4f9ed/skills/migrate-radix-to-base/wrapper-shapes.md",
+      "revision": "f3e7de11752b087b1c4bf61f4035a866f3a4f9ed",
+      "upstream_git_blob": "58227ad153c842c0a135dd3a6243b9943c7f6030",
+      "sha256": "0bf31ea3e864a12bfa911f058ae135dc3f6f098cb0cc2aa5648b4a3d0bdd51cc",
+      "comparison": "byte-identical",
+      "license": "MIT"
+    }
+  ]
+}

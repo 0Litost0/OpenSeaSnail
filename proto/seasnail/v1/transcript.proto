@@ -1,0 +1,98 @@
+syntax = "proto3";
+
+package seasnail.v1;
+
+// SeaSnail 转译内容存储格式（内部）。
+// 序列化后经 AEAD(chacha20-poly1305, key=K_files) 加密落盘为 transcript.pb.enc，
+// 随机 12 字节 nonce 前置。导出时由守护进程序列化为 JSON（人可读），目录树不变。
+// schema_version 用于后续迁移。时间字段一律 int64 毫秒、带 _ms 后缀，
+// 避免浮点精度与语义歧义。
+//
+// 生成：Rust 用 prost、TS 用生成类型，均从本文件出（与"从 OpenAPI 生成类型化客户端"同源）。
+
+message TranscriptFile {
+  uint32 schema_version = 1;            // 当前 2
+  string session_id = 2;                // 与 sessions.id 一致
+  string account_id = 3;
+  int64  created_at_ms = 4;             // 会话起始，Unix epoch 毫秒
+  string model = 5;                     // 使用的 ASR 模型标识
+  string language = 6;                  // zh | en | mixed
+  Source source = 7;                    // realtime | imported
+  int64  duration_ms = 8;              // 音频总时长（毫秒）
+  repeated Speaker speakers = 9;
+  reserved 10, 11, 12;                  // schema v1 的 segments/full_text/html，不再使用
+  string full_text = 13;                // 纯 ASR 正文；必须等于 units[].text 的严格拼接
+  repeated TranscriptUnit units = 14;   // 后端无关的最小可信时间单元
+  reserved 15 to 99;
+}
+
+// 归一化后的最小正文单元。一次 TranscriptFile 只使用一种 granularity；
+// 无法保证时间可信时整体降级为 UNTIMED，但正文文本仍必须完整保留。
+message TranscriptUnit {
+  uint32 sequence = 1;
+  optional int64 start_ms = 2;
+  optional int64 end_ms = 3;
+  string text = 4;
+  string speaker = 5;                   // 引用 speakers[].id，可为空
+  optional float confidence = 6;
+  UnitGranularity granularity = 7;
+  reserved 8 to 19;
+}
+
+enum UnitGranularity {
+  UNIT_GRANULARITY_UNSPECIFIED = 0;
+  TIMED_TEXT = 1;
+  SEGMENT = 2;
+  UNTIMED = 3;
+}
+
+// 录音期剪贴板上下文。独立于 TranscriptFile 落盘，使 ASR 失败后的 retry 仍可
+// 复用原始上下文；文件经现有 K_files AEAD 加密为 context.pb.enc。
+message ClipboardContextFile {
+  uint32 schema_version = 1;            // 当前 1
+  string session_id = 2;                // 与 sessions.id 一致
+  string capture_id = 3;                // 原生开始录音时生成
+  repeated ContextEvent events = 4;     // sequence 严格递增
+  reserved 5 to 19;
+}
+
+// 录音期检测到的一次 Pasteboard 变化。sample_offset/source_sample_rate 是唯一
+// 权威时间锚点；毫秒值由使用者派生，不能替代该字段。
+message ContextEvent {
+  uint32 sequence = 1;
+  uint32 source_sample_rate = 2;
+  uint64 sample_offset = 3;
+  ContextEventKind kind = 4;
+  string plain_text = 5;                // plain 或 rich text 的 plain fallback
+  string html_fragment = 6;             // 可选，最终注入前再安全过滤
+  repeated string absolute_paths = 7;   // files 或 image cache 的绝对路径
+  reserved 8 to 19;
+}
+
+enum ContextEventKind {
+  CONTEXT_EVENT_KIND_UNSPECIFIED = 0;
+  CONTEXT_EVENT_PLAIN_TEXT = 1;
+  CONTEXT_EVENT_RICH_TEXT = 2;
+  CONTEXT_EVENT_FILES = 3;
+  CONTEXT_EVENT_IMAGE = 4;
+}
+
+message Speaker {
+  string id = 1;                        // "A"
+  string label = 2;                     // "说话人 A"
+}
+
+message Segment {
+  string speaker = 1;                  // 引用 speakers[].id
+  int64  start_ms = 2;                 // 段起始，相对音频起点偏移（毫秒）
+  int64  end_ms = 3;                   // 段结束（毫秒）
+  string text = 4;
+  float  confidence = 5;               // 可选，模型给出时填
+  reserved 6 to 19;
+}
+
+enum Source {
+  SOURCE_UNSPECIFIED = 0;
+  REALTIME = 1;
+  IMPORTED = 2;
+}

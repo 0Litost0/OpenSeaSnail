@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "dataset": "google/fleurs",
+  "revision": "70bb2e84b976b7e960aa89f1c648e09c59f894dd",
+  "license": "CC-BY-4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "attribution": "FLEURS: Few-shot Learning Evaluation of Universal Representations of Speech; Alexis Conneau, Min Ma, Simran Khanuja, Yu Zhang, Vera Axelrod, Siddharth Dalmia, Jason Riesa, Clara Rivera and Ankur Bapna (2022); Google Research and FLEURS contributors.",
+  "selection": "First eligible archive member before inference: Chinese 20-40 characters, no Latin/digits/parentheses; English 60-150 characters, no digits/hyphen. Full utterances, no ASR-output selection.",
+  "acquisition": "Streamed the pinned official audio archives and stopped after the first eligible member. Whole archives were not downloaded or locally checksum-verified; their LFS identities below are upstream metadata. The full extracted source WAVs and derived outputs have local SHA-256 records.",
+  "modifications": "Complete utterances converted from float PCM to 16 kHz mono signed 16-bit PCM with FFmpeg; canonical WAV header written with Python wave. No trimming, added silence, voice synthesis or transcript repair.",
+  "samples": [
+    {
+      "id": "fleurs-zh-v1",
+      "config": "cmn_hans_cn",
+      "split": "test",
+      "dataset_example_id": 1906,
+      "tsv_row_index": 369,
+      "input_file": "zh-original.wav",
+      "archive_url": "https://huggingface.co/datasets/google/fleurs/resolve/70bb2e84b976b7e960aa89f1c648e09c59f894dd/data/cmn_hans_cn/audio/test.tar.gz",
+      "archive_member": "test/10026684690566417990.wav",
+      "upstream_archive_sha256": "09d19ad18f5d7e91076880807e866cd16abd924c7052b55f71cdae91714fc166",
+      "upstream_archive_size_bytes": 525346466,
+      "source_audio_sha256": "a72c0b59fdba80850552af7991de07f9f4940846d2d70f0890eeb153c40f164b",
+      "source_audio_size_bytes": 664378,
+      "output_path": "assets/audio/fleurs-zh-v1.wav",
+      "source_record": "assets/licenses/fleurs-zh-source.tsv"
+    },
+    {
+      "id": "fleurs-en-v1",
+      "config": "en_us",
+      "split": "test",
+      "dataset_example_id": 1675,
+      "tsv_row_index": 27,
+      "input_file": "en-original.wav",
+      "archive_url": "https://huggingface.co/datasets/google/fleurs/resolve/70bb2e84b976b7e960aa89f1c648e09c59f894dd/data/en_us/audio/test.tar.gz",
+      "archive_member": "test/10052240106321793346.wav",
+      "upstream_archive_sha256": "d9c2e37b41aacd41bc283554a0a82b5476b36887049774ecb2819dcaaa55a356",
+      "upstream_archive_size_bytes": 289851356,
+      "source_audio_sha256": "7603cae3294309ef70d234180cefccc3b13865ee525262228a636069b9b62841",
+      "source_audio_size_bytes": 560698,
+      "output_path": "assets/audio/fleurs-en-v1.wav",
+      "source_record": "assets/licenses/fleurs-en-source.tsv"
+    }
+  ],
+  "license_materials": [
+    {
+      "path": "assets/licenses/CC-BY-4.0.txt",
+      "size_bytes": 18657,
+      "sha256": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411"
+    },
+    {
+      "path": "assets/licenses/FLEURS-README.md",
+      "size_bytes": 385614,
+      "sha256": "688f79f2a5c731af3796e9f683eb02f9b3f09d040decd8c5625d0f37098e71c6"
+    },
+    {
+      "path": "assets/licenses/fleurs-en-source.tsv",
+      "size_bytes": 470,
+      "sha256": "3a95d0f480e42f8c59403213a39bae512fcf8bdede22aac5abc8f3f28c88cb92"
+    },
+    {
+      "path": "assets/licenses/fleurs-zh-source.tsv",
+      "size_bytes": 345,
+      "sha256": "1558a99190a4de01d747a9e341a367103b1601edaa241041cfa6156acb60ca61"
+    }
+  ]
+}

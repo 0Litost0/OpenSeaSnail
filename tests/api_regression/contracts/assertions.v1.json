@@ -1,0 +1,216 @@
+{
+  "version": "v1",
+  "assertions": {
+    "AUTH-001-v1": {
+      "version": "v1",
+      "business_promise": "status 未初始化 → setup 成功 → initialized；重复 setup 返回 410；无/错误 bearer 不能访问受保护 API",
+      "steps_and_expectations": [
+        "status 未初始化 → setup 成功 → initialized",
+        "重复 setup 返回 410",
+        "无/错误 bearer 不能访问受保护 API"
+      ],
+      "design_case_id": "AUTH-001"
+    },
+    "AUTH-002-v1": {
+      "version": "v1",
+      "business_promise": "错密码不切账户；A→B 时 A token 423；切回 A 后旧 token 可用",
+      "steps_and_expectations": [
+        "错密码不切账户",
+        "A→B 时 A token 423",
+        "切回 A 后旧 token 可用"
+      ],
+      "design_case_id": "AUTH-002"
+    },
+    "AUTH-003-v1": {
+      "version": "v1",
+      "business_promise": "改密后旧密码 unlock 失败、新密码成功；未吊销 token 和历史数据保留",
+      "steps_and_expectations": [
+        "改密后旧密码 unlock 失败、新密码成功",
+        "未吊销 token 和历史数据保留"
+      ],
+      "design_case_id": "AUTH-003"
+    },
+    "AUTH-004-v1": {
+      "version": "v1",
+      "business_promise": "删除活跃账户被拒；切到 B 后删除 A，A 不再列出/解锁/访问，相关隔离存储清除（存储证据辅助）",
+      "steps_and_expectations": [
+        "删除活跃账户被拒",
+        "切到 B 后删除 A，A 不再列出/解锁/访问，相关隔离存储清除（存储证据辅助）"
+      ],
+      "design_case_id": "AUTH-004"
+    },
+    "TOKEN-001-v1": {
+      "version": "v1",
+      "business_promise": "受限 token 可读允许资源，写/manage 被拒；不可授 scope 被拒；token 列表不返回 secret/hash",
+      "steps_and_expectations": [
+        "受限 token 可读允许资源，写/manage 被拒",
+        "不可授 scope 被拒",
+        "token 列表不返回 secret/hash"
+      ],
+      "design_case_id": "TOKEN-001"
+    },
+    "TOKEN-002-v1": {
+      "version": "v1",
+      "business_promise": "吊销后所属活跃账户 API 返回 401；新 token 可用，拒绝不误作用于其他 token",
+      "steps_and_expectations": [
+        "吊销后所属活跃账户 API 返回 401",
+        "新 token 可用，拒绝不误作用于其他 token"
+      ],
+      "design_case_id": "TOKEN-002"
+    },
+    "DICT-001-v1": {
+      "version": "v1",
+      "business_promise": "增改删查、重复处理和无效输入符合契约；服务重启后原 token 读取一致",
+      "steps_and_expectations": [
+        "增改删查、重复处理和无效输入符合契约",
+        "服务重启后原 token 读取一致"
+      ],
+      "design_case_id": "DICT-001"
+    },
+    "DICT-002-v1": {
+      "version": "v1",
+      "business_promise": "列表/ID 操作不泄露或修改另一账户词条；realtime clean 请求包含当前账户词条且不混入另一账户词条",
+      "steps_and_expectations": [
+        "列表/ID 操作不泄露或修改另一账户词条",
+        "realtime clean 请求包含当前账户词条且不混入另一账户词条"
+      ],
+      "design_case_id": "DICT-002"
+    },
+    "ASR-001-v1": {
+      "version": "v1",
+      "business_promise": "multipart 提交、任务到 completed、固定转写与音频字节读取一致；列表/详情可查",
+      "steps_and_expectations": [
+        "multipart 提交、任务到 completed、固定转写与音频字节读取一致",
+        "列表/详情可查"
+      ],
+      "design_case_id": "ASR-001"
+    },
+    "ASR-002-v1": {
+      "version": "v1",
+      "business_promise": "任务进入失败终态，错误可观察；经现有 retry API 恢复后结果正确，删除后列表/详情不可见",
+      "steps_and_expectations": [
+        "任务进入失败终态，错误可观察",
+        "经现有 retry API 恢复后结果正确，删除后列表/详情不可见"
+      ],
+      "design_case_id": "ASR-002"
+    },
+    "CLEAN-001-v1": {
+      "version": "v1",
+      "business_promise": "原文、cleaned/final text 和 cleanup 状态正确；词典参与；正常重启后可读取相同结果",
+      "steps_and_expectations": [
+        "原文、cleaned/final text 和 cleanup 状态正确",
+        "词典参与",
+        "正常重启后可读取相同结果"
+      ],
+      "design_case_id": "CLEAN-001"
+    },
+    "CLEAN-002-v1": {
+      "version": "v1",
+      "business_promise": "上游失败可观察、最终文本回退为原文；失败信息和结果持久化",
+      "steps_and_expectations": [
+        "上游失败可观察、最终文本回退为原文",
+        "失败信息和结果持久化"
+      ],
+      "design_case_id": "CLEAN-002"
+    },
+    "CLEAN-003-v1": {
+      "version": "v1",
+      "business_promise": "HTTP 成功但非法内容不能成为最终文本；按契约失败/回退并保留原文",
+      "steps_and_expectations": [
+        "HTTP 成功但非法内容不能成为最终文本",
+        "按契约失败/回退并保留原文"
+      ],
+      "design_case_id": "CLEAN-003"
+    },
+    "CLEAN-004-v1": {
+      "version": "v1",
+      "business_promise": "真实超时路径有界进入约定回退，不无限挂起；错误 code 和持久化正确",
+      "steps_and_expectations": [
+        "真实超时路径有界进入约定回退，不无限挂起",
+        "错误 code 和持久化正确"
+      ],
+      "design_case_id": "CLEAN-004"
+    },
+    "CLEAN-005-v1": {
+      "version": "v1",
+      "business_promise": "两种条件均不调用 provider，final text 为原文，详情分别体现关闭/未请求语义",
+      "steps_and_expectations": [
+        "两种条件均不调用 provider，final text 为原文，详情分别体现关闭/未请求语义"
+      ],
+      "design_case_id": "CLEAN-005"
+    },
+    "RECOVERY-001-v1": {
+      "version": "v1",
+      "business_promise": "真正停旧进程再启动；不先 unlock，原 token 可用、账户活跃、数据和 provider 认证可用",
+      "steps_and_expectations": [
+        "真正停旧进程再启动",
+        "不先 unlock，原 token 可用、账户活跃、数据和 provider 认证可用"
+      ],
+      "design_case_id": "RECOVERY-001"
+    },
+    "RECOVERY-002-v1": {
+      "version": "v1",
+      "business_promise": "服务存活但原 token 423；密码 unlock 后数据恢复，不能重新 setup",
+      "steps_and_expectations": [
+        "服务存活但原 token 423",
+        "密码 unlock 后数据恢复，不能重新 setup"
+      ],
+      "design_case_id": "RECOVERY-002"
+    },
+    "SHERPA-001-v1": {
+      "version": "v1",
+      "business_promise": "真实 runtime 与模型身份正确；任务完成、每样本内容指标达标；正常重启后转写一致",
+      "steps_and_expectations": [
+        "真实 runtime 与模型身份正确",
+        "任务完成、每样本内容指标达标",
+        "正常重启后转写一致"
+      ],
+      "design_case_id": "SHERPA-001"
+    },
+    "SYSTEM-001-v1": {
+      "version": "v1",
+      "business_promise": "新环境单跑、重复 3 次和组合执行的判断一致，无顺序依赖",
+      "steps_and_expectations": [
+        "新环境单跑、重复 3 次和组合执行的判断一致，无顺序依赖"
+      ],
+      "design_case_id": "SYSTEM-001"
+    },
+    "SYSTEM-002-v1": {
+      "version": "v1",
+      "business_promise": "模拟缺制品、超时、runner 强杀、首败重试成功、筛选缺项和凭据 canary；子运行 gate 非通过、原因正确，资源回收/安全发布成立",
+      "steps_and_expectations": [
+        "模拟缺制品、超时、runner 强杀、首败重试成功、筛选缺项和凭据 canary",
+        "子运行 gate 非通过、原因正确，资源回收/安全发布成立"
+      ],
+      "design_case_id": "SYSTEM-002"
+    },
+    "SYSTEM-003-v1": {
+      "version": "v1",
+      "business_promise": "原业务断言检测错误；新环境 replay 同样失败；撤销故障后该用例和相关套件通过",
+      "steps_and_expectations": [
+        "原业务断言检测错误",
+        "新环境 replay 同样失败",
+        "撤销故障后该用例和相关套件通过"
+      ],
+      "design_case_id": "SYSTEM-003"
+    },
+    "SYSTEM-004-v1": {
+      "version": "v1",
+      "business_promise": "仅新增用例/数据/规则并登记，即可独立执行和纳入套件；无需修改通用执行器",
+      "steps_and_expectations": [
+        "仅新增用例/数据/规则并登记，即可独立执行和纳入套件",
+        "无需修改通用执行器"
+      ],
+      "design_case_id": "SYSTEM-004"
+    },
+    "PROVIDER-001-v1": {
+      "version": "v1",
+      "business_promise": "记录输入、配置、输出与质量结果；无凭据时说明未执行，不计通过",
+      "steps_and_expectations": [
+        "记录输入、配置、输出与质量结果",
+        "无凭据时说明未执行，不计通过"
+      ],
+      "design_case_id": "PROVIDER-001"
+    }
+  }
+}

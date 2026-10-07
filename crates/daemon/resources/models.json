@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "models": [
+    {
+      "id": "sensevoice-small-sherpa-int8",
+      "runtime": "sherpa_onnx",
+      "family": "sensevoice-small",
+      "variant": "int8",
+      "artifact_key": "sensevoice-small/sherpa_onnx/int8",
+      "artifact_manifest_sha256": "cf2b15726f7a75f11ddc5bc41ab13e9bf5b3ea572b29b9c326c81a4285442e2f",
+      "timestamp_capability": "token_start",
+      "size_bytes": 269138669,
+      "languages": [
+        "zh",
+        "en",
+        "mixed"
+      ],
+      "diarization": "none",
+      "bundled": true,
+      "default": true
+    }
+  ]
+}

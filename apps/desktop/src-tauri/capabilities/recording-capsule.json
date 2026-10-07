@@ -1,0 +1,7 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "recording-capsule",
+  "description": "Minimum capability required for the isolated recording capsule window.",
+  "windows": ["recording-capsule"],
+  "permissions": ["core:window:allow-set-size"]
+}

@@ -1,0 +1,10 @@
+# Default macOS Apple Silicon FunASR runtime roots. Transitive dependencies are
+# resolved once by bundle-macos-arm64.sh and written as exact pins to
+# requirements.lock; only the lock file is used for a release build.
+funasr==1.4.2
+torch==2.11.0
+torchaudio==2.11.0
+fastapi==0.121.0
+uvicorn==0.38.0
+python-multipart==0.0.20
+modelscope==1.39.1

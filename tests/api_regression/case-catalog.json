@@ -1,0 +1,497 @@
+{
+  "schema_version": 1,
+  "catalog_version": "v1",
+  "cases": [
+    {
+      "case_id": "AUTH-001",
+      "purpose": "status 未初始化 → setup 成功 → initialized；重复 setup 返回 410；无/错误 bearer 不能访问受保护 API",
+      "suite": "auth",
+      "level": "deterministic",
+      "required": true,
+      "quick": true,
+      "requirement_ref": "docs/requirements.md",
+      "design_ref": "docs/design.md",
+      "precondition_refs": [
+        "AUTH-001-setup-v1"
+      ],
+      "asset_refs": [],
+      "assertion_ref": "AUTH-001-v1",
+      "cleanup_strategy": "attempt-owned-bounded-teardown",
+      "special_cleanup": ""
+    },
+    {
+      "case_id": "AUTH-002",
+      "purpose": "错密码不切账户；A→B 时 A token 423；切回 A 后旧 token 可用",
+      "suite": "auth",
+      "level": "deterministic",
+      "required": true,
+      "quick": true,
+      "requirement_ref": "docs/requirements.md",
+      "design_ref": "docs/design.md",
+      "precondition_refs": [
+        "AUTH-002-setup-v1"
+      ],
+      "asset_refs": [],
+      "assertion_ref": "AUTH-002-v1",
+      "cleanup_strategy": "attempt-owned-bounded-teardown",
+      "special_cleanup": ""
+    },
+    {
+      "case_id": "AUTH-003",
+      "purpose": "改密后旧密码 unlock 失败、新密码成功；未吊销 token 和历史数据保留",
+      "suite": "auth",
+      "level": "deterministic",
+      "required": true,
+      "quick": true,
+      "requirement_ref": "docs/requirements.md",
+      "design_ref": "docs/design.md",
+      "precondition_refs": [
+        "AUTH-003-setup-v1"
+      ],
+      "asset_refs": [],
+      "assertion_ref": "AUTH-003-v1",
+      "cleanup_strategy": "attempt-owned-bounded-teardown",
+      "special_cleanup": ""
+    },
+    {
+      "case_id": "AUTH-004",
+      "purpose": "删除活跃账户被拒；切到 B 后删除 A，A 不再列出/解锁/访问，相关隔离存储清除（存储证据辅助）",
+      "suite": "auth",
+      "level": "deterministic",
+      "required": true,
+      "quick": true,
+      "requirement_ref": "docs/requirements.md",
+      "design_ref": "docs/design.md",
+      "precondition_refs": [
+        "AUTH-004-setup-v1"
+      ],
+      "asset_refs": [],
+      "assertion_ref": "AUTH-004-v1",
+      "cleanup_strategy": "attempt-owned-bounded-teardown",
+      "special_cleanup": ""
+    },
+    {
+      "case_id": "TOKEN-001",
+      "purpose": "受限 token 可读允许资源，写/manage 被拒；不可授 scope 被拒；token 列表不返回 secret/hash",
+      "suite": "auth",
+      "level": "deterministic",
+      "required": true,
+      "quick": true,
+      "requirement_ref": "docs/requirements.md",
+      "design_ref": "docs/design.md",
+      "precondition_refs": [
+        "TOKEN-001-setup-v1"
+      ],
+      "asset_refs": [
+        "assets/pipeline-audio.json",
+        "assets/audio/pipeline-v1.wav"
+      ],
+      "assertion_ref": "TOKEN-001-v1",
+      "cleanup_strategy": "attempt-owned-bounded-teardown",
+      "special_cleanup": ""
+    },
+    {
+      "case_id": "TOKEN-002",
+      "purpose": "吊销后所属活跃账户 API 返回 401；新 token 可用，拒绝不误作用于其他 token",
+      "suite": "auth",
+      "level": "deterministic",
+      "required": true,
+      "quick": true,
+      "requirement_ref": "docs/requirements.md",
+      "design_ref": "docs/design.md",
+      "precondition_refs": [
+        "TOKEN-002-setup-v1"
+      ],
+      "asset_refs": [
+        "assets/pipeline-audio.json",
+        "assets/audio/pipeline-v1.wav"
+      ],
+      "assertion_ref": "TOKEN-002-v1",
+      "cleanup_strategy": "attempt-owned-bounded-teardown",
+      "special_cleanup": ""
+    },
+    {
+      "case_id": "DICT-001",
+      "purpose": "增改删查、重复处理和无效输入符合契约；服务重启后原 token 读取一致",
+      "suite": "dictionary",
+      "level": "deterministic",
+      "required": true,
+      "quick": true,
+      "requirement_ref": "docs/requirements.md",
+      "design_ref": "docs/design.md",
+      "precondition_refs": [
+        "DICT-001-setup-v1"
+      ],
+      "asset_refs": [
+        "assets/pipeline-audio.json",
+        "assets/scenarios/asr.json",
+        "assets/scenarios/provider.json",
+        "assets/mutations/MUT-DICT-PERSIST-001.patch",
+        "assets/audio/pipeline-v1.wav"
+      ],
+      "assertion_ref": "DICT-001-v1",
+      "cleanup_strategy": "attempt-owned-bounded-teardown",
+      "special_cleanup": ""
+    },
+    {
+      "case_id": "DICT-002",
+      "purpose": "列表/ID 操作不泄露或修改另一账户词条；realtime clean 请求包含当前账户词条且不混入另一账户词条",
+      "suite": "dictionary",
+      "level": "deterministic",
+      "required": true,
+      "quick": true,
+      "requirement_ref": "docs/requirements.md",
+      "design_ref": "docs/design.md",
+      "precondition_refs": [
+        "DICT-002-setup-v1"
+      ],
+      "asset_refs": [
+        "assets/pipeline-audio.json",
+        "assets/scenarios/asr.json",
+        "assets/scenarios/provider.json",
+        "assets/audio/pipeline-v1.wav"
+      ],
+      "assertion_ref": "DICT-002-v1",
+      "cleanup_strategy": "attempt-owned-bounded-teardown",
+      "special_cleanup": ""
+    },
+    {
+      "case_id": "ASR-001",
+      "purpose": "multipart 提交、任务到 completed、固定转写与音频字节读取一致；列表/详情可查",
+      "suite": "sessions",
+      "level": "deterministic",
+      "required": true,
+      "quick": true,
+      "requirement_ref": "docs/requirements.md",
+      "design_ref": "docs/design.md",
+      "precondition_refs": [
+        "ASR-001-setup-v1"
+      ],
+      "asset_refs": [
+        "assets/pipeline-audio.json",
+        "assets/scenarios/asr.json",
+        "assets/audio/pipeline-v1.wav"
+      ],
+      "assertion_ref": "ASR-001-v1",
+      "cleanup_strategy": "attempt-owned-bounded-teardown",
+      "special_cleanup": ""
+    },
+    {
+      "case_id": "ASR-002",
+      "purpose": "任务进入失败终态，错误可观察；经现有 retry API 恢复后结果正确，删除后列表/详情不可见",
+      "suite": "sessions",
+      "level": "deterministic",
+      "required": true,
+      "quick": true,
+      "requirement_ref": "docs/requirements.md",
+      "design_ref": "docs/design.md",
+      "precondition_refs": [
+        "ASR-002-setup-v1"
+      ],
+      "asset_refs": [
+        "assets/pipeline-audio.json",
+        "assets/scenarios/asr.json",
+        "assets/audio/pipeline-v1.wav"
+      ],
+      "assertion_ref": "ASR-002-v1",
+      "cleanup_strategy": "attempt-owned-bounded-teardown",
+      "special_cleanup": ""
+    },
+    {
+      "case_id": "CLEAN-001",
+      "purpose": "原文、cleaned/final text 和 cleanup 状态正确；词典参与；正常重启后可读取相同结果",
+      "suite": "clean",
+      "level": "deterministic",
+      "required": true,
+      "quick": true,
+      "requirement_ref": "docs/requirements.md",
+      "design_ref": "docs/design.md",
+      "precondition_refs": [
+        "CLEAN-001-setup-v1"
+      ],
+      "asset_refs": [
+        "assets/pipeline-audio.json",
+        "assets/scenarios/asr.json",
+        "assets/scenarios/provider.json",
+        "assets/audio/pipeline-v1.wav"
+      ],
+      "assertion_ref": "CLEAN-001-v1",
+      "cleanup_strategy": "attempt-owned-bounded-teardown",
+      "special_cleanup": ""
+    },
+    {
+      "case_id": "CLEAN-002",
+      "purpose": "上游失败可观察、最终文本回退为原文；失败信息和结果持久化",
+      "suite": "clean",
+      "level": "deterministic",
+      "required": true,
+      "quick": true,
+      "requirement_ref": "docs/requirements.md",
+      "design_ref": "docs/design.md",
+      "precondition_refs": [
+        "CLEAN-002-setup-v1"
+      ],
+      "asset_refs": [
+        "assets/pipeline-audio.json",
+        "assets/scenarios/asr.json",
+        "assets/scenarios/provider.json",
+        "assets/mutations/MUT-CLEAN-FALLBACK-001.patch",
+        "assets/audio/pipeline-v1.wav"
+      ],
+      "assertion_ref": "CLEAN-002-v1",
+      "cleanup_strategy": "attempt-owned-bounded-teardown",
+      "special_cleanup": ""
+    },
+    {
+      "case_id": "CLEAN-003",
+      "purpose": "HTTP 成功但非法内容不能成为最终文本；按契约失败/回退并保留原文",
+      "suite": "clean",
+      "level": "deterministic",
+      "required": true,
+      "quick": true,
+      "requirement_ref": "docs/requirements.md",
+      "design_ref": "docs/design.md",
+      "precondition_refs": [
+        "CLEAN-003-setup-v1"
+      ],
+      "asset_refs": [
+        "assets/pipeline-audio.json",
+        "assets/scenarios/asr.json",
+        "assets/scenarios/provider.json",
+        "assets/audio/pipeline-v1.wav"
+      ],
+      "assertion_ref": "CLEAN-003-v1",
+      "cleanup_strategy": "attempt-owned-bounded-teardown",
+      "special_cleanup": ""
+    },
+    {
+      "case_id": "CLEAN-004",
+      "purpose": "真实超时路径有界进入约定回退，不无限挂起；错误 code 和持久化正确",
+      "suite": "clean",
+      "level": "deterministic",
+      "required": true,
+      "quick": true,
+      "requirement_ref": "docs/requirements.md",
+      "design_ref": "docs/design.md",
+      "precondition_refs": [
+        "CLEAN-004-setup-v1"
+      ],
+      "asset_refs": [
+        "assets/pipeline-audio.json",
+        "assets/scenarios/asr.json",
+        "assets/scenarios/provider.json",
+        "assets/audio/pipeline-v1.wav"
+      ],
+      "assertion_ref": "CLEAN-004-v1",
+      "cleanup_strategy": "attempt-owned-bounded-teardown",
+      "special_cleanup": ""
+    },
+    {
+      "case_id": "CLEAN-005",
+      "purpose": "两种条件均不调用 provider，final text 为原文，详情分别体现关闭/未请求语义",
+      "suite": "clean",
+      "level": "deterministic",
+      "required": true,
+      "quick": true,
+      "requirement_ref": "docs/requirements.md",
+      "design_ref": "docs/design.md",
+      "precondition_refs": [
+        "CLEAN-005-setup-v1"
+      ],
+      "asset_refs": [
+        "assets/pipeline-audio.json",
+        "assets/scenarios/asr.json",
+        "assets/scenarios/provider.json",
+        "assets/audio/pipeline-v1.wav"
+      ],
+      "assertion_ref": "CLEAN-005-v1",
+      "cleanup_strategy": "attempt-owned-bounded-teardown",
+      "special_cleanup": ""
+    },
+    {
+      "case_id": "RECOVERY-001",
+      "purpose": "真正停旧进程再启动；不先 unlock，原 token 可用、账户活跃、数据和 provider 认证可用",
+      "suite": "lifecycle",
+      "level": "deterministic",
+      "required": true,
+      "quick": true,
+      "requirement_ref": "docs/requirements.md",
+      "design_ref": "docs/design.md",
+      "precondition_refs": [
+        "RECOVERY-001-setup-v1"
+      ],
+      "asset_refs": [
+        "assets/pipeline-audio.json",
+        "assets/scenarios/asr.json",
+        "assets/scenarios/provider.json",
+        "assets/audio/pipeline-v1.wav"
+      ],
+      "assertion_ref": "RECOVERY-001-v1",
+      "cleanup_strategy": "attempt-owned-bounded-teardown",
+      "special_cleanup": ""
+    },
+    {
+      "case_id": "RECOVERY-002",
+      "purpose": "服务存活但原 token 423；密码 unlock 后数据恢复，不能重新 setup",
+      "suite": "lifecycle",
+      "level": "deterministic",
+      "required": true,
+      "quick": true,
+      "requirement_ref": "docs/requirements.md",
+      "design_ref": "docs/design.md",
+      "precondition_refs": [
+        "RECOVERY-002-setup-v1"
+      ],
+      "asset_refs": [
+        "assets/pipeline-audio.json",
+        "assets/scenarios/asr.json",
+        "assets/scenarios/provider.json",
+        "assets/audio/pipeline-v1.wav"
+      ],
+      "assertion_ref": "RECOVERY-002-v1",
+      "cleanup_strategy": "attempt-owned-bounded-teardown",
+      "special_cleanup": ""
+    },
+    {
+      "case_id": "SHERPA-001",
+      "purpose": "真实 runtime 与模型身份正确；任务完成、每样本内容指标达标；正常重启后转写一致",
+      "suite": "sherpa",
+      "level": "real-sherpa",
+      "required": true,
+      "quick": false,
+      "requirement_ref": "docs/requirements.md",
+      "design_ref": "docs/design.md",
+      "precondition_refs": [
+        "SHERPA-001-setup-v1"
+      ],
+      "asset_refs": [
+        "assets/manifest.json",
+        "assets/quality-rules.v3.json",
+        "assets/budgets.v1.json",
+        "assets/quality-negatives.v3.json",
+        "assets/sherpa-baseline.v2.json",
+        "assets/audio-provenance.json",
+        "assets/audio/fleurs-zh-v1.wav",
+        "assets/references/fleurs-zh-v1.json",
+        "assets/audio/fleurs-en-v1.wav",
+        "assets/references/fleurs-en-v1.json",
+        "assets/AUDIO-LICENSE.md",
+        "assets/licenses/CC-BY-4.0.txt",
+        "assets/licenses/FLEURS-README.md",
+        "assets/licenses/fleurs-en-source.tsv",
+        "assets/licenses/fleurs-zh-source.tsv"
+      ],
+      "assertion_ref": "SHERPA-001-v1",
+      "cleanup_strategy": "attempt-owned-bounded-teardown",
+      "special_cleanup": ""
+    },
+    {
+      "case_id": "SYSTEM-001",
+      "purpose": "新环境单跑、重复 3 次和组合执行的判断一致，无顺序依赖",
+      "suite": "framework",
+      "level": "system",
+      "required": true,
+      "quick": false,
+      "requirement_ref": "docs/requirements.md",
+      "design_ref": "docs/design.md",
+      "precondition_refs": [
+        "SYSTEM-001-setup-v1"
+      ],
+      "asset_refs": [
+        "assets/system-budgets.v1.json"
+      ],
+      "assertion_ref": "SYSTEM-001-v1",
+      "cleanup_strategy": "attempt-owned-bounded-teardown",
+      "special_cleanup": ""
+    },
+    {
+      "case_id": "SYSTEM-002",
+      "purpose": "模拟缺制品、超时、runner 强杀、首败重试成功、筛选缺项和凭据 canary；子运行 gate 非通过、原因正确，资源回收/安全发布成立",
+      "suite": "framework",
+      "level": "system",
+      "required": true,
+      "quick": false,
+      "requirement_ref": "docs/requirements.md",
+      "design_ref": "docs/design.md",
+      "precondition_refs": [
+        "SYSTEM-002-setup-v1"
+      ],
+      "asset_refs": [
+        "assets/system-budgets.v1.json",
+        "assets/quality-negatives.v3.json",
+        "examples/gate-failures/extension.json",
+        "examples/gate-failures/failures.spec.ts",
+        "scripts/test_environment.mjs"
+      ],
+      "assertion_ref": "SYSTEM-002-v1",
+      "cleanup_strategy": "attempt-owned-bounded-teardown",
+      "special_cleanup": ""
+    },
+    {
+      "case_id": "SYSTEM-003",
+      "purpose": "原业务断言检测错误；新环境 replay 同样失败；撤销故障后该用例和相关套件通过",
+      "suite": "framework",
+      "level": "system",
+      "required": true,
+      "quick": false,
+      "requirement_ref": "docs/requirements.md",
+      "design_ref": "docs/design.md",
+      "precondition_refs": [
+        "SYSTEM-003-setup-v1"
+      ],
+      "asset_refs": [
+        "assets/mutations/MUT-CLEAN-FALLBACK-001.patch",
+        "assets/mutations/MUT-DICT-PERSIST-001.patch",
+        "assets/system-budgets.v1.json"
+      ],
+      "assertion_ref": "SYSTEM-003-v1",
+      "cleanup_strategy": "attempt-owned-bounded-teardown",
+      "special_cleanup": "mutation 构建仅位于隔离源码副本"
+    },
+    {
+      "case_id": "SYSTEM-004",
+      "purpose": "仅新增用例/数据/规则并登记，即可独立执行和纳入套件；无需修改通用执行器",
+      "suite": "framework",
+      "level": "system",
+      "required": true,
+      "quick": false,
+      "requirement_ref": "docs/requirements.md",
+      "design_ref": "docs/design.md",
+      "precondition_refs": [
+        "SYSTEM-004-setup-v1"
+      ],
+      "asset_refs": [
+        "examples/new-case/extension.json",
+        "examples/new-case/dictionary.spec.ts",
+        "examples/new-case/terms.json",
+        "examples/new-case/rules.json",
+        "assets/system-budgets.v1.json"
+      ],
+      "assertion_ref": "SYSTEM-004-v1",
+      "cleanup_strategy": "attempt-owned-bounded-teardown",
+      "special_cleanup": ""
+    },
+    {
+      "case_id": "PROVIDER-001",
+      "purpose": "记录输入、配置、输出与质量结果；无凭据时说明未执行，不计通过",
+      "suite": "provider-eval",
+      "level": "provider-eval",
+      "required": false,
+      "quick": false,
+      "requirement_ref": "docs/requirements.md",
+      "design_ref": "docs/design.md",
+      "precondition_refs": [
+        "PROVIDER-001-setup-v1"
+      ],
+      "asset_refs": [
+        "assets/pipeline-audio.json",
+        "assets/scenarios/asr.json",
+        "assets/scenarios/provider.json",
+        "assets/audio/pipeline-v1.wav"
+      ],
+      "assertion_ref": "PROVIDER-001-v1",
+      "cleanup_strategy": "attempt-owned-bounded-teardown",
+      "special_cleanup": ""
+    }
+  ]
+}

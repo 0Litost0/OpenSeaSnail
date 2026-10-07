@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "privacy": "synthetic_non_sensitive",
+  "cases": [
+    {
+      "id": "C2_same_timestamp_bpe_group",
+      "final_text": "把 login 的返回值改成 true",
+      "decoded_tokens": ["把", " log", "in", " 的", "返回", "值", "改成", " true"],
+      "relative_timestamps": [0.12, 0.36, 0.36, 0.72, 0.96, 1.20, 1.44, 1.80],
+      "decoded_control_tokens": ["<|zh|>", "<|NEUTRAL|>", "<|Speech|>"],
+      "expected_mapping": "exact",
+      "expected_rule": "equal_timestamp_tokens_form_one_indivisible_visible_group"
+    },
+    {
+      "id": "C4_mixed_bpe_whitespace_punctuation",
+      "final_text": "把 parseConfig 改成 return false，并保留 timeout 参数。",
+      "decoded_tokens": ["把", " parse", "Config", " 改成", " return", " false", "，", "并", "保留", " timeout", " 参数", "。"],
+      "relative_timestamps": [0.12, 0.42, 0.42, 0.84, 1.20, 1.50, 1.80, 1.80, 2.04, 2.40, 2.76, 3.06],
+      "decoded_control_tokens": ["<|zh|>", "<|NEUTRAL|>", "<|Speech|>"],
+      "expected_mapping": "exact",
+      "expected_rule": "bpe_parts_merge_and_non_speech_characters_attach_without_text_loss"
+    },
+    {
+      "id": "C5_post_decode_itn_mismatch",
+      "final_text": "会议时间是2026年8月25日。",
+      "decoded_tokens": ["会", "议", "时", "间", "是", "二", "零", "二", "六", "年", "八", "月", "二", "十", "五", "日", "。"],
+      "relative_timestamps": [0.12, 0.30, 0.48, 0.66, 0.90, 1.08, 1.20, 1.32, 1.44, 1.62, 1.86, 2.04, 2.28, 2.40, 2.52, 2.70, 2.88],
+      "decoded_control_tokens": ["<|zh|>", "<|NEUTRAL|>", "<|Speech|>"],
+      "expected_mapping": "fallback",
+      "expected_reason": "token_text_mismatch"
+    }
+  ]
+}

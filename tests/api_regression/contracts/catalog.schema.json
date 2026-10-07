@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:seasnail:api-test:catalog:v1",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "catalog_version": {
+      "const": "v1"
+    },
+    "cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "pattern": "^(AUTH|TOKEN|DICT|ASR|CLEAN|RECOVERY|SHERPA|SYSTEM|PROVIDER)-[0-9]{3}$"
+          },
+          "purpose": {
+            "type": "string",
+            "minLength": 1
+          },
+          "suite": {
+            "type": "string",
+            "minLength": 1
+          },
+          "level": {
+            "type": "string",
+            "enum": [
+              "deterministic",
+              "real-sherpa",
+              "system",
+              "provider-eval"
+            ]
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "quick": {
+            "type": "boolean"
+          },
+          "requirement_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "design_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "precondition_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "asset_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._/-]*$"
+            },
+            "uniqueItems": true
+          },
+          "assertion_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "cleanup_strategy": {
+            "const": "attempt-owned-bounded-teardown"
+          },
+          "special_cleanup": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "case_id",
+          "purpose",
+          "suite",
+          "level",
+          "required",
+          "quick",
+          "requirement_ref",
+          "design_ref",
+          "precondition_refs",
+          "asset_refs",
+          "assertion_ref",
+          "cleanup_strategy",
+          "special_cleanup"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 23
+    }
+  },
+  "required": [
+    "schema_version",
+    "catalog_version",
+    "cases"
+  ],
+  "additionalProperties": false
+}

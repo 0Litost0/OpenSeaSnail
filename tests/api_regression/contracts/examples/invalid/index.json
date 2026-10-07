@@ -1,0 +1,67 @@
+[
+  {
+    "file": "secret-field.json",
+    "contract": "result",
+    "reason": "undeclared secret field"
+  },
+  {
+    "file": "bearer-in-error.json",
+    "contract": "result",
+    "reason": "known token syntax in free text"
+  },
+  {
+    "file": "flaky-passed.json",
+    "contract": "result",
+    "reason": "flaky cannot pass"
+  },
+  {
+    "file": "interrupted-passed.json",
+    "contract": "result",
+    "reason": "interrupted has exit 2"
+  },
+  {
+    "file": "duplicate-case.json",
+    "contract": "result",
+    "reason": "duplicate business ID"
+  },
+  {
+    "file": "acceptance-missing.json",
+    "contract": "result",
+    "reason": "required IDs cannot be reduced to observed IDs"
+  },
+  {
+    "file": "unknown-teardown-passed.json",
+    "contract": "result",
+    "reason": "unknown teardown cannot pass"
+  },
+  {
+    "file": "dirty-without-source.json",
+    "contract": "replay",
+    "reason": "exact replay needs dirty source asset"
+  },
+  {
+    "file": "sherpa-without-artifacts.json",
+    "contract": "replay",
+    "reason": "real runtime requires artifact identity"
+  },
+  {
+    "file": "sherpa-mock-passed.json",
+    "contract": "result",
+    "reason": "real Sherpa case cannot use deterministic runtime"
+  },
+  {
+    "file": "sherpa-mock-replay.json",
+    "contract": "replay",
+    "reason": "real Sherpa replay cannot use deterministic runtime"
+  },
+  {
+    "file": "empty-steps-passed.json",
+    "contract": "result",
+    "reason": "passed attempt needs actual business steps"
+  },
+  {
+    "file": "fault-build-mismatch.json",
+    "contract": "result",
+    "reason": "fault identity must match attempt build"
+  }
+]

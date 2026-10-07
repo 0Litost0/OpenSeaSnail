@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "catalog_id": "sensevoice-small-sherpa-int8",
+  "runtime": "sherpa_onnx",
+  "family": "sensevoice-small",
+  "variant": "int8",
+  "target": {
+    "platform": "macos",
+    "architecture": "arm64",
+    "model_architecture": "platform-independent-onnx"
+  },
+  "artifact_files_size_bytes": 240193660,
+  "downloads": [
+    {
+      "id": "sensevoice-int8-archive",
+      "role": "asr-archive",
+      "file_name": "sherpa-onnx-sense-voice-zh-en-ja-ko-yue-int8-2024-07-17.tar.bz2",
+      "repository": "k2-fsa/sherpa-onnx",
+      "revision": "github-release-asset:288366523",
+      "release_tag": "asr-models",
+      "url": "https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-int8-2024-07-17.tar.bz2",
+      "sha256": "7d1efa2138a65b0b488df37f8b89e3d91a60676e416f515b952358d83dfd347e",
+      "size_bytes": 163002883,
+      "architecture": "platform-independent-onnx",
+      "model_license": {
+        "identifier": "LicenseRef-FunASR-Model-1.1",
+        "scope": "model weights and tokens; separate from toolkit code",
+        "evidence": "scripts/licenses/materials.json",
+        "notice": "scripts/licenses/MODEL-LICENSE.md",
+        "conversion_provenance": "upstream archive does not pin the original weight revision; public binary redistribution requires review"
+      }
+    },
+    {
+      "id": "silero-vad",
+      "role": "vad",
+      "file_name": "silero_vad.onnx",
+      "repository": "k2-fsa/sherpa-onnx",
+      "revision": "github-release-asset:271935959",
+      "release_tag": "asr-models",
+      "url": "https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/silero_vad.onnx",
+      "sha256": "9e2449e1087496d8d4caba907f23e0bd3f78d91fa552479bb9c23ac09cbb1fd6",
+      "size_bytes": 643854,
+      "architecture": "platform-independent-onnx",
+      "license": {
+        "spdx": "MIT",
+        "upstream_revision": "915dd3d639b8333a52e001af095f87c5b7f1e0ac",
+        "source": "https://raw.githubusercontent.com/snakers4/silero-vad/v4.0/LICENSE",
+        "sha256": "2e63e9a38b6e8fc0c7bc37ce174caca1862870856c6daf5697cfb785e925520b",
+        "size_bytes": 1075
+      }
+    }
+  ],
+  "archive_entries": [
+    {
+      "download_id": "sensevoice-int8-archive",
+      "role": "asr-model",
+      "archive_path": "sherpa-onnx-sense-voice-zh-en-ja-ko-yue-int8-2024-07-17/model.int8.onnx",
+      "install_name": "model.int8.onnx",
+      "sha256": "c71f0ce00bec95b07744e116345e33d8cbbe08cef896382cf907bf4b51a2cd51",
+      "size_bytes": 239233841
+    },
+    {
+      "download_id": "sensevoice-int8-archive",
+      "role": "tokens",
+      "archive_path": "sherpa-onnx-sense-voice-zh-en-ja-ko-yue-int8-2024-07-17/tokens.txt",
+      "install_name": "tokens.txt",
+      "sha256": "f449eb28dc567533d7fa59be34e2abca8784f771850c78a47fb731a31429a1dc",
+      "size_bytes": 315894
+    },
+    {
+      "download_id": "sensevoice-int8-archive",
+      "role": "model-license-pointer",
+      "archive_path": "sherpa-onnx-sense-voice-zh-en-ja-ko-yue-int8-2024-07-17/LICENSE",
+      "install_name": "LICENSE.model-source",
+      "sha256": "221c6df10b0931a5629adad671ea48fb7747e034c414b6d2bfa275bc3dd4ea17",
+      "size_bytes": 71,
+      "license": {
+        "spdx": "MIT",
+        "upstream_revision": "8c60d278379de0044a9211a04660c9eeba08c66c",
+        "source": "https://raw.githubusercontent.com/modelscope/FunASR/8c60d278379de0044a9211a04660c9eeba08c66c/LICENSE",
+        "sha256": "f382b62dcc61fc566b9215b1e3b604b539bfd96ed52ae1eeff5090f6dc176057",
+        "size_bytes": 1061,
+        "scope": "FunASR toolkit code only; not evidence that model weights are MIT"
+      }
+    },
+    {
+      "download_id": "sensevoice-int8-archive",
+      "role": "probe-fixture-zh",
+      "archive_path": "sherpa-onnx-sense-voice-zh-en-ja-ko-yue-int8-2024-07-17/test_wavs/zh.wav",
+      "install_name": "probe-fixtures/zh.wav",
+      "sha256": "b77f1794fe374a0ba1ee1dc458bfaf9349496cbbfc32780c50ba3c5a7ad8e373",
+      "size_bytes": 178988
+    },
+    {
+      "download_id": "sensevoice-int8-archive",
+      "role": "probe-fixture-en",
+      "archive_path": "sherpa-onnx-sense-voice-zh-en-ja-ko-yue-int8-2024-07-17/test_wavs/en.wav",
+      "install_name": "probe-fixtures/en.wav",
+      "sha256": "eb1eb008904465b74c304aad8342e8c7d3c6e61ffe9f66adcaca9cf0f76a93f4",
+      "size_bytes": 228908
+    }
+  ]
+}

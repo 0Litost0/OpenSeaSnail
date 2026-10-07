@@ -1,0 +1,12 @@
+--- a/crates/daemon/src/application/dictionary.rs
++++ b/crates/daemon/src/application/dictionary.rs
+@@ -421,7 +421,8 @@
+             Some(_) => {}
+         }
+     }
+-    transaction.commit()?;
++    // MUT-DICT-PERSIST-001: report success while discarding all writes.
++    transaction.rollback()?;
+     Ok(result)
+ }
+ 

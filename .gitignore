@@ -1,0 +1,49 @@
+/target
+/apps/desktop/src-tauri/gen/
+/apps/desktop/node_modules/
+
+# Reproducible, but large, local FunASR build inputs and outputs. The tracked
+# README and .gitkeep files document the directory layout; release artifacts
+# belong in Git LFS or an artifact registry, not ordinary Git.
+/third_party/funasr/macos-arm64/cache/*
+!/third_party/funasr/macos-arm64/cache/.gitkeep
+/third_party/funasr/macos-arm64/bundle/*
+!/third_party/funasr/macos-arm64/bundle/.gitkeep
+/third_party/funasr/macos-arm64/bundle-next/
+/third_party/funasr/macos-arm64/bundle-*/
+
+# Reproducible FFmpeg source cache and local macOS arm64 bundle.
+/third_party/ffmpeg/macos-arm64/cache/*
+!/third_party/ffmpeg/macos-arm64/cache/.gitkeep
+/third_party/ffmpeg/macos-arm64/bundle/*
+!/third_party/ffmpeg/macos-arm64/bundle/.gitkeep
+
+# Reproducible Sherpa ONNX source cache, native build intermediates and local
+# macOS arm64 artifact. Lock files, scripts and documentation remain tracked.
+/third_party/sherpa/macos-arm64/cache/*
+!/third_party/sherpa/macos-arm64/cache/.gitkeep
+/third_party/sherpa/macos-arm64/sources/*
+!/third_party/sherpa/macos-arm64/sources/.gitkeep
+/third_party/sherpa/macos-arm64/build/*
+!/third_party/sherpa/macos-arm64/build/.gitkeep
+/third_party/sherpa/macos-arm64/artifact/*
+!/third_party/sherpa/macos-arm64/artifact/.gitkeep
+
+# Locked SenseVoice/llama.cpp source cache and local server bundle. The lock
+# files and scripts are tracked; source checkouts and binaries are regenerated.
+/third_party/sensevoice/macos-arm64/cache/*
+!/third_party/sensevoice/macos-arm64/cache/.gitkeep
+/third_party/sensevoice/macos-arm64/bundle/*
+!/third_party/sensevoice/macos-arm64/bundle/.gitkeep
+dist/
+
+# Python bytecode caches (regenerated, machine-specific — never commit).
+__pycache__/
+*.pyc
+*.pyo
+
+# macOS Finder metadata (machine-specific).
+.DS_Store
+
+# Local pnpm cache; never include it in the source snapshot.
+/.pnpm-store/

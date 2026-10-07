@@ -1,0 +1,99 @@
+{
+  "scope": "isolated-extension-v1",
+  "cases": [
+    {
+      "case_id": "AUTH-005",
+      "purpose": "isolated gate failure demonstration AUTH-005",
+      "suite": "gate-demonstration",
+      "level": "deterministic",
+      "required": false,
+      "quick": false,
+      "requirement_ref": "docs/requirements.md",
+      "design_ref": "docs/design.md",
+      "precondition_refs": [
+        "AUTH-005-setup-v1"
+      ],
+      "asset_refs": [],
+      "assertion_ref": "AUTH-005-v1",
+      "cleanup_strategy": "attempt-owned-bounded-teardown",
+      "special_cleanup": ""
+    },
+    {
+      "case_id": "AUTH-006",
+      "purpose": "isolated gate failure demonstration AUTH-006",
+      "suite": "gate-demonstration",
+      "level": "deterministic",
+      "required": false,
+      "quick": false,
+      "requirement_ref": "docs/requirements.md",
+      "design_ref": "docs/design.md",
+      "precondition_refs": [
+        "AUTH-006-setup-v1"
+      ],
+      "asset_refs": [],
+      "assertion_ref": "AUTH-006-v1",
+      "cleanup_strategy": "attempt-owned-bounded-teardown",
+      "special_cleanup": ""
+    },
+    {
+      "case_id": "AUTH-007",
+      "purpose": "isolated gate failure demonstration AUTH-007",
+      "suite": "gate-demonstration",
+      "level": "deterministic",
+      "required": false,
+      "quick": false,
+      "requirement_ref": "docs/requirements.md",
+      "design_ref": "docs/design.md",
+      "precondition_refs": [
+        "AUTH-007-setup-v1"
+      ],
+      "asset_refs": [],
+      "assertion_ref": "AUTH-007-v1",
+      "cleanup_strategy": "attempt-owned-bounded-teardown",
+      "special_cleanup": ""
+    }
+  ],
+  "preconditions": {
+    "AUTH-005-setup-v1": {
+      "description": "isolated gate demonstration",
+      "independent_attempt": true
+    },
+    "AUTH-006-setup-v1": {
+      "description": "isolated gate demonstration",
+      "independent_attempt": true
+    },
+    "AUTH-007-setup-v1": {
+      "description": "isolated gate demonstration",
+      "independent_attempt": true
+    }
+  },
+  "assertions": {
+    "AUTH-005-v1": {
+      "version": "v1",
+      "business_promise": "isolated gate failure demonstration AUTH-005",
+      "steps_and_expectations": [
+        "isolated gate failure demonstration AUTH-005"
+      ],
+      "design_case_id": "AUTH-005"
+    },
+    "AUTH-006-v1": {
+      "version": "v1",
+      "business_promise": "isolated gate failure demonstration AUTH-006",
+      "steps_and_expectations": [
+        "isolated gate failure demonstration AUTH-006"
+      ],
+      "design_case_id": "AUTH-006"
+    },
+    "AUTH-007-v1": {
+      "version": "v1",
+      "business_promise": "isolated gate failure demonstration AUTH-007",
+      "steps_and_expectations": [
+        "isolated gate failure demonstration AUTH-007"
+      ],
+      "design_case_id": "AUTH-007"
+    }
+  },
+  "spec_files": [
+    "failures.spec.ts"
+  ]
+}

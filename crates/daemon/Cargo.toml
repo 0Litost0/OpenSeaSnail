@@ -1,0 +1,49 @@
+[package]
+license = "Apache-2.0"
+name = "seasnail-daemon"
+version = "0.1.0"
+edition = "2021"
+build = "build.rs"
+
+[features]
+# 仅内部迁移包：允许开发者显式选择并持久化非默认 ASR 后端。发布包不得启用。
+debug-backend-switching = []
+
+[dependencies]
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "io-util", "process", "signal", "time", "net", "sync"] }
+axum = { version = "0.7", features = ["multipart"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+tracing-appender = "0.2"
+regex = "1"
+uuid = { version = "1", features = ["v4"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+anyhow = "1"
+async-trait = "0.1"
+thiserror = "1"
+fs2 = "0.4"
+sha2 = "0.10"
+base64 = "0.22"
+ammonia = "4"
+rand = "0.8"
+chrono = { version = "0.4", features = ["serde", "clock"] }
+csv = "1"
+seasnail-crypto = { path = "../crypto" }
+seasnail-storage = { path = "../storage" }
+seasnail-proto = { path = "../proto" }
+seasnail-runtime = { path = "../runtime" }
+prost = "0.13"
+walkdir = "2"
+tempfile = "3"
+zip = { version = "0.6", default-features = false, features = ["deflate"] }
+libc = "0.2"
+reqwest = { version = "0.12", default-features = false, features = ["multipart", "json", "rustls-tls"] }
+png = "0.18"
+url = "2"
+zeroize = "1"
+
+[dev-dependencies]
+
+[build-dependencies]
+serde_json = "1"

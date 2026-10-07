@@ -1,0 +1,42 @@
+name: Checks
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  frontend:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.22.2
+      - run: python3 scripts/doctor.py --frontend-only
+      - run: pnpm --dir apps/desktop install --frozen-lockfile
+      - run: pnpm --dir apps/desktop generate:openapi
+      - run: git diff --exit-code -- apps/desktop/src/api/openapi.ts
+      - run: pnpm --dir apps/desktop lint:openapi
+      - run: pnpm --dir apps/desktop typecheck
+      - run: pnpm --dir apps/desktop test
+      - run: pnpm --dir apps/desktop build
+      - run: rustup update stable --no-self-update
+      - run: cargo check --workspace --locked
+      - run: cargo test --workspace --locked
+      - run: bash scripts/check-architecture-boundaries.sh
+      - run: python3 -m unittest discover -s tests/dev_setup -v
+  dco:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Check contribution commits
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: python3 scripts/check-dco.py "$BASE_SHA" "$HEAD_SHA"

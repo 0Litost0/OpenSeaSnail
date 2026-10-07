@@ -1,0 +1,30 @@
+name: Bug report
+description: Report a reproducible problem using synthetic data.
+body:
+  - type: markdown
+    attributes:
+      value: "Do not include credentials, recordings, transcript text, clipboard contents, or private paths. Report vulnerabilities using SECURITY.md."
+  - type: input
+    id: environment
+    attributes:
+      label: App version, macOS version, and architecture
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction steps
+      description: Use a minimal fictional example.
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: Expected and actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Redacted diagnostics
+      description: Remove usernames, paths, tokens, and all personal content before posting.

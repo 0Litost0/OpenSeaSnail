@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "sensevoice": {
+    "repository": "https://github.com/QwenAudio/SenseVoice.git",
+    "revision": "6991744856587fa44379e8b5dcc432debffeb1be"
+  },
+  "runtime": {
+    "source_path": "runtime/llama.cpp",
+    "revision": "6991744856587fa44379e8b5dcc432debffeb1be",
+    "lock_note": "The FunASR server sources are vendored in the pinned SenseVoice tree. Their CMake build declares the separately locked llama.cpp FetchContent dependency below."
+  },
+  "llama_cpp": {
+    "repository": "https://github.com/ggml-org/llama.cpp.git",
+    "revision": "8086439a4cea94c71a5dfb8fe4ad1546aebd640f",
+    "fetch_content_name": "llama",
+    "cmake_source_override": "FETCHCONTENT_SOURCE_DIR_LLAMA",
+    "acquisition": "pre-fetched local checkout only",
+    "lock_note": "The pinned SenseVoice CMakeLists.txt declares this exact FetchContent GIT_TAG. The build must verify a clean local checkout at this revision and set the CMake source override so CMake never downloads it."
+  },
+  "patches": [],
+  "build": {
+    "generator": "CMake",
+    "cmake_minimum_version": "3.16",
+    "language_standard": "C++17",
+    "target": "sensevoice-server",
+    "target_triple": "arm64-apple-darwin"
+  }
+}

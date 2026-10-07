@@ -1,0 +1,61 @@
+{
+  "dataset_version": "fleurs-test-v1",
+  "reference_version": "reference-fleurs-v1",
+  "scope": "Two fixed licensed read-speech utterances for integration regression, not a general ASR benchmark.",
+  "samples": [
+    {
+      "id": "fleurs-zh-v1",
+      "audio_path": "assets/audio/fleurs-zh-v1.wav",
+      "audio_sha256": "601158e75e991eeff3dface860bf33716a1577243bbfad1fea0a1dc1bef6680b",
+      "bytes": 332204,
+      "reference_path": "assets/references/fleurs-zh-v1.json",
+      "reference_sha256": "905df26f1b95de25e6c079184617fabf3d9e2fbf600cd55870aeff52140f6f30",
+      "language": "zh",
+      "duration_ms": 10380,
+      "format": {
+        "container": "wav",
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2
+      },
+      "source": {
+        "kind": "licensed-read-speech",
+        "dataset": "google/fleurs",
+        "revision": "70bb2e84b976b7e960aa89f1c648e09c59f894dd",
+        "config": "cmn_hans_cn",
+        "split": "test",
+        "example_id": 1906,
+        "license": "CC-BY-4.0",
+        "provenance": "assets/audio-provenance.json",
+        "authorization": "Official Google FLEURS dataset declares CC-BY-4.0; full terms, attribution, exact source record and conversion details accompany these fixtures."
+      }
+    },
+    {
+      "id": "fleurs-en-v1",
+      "audio_path": "assets/audio/fleurs-en-v1.wav",
+      "audio_sha256": "d903ba75c0509b98e53f5b376be08a77888363e98073d0155b364fda5354fd98",
+      "bytes": 280364,
+      "reference_path": "assets/references/fleurs-en-v1.json",
+      "reference_sha256": "c8348df73933a6cf079432e815e74b39259ac18630ce9bfc135debb8020e1476",
+      "language": "en",
+      "duration_ms": 8760,
+      "format": {
+        "container": "wav",
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2
+      },
+      "source": {
+        "kind": "licensed-read-speech",
+        "dataset": "google/fleurs",
+        "revision": "70bb2e84b976b7e960aa89f1c648e09c59f894dd",
+        "config": "en_us",
+        "split": "test",
+        "example_id": 1675,
+        "license": "CC-BY-4.0",
+        "provenance": "assets/audio-provenance.json",
+        "authorization": "Official Google FLEURS dataset declares CC-BY-4.0; full terms, attribution, exact source record and conversion details accompany these fixtures."
+      }
+    }
+  ]
+}

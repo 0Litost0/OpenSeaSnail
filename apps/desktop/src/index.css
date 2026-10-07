@@ -1,0 +1,151 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/geist";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+    --font-heading: var(--font-sans);
+    --font-sans: 'Geist Variable', sans-serif;
+    --color-sidebar-ring: hsl(var(--sidebar-ring));
+    --color-sidebar-border: hsl(var(--sidebar-border));
+    --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
+    --color-sidebar-accent: hsl(var(--sidebar-accent));
+    --color-sidebar-primary-foreground: hsl(var(--sidebar-primary-foreground));
+    --color-sidebar-primary: hsl(var(--sidebar-primary));
+    --color-sidebar-foreground: hsl(var(--sidebar-foreground));
+    --color-sidebar: hsl(var(--sidebar));
+    --color-chart-5: hsl(var(--chart-5));
+    --color-chart-4: hsl(var(--chart-4));
+    --color-chart-3: hsl(var(--chart-3));
+    --color-chart-2: hsl(var(--chart-2));
+    --color-chart-1: hsl(var(--chart-1));
+    --color-ring: hsl(var(--ring));
+    --color-input: hsl(var(--input));
+    --color-border: hsl(var(--border));
+    --color-destructive: hsl(var(--destructive));
+    --color-accent-foreground: hsl(var(--accent-foreground));
+    --color-accent: hsl(var(--accent));
+    --color-muted-foreground: hsl(var(--muted-foreground));
+    --color-muted: hsl(var(--muted));
+    --color-secondary-foreground: hsl(var(--secondary-foreground));
+    --color-secondary: hsl(var(--secondary));
+    --color-primary-foreground: hsl(var(--primary-foreground));
+    --color-primary: hsl(var(--primary));
+    --color-popover-foreground: hsl(var(--popover-foreground));
+    --color-popover: hsl(var(--popover));
+    --color-card-foreground: hsl(var(--card-foreground));
+    --color-card: hsl(var(--card));
+    --color-foreground: hsl(var(--foreground));
+    --color-background: hsl(var(--background));
+    --radius-sm: calc(var(--radius) * 0.6);
+    --radius-md: calc(var(--radius) * 0.8);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) * 1.4);
+    --radius-2xl: calc(var(--radius) * 1.8);
+    --radius-3xl: calc(var(--radius) * 2.2);
+    --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 9%;
+    --primary: 0 0% 13%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 13%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 13%;
+    --destructive: 0 72% 51%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 0 0% 64%;
+    --chart-1: 0 0% 87%;
+    --chart-2: 0 0% 45%;
+    --chart-3: 0 0% 35%;
+    --chart-4: 0 0% 29%;
+    --chart-5: 0 0% 21%;
+    --radius: 0.625rem;
+    --sidebar: 0 0% 98%;
+    --sidebar-foreground: 0 0% 9%;
+    --sidebar-primary: 0 0% 13%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 0 0% 96%;
+    --sidebar-accent-foreground: 0 0% 13%;
+    --sidebar-border: 0 0% 90%;
+    --sidebar-ring: 0 0% 64%;
+}
+
+.dark {
+    --background: 0 0% 9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 13%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 13%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 90%;
+    --primary-foreground: 0 0% 13%;
+    --secondary: 0 0% 21%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 21%;
+    --muted-foreground: 0 0% 64%;
+    --accent: 0 0% 21%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 72% 62%;
+    --border: 0 0% 100% / 10%;
+    --input: 0 0% 100% / 15%;
+    --ring: 0 0% 45%;
+    --chart-1: 0 0% 87%;
+    --chart-2: 0 0% 45%;
+    --chart-3: 0 0% 35%;
+    --chart-4: 0 0% 29%;
+    --chart-5: 0 0% 21%;
+    --sidebar: 0 0% 13%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 217 91% 60%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 0 0% 21%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 0 0% 100% / 10%;
+    --sidebar-ring: 0 0% 45%;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    }
+  body {
+    @apply bg-background text-foreground;
+    overflow: hidden;
+    height: 100%;
+    }
+  html {
+    @apply font-sans;
+    height: 100%;
+    overflow: hidden;
+    }
+  #root { height: 100%; min-height: 0; }
+}
+
+/* Keep the recording capsule's WebView canvas clear; visible surfaces paint themselves. */
+html[data-window-surface="transparent"],
+html[data-window-surface="transparent"] body,
+html[data-window-surface="transparent"] #root {
+  background: transparent;
+}
+
+/* One pass keeps every step readable; reduced-motion uses the same static diagram. */
+@keyframes onboarding-demo-enter {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .onboarding-demo-step { animation: onboarding-demo-enter 360ms ease-out both; }
+}

@@ -1,0 +1,12 @@
+{
+  "version": "v1",
+  "boundary": "ModelRuntime.transcribe; production normalization, task orchestration, cleanup and persistence remain shared",
+  "scenarios": {
+    "asr-success-v1": { "responses": [{ "kind": "transcript", "text": "海螺支持语音转写和词典功能", "delay_ms": 0 }], "after_sequence": "repeat-last" },
+    "asr-failure-v1": { "responses": [{ "kind": "error", "code": "controlled_asr_failure", "delay_ms": 0 }], "after_sequence": "repeat-last" },
+    "asr-retry-v1": { "responses": [{ "kind": "error", "code": "controlled_asr_failure", "delay_ms": 0 }, { "kind": "transcript", "text": "海螺支持语音转写和词典功能", "delay_ms": 0 }], "after_sequence": "repeat-last" },
+    "asr-delay-v1": { "responses": [{ "kind": "transcript", "text": "海螺支持语音转写和词典功能", "delay_ms": 60000 }], "after_sequence": "repeat-last" },
+    "asr-no-speech-v1": { "responses": [{ "kind": "no-speech", "delay_ms": 0 }], "after_sequence": "repeat-last" }
+  },
+  "state_scope": "case-attempt; restart resets runtime-local sequence; explicit replay recreates the same response sequence"
+}

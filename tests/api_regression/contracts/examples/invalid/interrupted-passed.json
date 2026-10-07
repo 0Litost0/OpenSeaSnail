@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "run_id": "synthetic-example",
+  "build": {
+    "commit": "0000000000000000000000000000000000000000",
+    "dirty": false,
+    "binary_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+    "source_patch": null,
+    "toolchain": "rustc-example",
+    "target": "aarch64-apple-darwin",
+    "profile": "debug",
+    "lock_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+    "features": [],
+    "rustflags": ""
+  },
+  "platform": {
+    "os": "darwin",
+    "arch": "arm64"
+  },
+  "framework": {
+    "name": "playwright",
+    "version": "1.63.0",
+    "lock_sha256": "4444444444444444444444444444444444444444444444444444444444444444"
+  },
+  "budget_version": "macos-baseline-v1",
+  "catalog_version": "v1",
+  "required_case_ids": [
+    "AUTH-001",
+    "AUTH-002",
+    "AUTH-003",
+    "AUTH-004",
+    "TOKEN-001",
+    "TOKEN-002",
+    "DICT-001",
+    "DICT-002",
+    "ASR-001",
+    "ASR-002",
+    "CLEAN-001",
+    "CLEAN-002",
+    "CLEAN-003",
+    "CLEAN-004",
+    "CLEAN-005",
+    "RECOVERY-001",
+    "RECOVERY-002",
+    "SHERPA-001",
+    "SYSTEM-001",
+    "SYSTEM-002",
+    "SYSTEM-003",
+    "SYSTEM-004"
+  ],
+  "missing_case_ids": [],
+  "selection": {
+    "mode": "run",
+    "requested_case_ids": [
+      "CLEAN-002"
+    ],
+    "actual_case_ids": [
+      "CLEAN-002"
+    ],
+    "suite_ids": []
+  },
+  "cases": [
+    {
+      "case_id": "CLEAN-002",
+      "flaky": false,
+      "attempts": [
+        {
+          "attempt_id": "attempt-0",
+          "retry_index": 0,
+          "execution_status": "interrupted",
+          "teardown_status": "unknown",
+          "duration_ms": 1,
+          "config": {
+            "catalog_version": "v1",
+            "build": {
+              "commit": "0000000000000000000000000000000000000000",
+              "dirty": false,
+              "binary_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+              "source_patch": null,
+              "toolchain": "rustc-example",
+              "target": "aarch64-apple-darwin",
+              "profile": "debug",
+              "lock_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+              "features": [],
+              "rustflags": ""
+            },
+            "assets": [
+              {
+                "id": "example-audio",
+                "sha256": "3333333333333333333333333333333333333333333333333333333333333333"
+              }
+            ],
+            "assertion_version": "CLEAN-002-v1",
+            "runtime": {
+              "mode": "deterministic",
+              "scenario": "asr-success-v1"
+            },
+            "provider": {
+              "mode": "http-503",
+              "scenario_version": "v1"
+            },
+            "keychain": {
+              "mode": "persistent-fixture"
+            },
+            "budget_version": "macos-baseline-v1",
+            "fault": null,
+            "credential_refs": []
+          },
+          "steps": [
+            {
+              "step_id": "final-text",
+              "title": "检查最终文本",
+              "status": "interrupted",
+              "duration_ms": 1
+            }
+          ],
+          "errors": [
+            {
+              "category": "interrupted",
+              "step_id": "final-text",
+              "code": "runner_killed",
+              "message": "Synthetic example; no sensitive values",
+              "expected": "raw transcript",
+              "actual": "controlled incorrect text",
+              "evidence_refs": []
+            }
+          ],
+          "evidence_refs": []
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "report_status": "passed",
+  "gate": "passed",
+  "exit_code": 0
+}

@@ -1,0 +1,2 @@
+# Validation only; product/API runner does not depend on this tool.
+jsonschema==4.26.0

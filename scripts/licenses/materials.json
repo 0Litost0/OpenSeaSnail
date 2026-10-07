@@ -1,0 +1,866 @@
+{
+  "schema_version": 1,
+  "files": [
+    {
+      "path": "scripts/licenses/upstream/SHADCN-MIT.txt",
+      "source": "https://raw.githubusercontent.com/shadcn-ui/ui/6cd3f4c65c361ab6554e06a77e6a0af9cf8b6e37/LICENSE.md",
+      "revision": "6cd3f4c65c361ab6554e06a77e6a0af9cf8b6e37",
+      "sha256": "1564074e13439397221ffd522e2e504d56561994a23d371aa5e3ad43e4f5423f",
+      "size_bytes": 1063,
+      "scope": "copied UI templates and development skills"
+    },
+    {
+      "path": "scripts/licenses/upstream/GEIST-OFL-1.1.txt",
+      "source": "https://registry.npmjs.org/@fontsource-variable/geist/-/geist-5.3.0.tgz",
+      "revision": "npm:@fontsource-variable/geist@5.3.0",
+      "sha256": "71609cbb5c78b5870d712eab73a31d76622635c6ed034ab5cee3b9ecbda8685f",
+      "size_bytes": 4486,
+      "scope": "font software; exact installed package LICENSE"
+    },
+    {
+      "path": "scripts/licenses/upstream/FUNASR-MODEL-1.1.txt",
+      "source": "https://raw.githubusercontent.com/modelscope/FunASR/58830eca4012644aac0c3218c3ccc7d98f003fda/MODEL_LICENSE",
+      "revision": "58830eca4012644aac0c3218c3ccc7d98f003fda",
+      "sha256": "7dba975a2069691db4992b0592d70828b330d2f8a30a71450f4e152a554e84f8",
+      "size_bytes": 5306,
+      "scope": "current model agreement; not toolkit code"
+    },
+    {
+      "path": "scripts/licenses/upstream/FUNASR-MODEL-1.0.txt",
+      "source": "https://raw.githubusercontent.com/modelscope/FunASR/75ddde7acd49cb6940de339cf7de24297f0826c2/MODEL_LICENSE",
+      "revision": "75ddde7acd49cb6940de339cf7de24297f0826c2",
+      "sha256": "80f5bff3bc3f1b4ba7128e07a7bf94ac10ca260b64059dfdc66e83202bcae50e",
+      "size_bytes": 4085,
+      "scope": "historical model agreement; not a grandfathering claim"
+    },
+    {
+      "path": "scripts/licenses/upstream/SENSEVOICE-SMALL-MODEL-CARD.md",
+      "source": "https://huggingface.co/FunAudioLLM/SenseVoiceSmall/raw/3847d57b6bdf2dd8875cb1508d2af43d80a16bf7/README.md",
+      "revision": "3847d57b6bdf2dd8875cb1508d2af43d80a16bf7",
+      "sha256": "6add90487ea3d685b6604ad0932b565fc5cf7e9daaf8aebc674de49da4560958",
+      "size_bytes": 11952,
+      "scope": "official model card evidence; not conversion source-revision proof"
+    },
+    {
+      "path": "scripts/licenses/upstream/SENSEVOICE-SMALL-MODEL-CARD-2024.md",
+      "source": "https://huggingface.co/FunAudioLLM/SenseVoiceSmall/raw/72963f9eb91c0ced005b957655ca709d863532ea/README.md",
+      "revision": "72963f9eb91c0ced005b957655ca709d863532ea",
+      "sha256": "69e6d9e63e810dd0c05da2e926eec53a0e1236988949aa8ff45b349bd22e4cb6",
+      "size_bytes": 9997,
+      "scope": "official model card evidence; not conversion source-revision proof"
+    },
+    {
+      "path": "scripts/licenses/upstream/MPL-2.0.txt",
+      "source": "https://www.mozilla.org/media/MPL/2.0/index.txt",
+      "revision": "MPL-2.0",
+      "sha256": "3f3d9e0024b1921b067d6f7f88deb4a60cbe7a78e76c64e3f1d7fc3b779b9d04",
+      "size_bytes": 16726,
+      "scope": "canonical Mozilla license text; copyright/source headers retained in corresponding crate archive"
+    },
+    {
+      "path": "scripts/licenses/upstream/dropbox--rust-alloc-no-stdlib--ae42d22078b9--LICENSE",
+      "source": "https://raw.githubusercontent.com/dropbox/rust-alloc-no-stdlib/ae42d22078b98549e987d2f03d12df7b984fde47/LICENSE",
+      "revision": "ae42d22078b98549e987d2f03d12df7b984fde47",
+      "sha256": "c0c56f26d9c051cac4d200c34c84e7ae9aaa853e01a982a1df08b09931e518ae",
+      "size_bytes": 1483,
+      "scope": "dependency supplement from archive-recorded upstream Git revision"
+    },
+    {
+      "path": "scripts/licenses/upstream/madsmtm--objc2--b4167b582b2f--LICENSE.md",
+      "source": "https://raw.githubusercontent.com/madsmtm/objc2/b4167b582b2f75f9a1be75495c41b765344fd03c/LICENSE.md",
+      "revision": "b4167b582b2f75f9a1be75495c41b765344fd03c",
+      "sha256": "7f976f7e9cb2d87df7230606feb932c3f21ac0e664045a775b600046ff850c54",
+      "size_bytes": 1339,
+      "scope": "dependency supplement from archive-recorded upstream Git revision"
+    },
+    {
+      "path": "scripts/licenses/upstream/RustAudio--dasp--97c3bb9b2363--LICENSE-MIT",
+      "source": "https://raw.githubusercontent.com/RustAudio/dasp/97c3bb9b2363c0b46ac1633858bf1054fd02a980/LICENSE-MIT",
+      "revision": "97c3bb9b2363c0b46ac1633858bf1054fd02a980",
+      "sha256": "b1d6df41ed3aa96806e74c729444d7c121d90e6660a6aed01d298e03fde475a0",
+      "size_bytes": 1087,
+      "scope": "dependency supplement from archive-recorded upstream Git revision"
+    },
+    {
+      "path": "scripts/licenses/upstream/RustAudio--dasp--97c3bb9b2363--LICENSE-APACHE",
+      "source": "https://raw.githubusercontent.com/RustAudio/dasp/97c3bb9b2363c0b46ac1633858bf1054fd02a980/LICENSE-APACHE",
+      "revision": "97c3bb9b2363c0b46ac1633858bf1054fd02a980",
+      "sha256": "756c8d2ab2dc24f256e1455b5f03937f4933d83d7bc9f2d55009fc962377d512",
+      "size_bytes": 561,
+      "scope": "dependency supplement from archive-recorded upstream Git revision"
+    },
+    {
+      "path": "scripts/licenses/upstream/madsmtm--objc2--8852b424193c--LICENSE.md",
+      "source": "https://raw.githubusercontent.com/madsmtm/objc2/8852b424193ca41602281b3d7540d7c8ed51e49a/LICENSE.md",
+      "revision": "8852b424193ca41602281b3d7540d7c8ed51e49a",
+      "sha256": "7f976f7e9cb2d87df7230606feb932c3f21ac0e664045a775b600046ff850c54",
+      "size_bytes": 1339,
+      "scope": "dependency supplement from archive-recorded upstream Git revision"
+    },
+    {
+      "path": "scripts/licenses/upstream/madsmtm--objc2--7b1abfd750a2--LICENSE.md",
+      "source": "https://raw.githubusercontent.com/madsmtm/objc2/7b1abfd750a2cacaea71d6a56ecfb83cb7de560b/LICENSE.md",
+      "revision": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b",
+      "sha256": "7f976f7e9cb2d87df7230606feb932c3f21ac0e664045a775b600046ff850c54",
+      "size_bytes": 1339,
+      "scope": "dependency supplement from archive-recorded upstream Git revision"
+    },
+    {
+      "path": "scripts/licenses/upstream/madsmtm--objc2--8d214f547736--LICENSE.md",
+      "source": "https://raw.githubusercontent.com/madsmtm/objc2/8d214f5477365ffcbcbb7de058c86ed9a518efb7/LICENSE.md",
+      "revision": "8d214f5477365ffcbcbb7de058c86ed9a518efb7",
+      "sha256": "7f976f7e9cb2d87df7230606feb932c3f21ac0e664045a775b600046ff850c54",
+      "size_bytes": 1339,
+      "scope": "dependency supplement from archive-recorded upstream Git revision"
+    },
+    {
+      "path": "scripts/licenses/upstream/andrewhickman--prost-reflect--71c4c98d7565--LICENSE-MIT",
+      "source": "https://raw.githubusercontent.com/andrewhickman/prost-reflect/71c4c98d7565dfc30f76ebc7daaa139a443419e6/LICENSE-MIT",
+      "revision": "71c4c98d7565dfc30f76ebc7daaa139a443419e6",
+      "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+      "size_bytes": 1023,
+      "scope": "dependency supplement from archive-recorded upstream Git revision"
+    },
+    {
+      "path": "scripts/licenses/upstream/andrewhickman--prost-reflect--71c4c98d7565--LICENSE-APACHE",
+      "source": "https://raw.githubusercontent.com/andrewhickman/prost-reflect/71c4c98d7565dfc30f76ebc7daaa139a443419e6/LICENSE-APACHE",
+      "revision": "71c4c98d7565dfc30f76ebc7daaa139a443419e6",
+      "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+      "size_bytes": 10847,
+      "scope": "dependency supplement from archive-recorded upstream Git revision"
+    },
+    {
+      "path": "scripts/licenses/upstream/tauri-apps--tauri--6f6ab1207bb3--LICENSE_APACHE-2.0",
+      "source": "https://raw.githubusercontent.com/tauri-apps/tauri/6f6ab1207bb3923c2721fbc67d2fdb1c8deb0c7a/LICENSE_APACHE-2.0",
+      "revision": "6f6ab1207bb3923c2721fbc67d2fdb1c8deb0c7a",
+      "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+      "size_bytes": 10174,
+      "scope": "dependency supplement from archive-recorded upstream Git revision"
+    },
+    {
+      "path": "scripts/licenses/upstream/open-i18n--rust-unic--5878605364af--LICENSE-MIT",
+      "source": "https://raw.githubusercontent.com/open-i18n/rust-unic/5878605364af97a3358368a6eaef02104af2e016/LICENSE-MIT",
+      "revision": "5878605364af97a3358368a6eaef02104af2e016",
+      "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+      "size_bytes": 1023,
+      "scope": "dependency supplement from archive-recorded upstream Git revision"
+    },
+    {
+      "path": "scripts/licenses/upstream/open-i18n--rust-unic--5878605364af--LICENSE-APACHE",
+      "source": "https://raw.githubusercontent.com/open-i18n/rust-unic/5878605364af97a3358368a6eaef02104af2e016/LICENSE-APACHE",
+      "revision": "5878605364af97a3358368a6eaef02104af2e016",
+      "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+      "size_bytes": 10847,
+      "scope": "dependency supplement from archive-recorded upstream Git revision"
+    },
+    {
+      "path": "scripts/licenses/upstream/open-i18n--rust-unic--8a6ce83063d9--LICENSE-MIT",
+      "source": "https://raw.githubusercontent.com/open-i18n/rust-unic/8a6ce83063d90b91ae2ce59eddb803edd393fca9/LICENSE-MIT",
+      "revision": "8a6ce83063d90b91ae2ce59eddb803edd393fca9",
+      "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+      "size_bytes": 1023,
+      "scope": "dependency supplement from archive-recorded upstream Git revision"
+    },
+    {
+      "path": "scripts/licenses/upstream/open-i18n--rust-unic--8a6ce83063d9--LICENSE-APACHE",
+      "source": "https://raw.githubusercontent.com/open-i18n/rust-unic/8a6ce83063d90b91ae2ce59eddb803edd393fca9/LICENSE-APACHE",
+      "revision": "8a6ce83063d90b91ae2ce59eddb803edd393fca9",
+      "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+      "size_bytes": 10847,
+      "scope": "dependency supplement from archive-recorded upstream Git revision"
+    },
+    {
+      "path": "scripts/licenses/upstream/REACT-REMOVE-SCROLL-BAR-MIT.txt",
+      "source": "https://raw.githubusercontent.com/theKashey/react-remove-scroll-bar/8ca9ba5ea52de03308fe8ced94f7b159a44d28ff/LICENSE",
+      "revision": "8ca9ba5ea52de03308fe8ced94f7b159a44d28ff",
+      "sha256": "a79aae0c0f21990d9d963bb3c5a79cdcea9a46f8523ba55c58d7fe776b6ebc84",
+      "size_bytes": 1093,
+      "scope": "upstream MIT supplement for npm 2.3.8, whose files allowlist omits LICENSE; not a claim that this is its release commit"
+    },
+    {
+      "path": "scripts/licenses/upstream/SWIFT-PROTOBUF-LICENSE.txt",
+      "source": "https://raw.githubusercontent.com/apple/swift-protobuf/c169a5744230951031770e27e475ff6eefe51f9d/LICENSE.txt",
+      "revision": "c169a5744230951031770e27e475ff6eefe51f9d",
+      "sha256": "186c5f0192a754714a7e542233ddaaad28745626e0ad32e358d3f5af00afb84a",
+      "size_bytes": 11757,
+      "scope": "SwiftProtobuf runtime and generated code, including Runtime Library Exception"
+    },
+    {
+      "path": "scripts/licenses/upstream/SENSEVOICE-GGUF-Q8-MODEL-CARD.md",
+      "source": "https://huggingface.co/FunAudioLLM/SenseVoiceSmall-GGUF/raw/cebc2cdd171e895d783040dbd15f10f3a76f7151/README.md",
+      "revision": "cebc2cdd171e895d783040dbd15f10f3a76f7151",
+      "sha256": "f89c3a500b715a522a9985fbeb63d71660f0b0267b3f37c67d0785de9158cad0",
+      "size_bytes": 1638,
+      "scope": "legacy GGUF model-card declaration only; not the default ONNX weights"
+    },
+    {
+      "path": "scripts/licenses/upstream/SENSEVOICE-GGUF-F16-MODEL-CARD.md",
+      "source": "https://huggingface.co/FunAudioLLM/SenseVoiceSmall-GGUF/raw/e2488d1981145c78ccbf7afa2ef2f607c5c422e2/README.md",
+      "revision": "e2488d1981145c78ccbf7afa2ef2f607c5c422e2",
+      "sha256": "bb6847c674d199eb25acb6828642c4c9c1089d63e750a05c3a195e106716fced",
+      "size_bytes": 1516,
+      "scope": "legacy GGUF model-card declaration only; not the default ONNX weights"
+    },
+    {
+      "path": "scripts/licenses/upstream/SENSEVOICE-GGUF-F32-MODEL-CARD.md",
+      "source": "https://huggingface.co/FunAudioLLM/SenseVoiceSmall-GGUF/raw/669f1de748f932a95ee3c7023b4393808a9a071f/README.md",
+      "revision": "669f1de748f932a95ee3c7023b4393808a9a071f",
+      "sha256": "bb6847c674d199eb25acb6828642c4c9c1089d63e750a05c3a195e106716fced",
+      "size_bytes": 1516,
+      "scope": "legacy GGUF model-card declaration only; not the default ONNX weights"
+    },
+    {
+      "path": "scripts/licenses/upstream/FSMN-VAD-GGUF-MODEL-CARD.md",
+      "source": "https://huggingface.co/FunAudioLLM/fsmn-vad-GGUF/raw/5644b91e991622131f287c034f2a0424ba5be928/README.md",
+      "revision": "5644b91e991622131f287c034f2a0424ba5be928",
+      "sha256": "f3a683c07e24edd024fadd5fee0399560ae5b81c3176cef602469130af38c382",
+      "size_bytes": 1260,
+      "scope": "legacy GGUF model-card declaration only; not the default ONNX weights"
+    },
+    {
+      "path": "scripts/licenses/upstream/SENSEVOICE-SMALL-FILES-2024.json",
+      "source": "https://huggingface.co/api/models/FunAudioLLM/SenseVoiceSmall/tree/72963f9eb91c0ced005b957655ca709d863532ea?recursive=false",
+      "revision": "72963f9eb91c0ced005b957655ca709d863532ea",
+      "sha256": "103062637e357ecaf6146f2350d7c400a1fe5fa024a00bf05e65685e282bee63",
+      "size_bytes": 1585,
+      "scope": "historical original-model file tree; not proof of the conversion archive source"
+    }
+  ],
+  "dependency_supplements": [
+    {
+      "ecosystem": "cargo",
+      "name": "alloc-stdlib",
+      "version": "0.2.4",
+      "repository": "https://github.com/dropbox/rust-alloc-no-stdlib",
+      "revision": "ae42d22078b98549e987d2f03d12df7b984fde47",
+      "files": [
+        {
+          "path": "scripts/licenses/upstream/dropbox--rust-alloc-no-stdlib--ae42d22078b9--LICENSE",
+          "source": "https://raw.githubusercontent.com/dropbox/rust-alloc-no-stdlib/ae42d22078b98549e987d2f03d12df7b984fde47/LICENSE",
+          "revision": "ae42d22078b98549e987d2f03d12df7b984fde47",
+          "sha256": "c0c56f26d9c051cac4d200c34c84e7ae9aaa853e01a982a1df08b09931e518ae",
+          "size_bytes": 1483,
+          "scope": "dependency supplement from archive-recorded upstream Git revision"
+        }
+      ]
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "block2",
+      "version": "0.6.2",
+      "repository": "https://github.com/madsmtm/objc2",
+      "revision": "b4167b582b2f75f9a1be75495c41b765344fd03c",
+      "files": [
+        {
+          "path": "scripts/licenses/upstream/madsmtm--objc2--b4167b582b2f--LICENSE.md",
+          "source": "https://raw.githubusercontent.com/madsmtm/objc2/b4167b582b2f75f9a1be75495c41b765344fd03c/LICENSE.md",
+          "revision": "b4167b582b2f75f9a1be75495c41b765344fd03c",
+          "sha256": "7f976f7e9cb2d87df7230606feb932c3f21ac0e664045a775b600046ff850c54",
+          "size_bytes": 1339,
+          "scope": "dependency supplement from archive-recorded upstream Git revision"
+        }
+      ]
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "dasp_sample",
+      "version": "0.11.0",
+      "repository": "https://github.com/rustaudio/sample.git",
+      "revision": "97c3bb9b2363c0b46ac1633858bf1054fd02a980",
+      "files": [
+        {
+          "path": "scripts/licenses/upstream/RustAudio--dasp--97c3bb9b2363--LICENSE-MIT",
+          "source": "https://raw.githubusercontent.com/RustAudio/dasp/97c3bb9b2363c0b46ac1633858bf1054fd02a980/LICENSE-MIT",
+          "revision": "97c3bb9b2363c0b46ac1633858bf1054fd02a980",
+          "sha256": "b1d6df41ed3aa96806e74c729444d7c121d90e6660a6aed01d298e03fde475a0",
+          "size_bytes": 1087,
+          "scope": "dependency supplement from archive-recorded upstream Git revision"
+        },
+        {
+          "path": "scripts/licenses/upstream/RustAudio--dasp--97c3bb9b2363--LICENSE-APACHE",
+          "source": "https://raw.githubusercontent.com/RustAudio/dasp/97c3bb9b2363c0b46ac1633858bf1054fd02a980/LICENSE-APACHE",
+          "revision": "97c3bb9b2363c0b46ac1633858bf1054fd02a980",
+          "sha256": "756c8d2ab2dc24f256e1455b5f03937f4933d83d7bc9f2d55009fc962377d512",
+          "size_bytes": 561,
+          "scope": "dependency supplement from archive-recorded upstream Git revision"
+        }
+      ]
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "dispatch2",
+      "version": "0.3.1",
+      "repository": "https://github.com/madsmtm/objc2",
+      "revision": "8852b424193ca41602281b3d7540d7c8ed51e49a",
+      "files": [
+        {
+          "path": "scripts/licenses/upstream/madsmtm--objc2--8852b424193c--LICENSE.md",
+          "source": "https://raw.githubusercontent.com/madsmtm/objc2/8852b424193ca41602281b3d7540d7c8ed51e49a/LICENSE.md",
+          "revision": "8852b424193ca41602281b3d7540d7c8ed51e49a",
+          "sha256": "7f976f7e9cb2d87df7230606feb932c3f21ac0e664045a775b600046ff850c54",
+          "size_bytes": 1339,
+          "scope": "dependency supplement from archive-recorded upstream Git revision"
+        }
+      ]
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "objc2",
+      "version": "0.6.4",
+      "repository": "https://github.com/madsmtm/objc2",
+      "revision": "8852b424193ca41602281b3d7540d7c8ed51e49a",
+      "files": [
+        {
+          "path": "scripts/licenses/upstream/madsmtm--objc2--8852b424193c--LICENSE.md",
+          "source": "https://raw.githubusercontent.com/madsmtm/objc2/8852b424193ca41602281b3d7540d7c8ed51e49a/LICENSE.md",
+          "revision": "8852b424193ca41602281b3d7540d7c8ed51e49a",
+          "sha256": "7f976f7e9cb2d87df7230606feb932c3f21ac0e664045a775b600046ff850c54",
+          "size_bytes": 1339,
+          "scope": "dependency supplement from archive-recorded upstream Git revision"
+        }
+      ]
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "objc2-app-kit",
+      "version": "0.3.2",
+      "repository": "https://github.com/madsmtm/objc2",
+      "revision": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b",
+      "files": [
+        {
+          "path": "scripts/licenses/upstream/madsmtm--objc2--7b1abfd750a2--LICENSE.md",
+          "source": "https://raw.githubusercontent.com/madsmtm/objc2/7b1abfd750a2cacaea71d6a56ecfb83cb7de560b/LICENSE.md",
+          "revision": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b",
+          "sha256": "7f976f7e9cb2d87df7230606feb932c3f21ac0e664045a775b600046ff850c54",
+          "size_bytes": 1339,
+          "scope": "dependency supplement from archive-recorded upstream Git revision"
+        }
+      ]
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "objc2-audio-toolbox",
+      "version": "0.3.2",
+      "repository": "https://github.com/madsmtm/objc2",
+      "revision": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b",
+      "files": [
+        {
+          "path": "scripts/licenses/upstream/madsmtm--objc2--7b1abfd750a2--LICENSE.md",
+          "source": "https://raw.githubusercontent.com/madsmtm/objc2/7b1abfd750a2cacaea71d6a56ecfb83cb7de560b/LICENSE.md",
+          "revision": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b",
+          "sha256": "7f976f7e9cb2d87df7230606feb932c3f21ac0e664045a775b600046ff850c54",
+          "size_bytes": 1339,
+          "scope": "dependency supplement from archive-recorded upstream Git revision"
+        }
+      ]
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "objc2-av-foundation",
+      "version": "0.3.2",
+      "repository": "https://github.com/madsmtm/objc2",
+      "revision": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b",
+      "files": [
+        {
+          "path": "scripts/licenses/upstream/madsmtm--objc2--7b1abfd750a2--LICENSE.md",
+          "source": "https://raw.githubusercontent.com/madsmtm/objc2/7b1abfd750a2cacaea71d6a56ecfb83cb7de560b/LICENSE.md",
+          "revision": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b",
+          "sha256": "7f976f7e9cb2d87df7230606feb932c3f21ac0e664045a775b600046ff850c54",
+          "size_bytes": 1339,
+          "scope": "dependency supplement from archive-recorded upstream Git revision"
+        }
+      ]
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "objc2-avf-audio",
+      "version": "0.3.2",
+      "repository": "https://github.com/madsmtm/objc2",
+      "revision": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b",
+      "files": [
+        {
+          "path": "scripts/licenses/upstream/madsmtm--objc2--7b1abfd750a2--LICENSE.md",
+          "source": "https://raw.githubusercontent.com/madsmtm/objc2/7b1abfd750a2cacaea71d6a56ecfb83cb7de560b/LICENSE.md",
+          "revision": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b",
+          "sha256": "7f976f7e9cb2d87df7230606feb932c3f21ac0e664045a775b600046ff850c54",
+          "size_bytes": 1339,
+          "scope": "dependency supplement from archive-recorded upstream Git revision"
+        }
+      ]
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "objc2-cloud-kit",
+      "version": "0.3.2",
+      "repository": "https://github.com/madsmtm/objc2",
+      "revision": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b",
+      "files": [
+        {
+          "path": "scripts/licenses/upstream/madsmtm--objc2--7b1abfd750a2--LICENSE.md",
+          "source": "https://raw.githubusercontent.com/madsmtm/objc2/7b1abfd750a2cacaea71d6a56ecfb83cb7de560b/LICENSE.md",
+          "revision": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b",
+          "sha256": "7f976f7e9cb2d87df7230606feb932c3f21ac0e664045a775b600046ff850c54",
+          "size_bytes": 1339,
+          "scope": "dependency supplement from archive-recorded upstream Git revision"
+        }
+      ]
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "objc2-core-audio",
+      "version": "0.3.2",
+      "repository": "https://github.com/madsmtm/objc2",
+      "revision": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b",
+      "files": [
+        {
+          "path": "scripts/licenses/upstream/madsmtm--objc2--7b1abfd750a2--LICENSE.md",
+          "source": "https://raw.githubusercontent.com/madsmtm/objc2/7b1abfd750a2cacaea71d6a56ecfb83cb7de560b/LICENSE.md",
+          "revision": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b",
+          "sha256": "7f976f7e9cb2d87df7230606feb932c3f21ac0e664045a775b600046ff850c54",
+          "size_bytes": 1339,
+          "scope": "dependency supplement from archive-recorded upstream Git revision"
+        }
+      ]
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "objc2-core-audio-types",
+      "version": "0.3.2",
+      "repository": "https://github.com/madsmtm/objc2",
+      "revision": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b",
+      "files": [
+        {
+          "path": "scripts/licenses/upstream/madsmtm--objc2--7b1abfd750a2--LICENSE.md",
+          "source": "https://raw.githubusercontent.com/madsmtm/objc2/7b1abfd750a2cacaea71d6a56ecfb83cb7de560b/LICENSE.md",
+          "revision": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b",
+          "sha256": "7f976f7e9cb2d87df7230606feb932c3f21ac0e664045a775b600046ff850c54",
+          "size_bytes": 1339,
+          "scope": "dependency supplement from archive-recorded upstream Git revision"
+        }
+      ]
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "objc2-core-data",
+      "version": "0.3.2",
+      "repository": "https://github.com/madsmtm/objc2",
+      "revision": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b",
+      "files": [
+        {
+          "path": "scripts/licenses/upstream/madsmtm--objc2--7b1abfd750a2--LICENSE.md",
+          "source": "https://raw.githubusercontent.com/madsmtm/objc2/7b1abfd750a2cacaea71d6a56ecfb83cb7de560b/LICENSE.md",
+          "revision": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b",
+          "sha256": "7f976f7e9cb2d87df7230606feb932c3f21ac0e664045a775b600046ff850c54",
+          "size_bytes": 1339,
+          "scope": "dependency supplement from archive-recorded upstream Git revision"
+        }
+      ]
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "objc2-core-foundation",
+      "version": "0.3.2",
+      "repository": "https://github.com/madsmtm/objc2",
+      "revision": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b",
+      "files": [
+        {
+          "path": "scripts/licenses/upstream/madsmtm--objc2--7b1abfd750a2--LICENSE.md",
+          "source": "https://raw.githubusercontent.com/madsmtm/objc2/7b1abfd750a2cacaea71d6a56ecfb83cb7de560b/LICENSE.md",
+          "revision": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b",
+          "sha256": "7f976f7e9cb2d87df7230606feb932c3f21ac0e664045a775b600046ff850c54",
+          "size_bytes": 1339,
+          "scope": "dependency supplement from archive-recorded upstream Git revision"
+        }
+      ]
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "objc2-core-graphics",
+      "version": "0.3.2",
+      "repository": "https://github.com/madsmtm/objc2",
+      "revision": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b",
+      "files": [
+        {
+          "path": "scripts/licenses/upstream/madsmtm--objc2--7b1abfd750a2--LICENSE.md",
+          "source": "https://raw.githubusercontent.com/madsmtm/objc2/7b1abfd750a2cacaea71d6a56ecfb83cb7de560b/LICENSE.md",
+          "revision": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b",
+          "sha256": "7f976f7e9cb2d87df7230606feb932c3f21ac0e664045a775b600046ff850c54",
+          "size_bytes": 1339,
+          "scope": "dependency supplement from archive-recorded upstream Git revision"
+        }
+      ]
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "objc2-core-image",
+      "version": "0.3.2",
+      "repository": "https://github.com/madsmtm/objc2",
+      "revision": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b",
+      "files": [
+        {
+          "path": "scripts/licenses/upstream/madsmtm--objc2--7b1abfd750a2--LICENSE.md",
+          "source": "https://raw.githubusercontent.com/madsmtm/objc2/7b1abfd750a2cacaea71d6a56ecfb83cb7de560b/LICENSE.md",
+          "revision": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b",
+          "sha256": "7f976f7e9cb2d87df7230606feb932c3f21ac0e664045a775b600046ff850c54",
+          "size_bytes": 1339,
+          "scope": "dependency supplement from archive-recorded upstream Git revision"
+        }
+      ]
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "objc2-core-text",
+      "version": "0.3.2",
+      "repository": "https://github.com/madsmtm/objc2",
+      "revision": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b",
+      "files": [
+        {
+          "path": "scripts/licenses/upstream/madsmtm--objc2--7b1abfd750a2--LICENSE.md",
+          "source": "https://raw.githubusercontent.com/madsmtm/objc2/7b1abfd750a2cacaea71d6a56ecfb83cb7de560b/LICENSE.md",
+          "revision": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b",
+          "sha256": "7f976f7e9cb2d87df7230606feb932c3f21ac0e664045a775b600046ff850c54",
+          "size_bytes": 1339,
+          "scope": "dependency supplement from archive-recorded upstream Git revision"
+        }
+      ]
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "objc2-core-video",
+      "version": "0.3.2",
+      "repository": "https://github.com/madsmtm/objc2",
+      "revision": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b",
+      "files": [
+        {
+          "path": "scripts/licenses/upstream/madsmtm--objc2--7b1abfd750a2--LICENSE.md",
+          "source": "https://raw.githubusercontent.com/madsmtm/objc2/7b1abfd750a2cacaea71d6a56ecfb83cb7de560b/LICENSE.md",
+          "revision": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b",
+          "sha256": "7f976f7e9cb2d87df7230606feb932c3f21ac0e664045a775b600046ff850c54",
+          "size_bytes": 1339,
+          "scope": "dependency supplement from archive-recorded upstream Git revision"
+        }
+      ]
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "objc2-encode",
+      "version": "4.1.0",
+      "repository": "https://github.com/madsmtm/objc2",
+      "revision": "8d214f5477365ffcbcbb7de058c86ed9a518efb7",
+      "files": [
+        {
+          "path": "scripts/licenses/upstream/madsmtm--objc2--8d214f547736--LICENSE.md",
+          "source": "https://raw.githubusercontent.com/madsmtm/objc2/8d214f5477365ffcbcbb7de058c86ed9a518efb7/LICENSE.md",
+          "revision": "8d214f5477365ffcbcbb7de058c86ed9a518efb7",
+          "sha256": "7f976f7e9cb2d87df7230606feb932c3f21ac0e664045a775b600046ff850c54",
+          "size_bytes": 1339,
+          "scope": "dependency supplement from archive-recorded upstream Git revision"
+        }
+      ]
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "objc2-exception-helper",
+      "version": "0.1.1",
+      "repository": "https://github.com/madsmtm/objc2",
+      "revision": "8d214f5477365ffcbcbb7de058c86ed9a518efb7",
+      "files": [
+        {
+          "path": "scripts/licenses/upstream/madsmtm--objc2--8d214f547736--LICENSE.md",
+          "source": "https://raw.githubusercontent.com/madsmtm/objc2/8d214f5477365ffcbcbb7de058c86ed9a518efb7/LICENSE.md",
+          "revision": "8d214f5477365ffcbcbb7de058c86ed9a518efb7",
+          "sha256": "7f976f7e9cb2d87df7230606feb932c3f21ac0e664045a775b600046ff850c54",
+          "size_bytes": 1339,
+          "scope": "dependency supplement from archive-recorded upstream Git revision"
+        }
+      ]
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "objc2-image-io",
+      "version": "0.3.2",
+      "repository": "https://github.com/madsmtm/objc2",
+      "revision": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b",
+      "files": [
+        {
+          "path": "scripts/licenses/upstream/madsmtm--objc2--7b1abfd750a2--LICENSE.md",
+          "source": "https://raw.githubusercontent.com/madsmtm/objc2/7b1abfd750a2cacaea71d6a56ecfb83cb7de560b/LICENSE.md",
+          "revision": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b",
+          "sha256": "7f976f7e9cb2d87df7230606feb932c3f21ac0e664045a775b600046ff850c54",
+          "size_bytes": 1339,
+          "scope": "dependency supplement from archive-recorded upstream Git revision"
+        }
+      ]
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "objc2-media-toolbox",
+      "version": "0.3.2",
+      "repository": "https://github.com/madsmtm/objc2",
+      "revision": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b",
+      "files": [
+        {
+          "path": "scripts/licenses/upstream/madsmtm--objc2--7b1abfd750a2--LICENSE.md",
+          "source": "https://raw.githubusercontent.com/madsmtm/objc2/7b1abfd750a2cacaea71d6a56ecfb83cb7de560b/LICENSE.md",
+          "revision": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b",
+          "sha256": "7f976f7e9cb2d87df7230606feb932c3f21ac0e664045a775b600046ff850c54",
+          "size_bytes": 1339,
+          "scope": "dependency supplement from archive-recorded upstream Git revision"
+        }
+      ]
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "objc2-quartz-core",
+      "version": "0.3.2",
+      "repository": "https://github.com/madsmtm/objc2",
+      "revision": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b",
+      "files": [
+        {
+          "path": "scripts/licenses/upstream/madsmtm--objc2--7b1abfd750a2--LICENSE.md",
+          "source": "https://raw.githubusercontent.com/madsmtm/objc2/7b1abfd750a2cacaea71d6a56ecfb83cb7de560b/LICENSE.md",
+          "revision": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b",
+          "sha256": "7f976f7e9cb2d87df7230606feb932c3f21ac0e664045a775b600046ff850c54",
+          "size_bytes": 1339,
+          "scope": "dependency supplement from archive-recorded upstream Git revision"
+        }
+      ]
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "objc2-web-kit",
+      "version": "0.3.2",
+      "repository": "https://github.com/madsmtm/objc2",
+      "revision": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b",
+      "files": [
+        {
+          "path": "scripts/licenses/upstream/madsmtm--objc2--7b1abfd750a2--LICENSE.md",
+          "source": "https://raw.githubusercontent.com/madsmtm/objc2/7b1abfd750a2cacaea71d6a56ecfb83cb7de560b/LICENSE.md",
+          "revision": "7b1abfd750a2cacaea71d6a56ecfb83cb7de560b",
+          "sha256": "7f976f7e9cb2d87df7230606feb932c3f21ac0e664045a775b600046ff850c54",
+          "size_bytes": 1339,
+          "scope": "dependency supplement from archive-recorded upstream Git revision"
+        }
+      ]
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "prost-reflect",
+      "version": "0.14.7",
+      "repository": "https://github.com/andrewhickman/prost-reflect",
+      "revision": "71c4c98d7565dfc30f76ebc7daaa139a443419e6",
+      "files": [
+        {
+          "path": "scripts/licenses/upstream/andrewhickman--prost-reflect--71c4c98d7565--LICENSE-MIT",
+          "source": "https://raw.githubusercontent.com/andrewhickman/prost-reflect/71c4c98d7565dfc30f76ebc7daaa139a443419e6/LICENSE-MIT",
+          "revision": "71c4c98d7565dfc30f76ebc7daaa139a443419e6",
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+          "size_bytes": 1023,
+          "scope": "dependency supplement from archive-recorded upstream Git revision"
+        },
+        {
+          "path": "scripts/licenses/upstream/andrewhickman--prost-reflect--71c4c98d7565--LICENSE-APACHE",
+          "source": "https://raw.githubusercontent.com/andrewhickman/prost-reflect/71c4c98d7565dfc30f76ebc7daaa139a443419e6/LICENSE-APACHE",
+          "revision": "71c4c98d7565dfc30f76ebc7daaa139a443419e6",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "size_bytes": 10847,
+          "scope": "dependency supplement from archive-recorded upstream Git revision"
+        }
+      ]
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "selectors",
+      "version": "0.36.1",
+      "repository": "https://github.com/servo/stylo",
+      "revision": "635e1a19d02960588a00e189bd4bd5bdb150ec3d",
+      "files": [
+        {
+          "path": "scripts/licenses/upstream/MPL-2.0.txt",
+          "source": "https://www.mozilla.org/media/MPL/2.0/index.txt",
+          "revision": "MPL-2.0",
+          "sha256": "3f3d9e0024b1921b067d6f7f88deb4a60cbe7a78e76c64e3f1d7fc3b779b9d04",
+          "size_bytes": 16726,
+          "scope": "canonical Mozilla license text; copyright/source headers retained in corresponding crate archive"
+        }
+      ]
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "tauri-plugin",
+      "version": "2.6.3",
+      "repository": "https://github.com/tauri-apps/tauri",
+      "revision": "6f6ab1207bb3923c2721fbc67d2fdb1c8deb0c7a",
+      "files": [
+        {
+          "path": "scripts/licenses/upstream/tauri-apps--tauri--6f6ab1207bb3--LICENSE_APACHE-2.0",
+          "source": "https://raw.githubusercontent.com/tauri-apps/tauri/6f6ab1207bb3923c2721fbc67d2fdb1c8deb0c7a/LICENSE_APACHE-2.0",
+          "revision": "6f6ab1207bb3923c2721fbc67d2fdb1c8deb0c7a",
+          "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+          "size_bytes": 10174,
+          "scope": "dependency supplement from archive-recorded upstream Git revision"
+        }
+      ]
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "unic-char-property",
+      "version": "0.9.0",
+      "repository": "https://github.com/open-i18n/rust-unic/",
+      "revision": "5878605364af97a3358368a6eaef02104af2e016",
+      "files": [
+        {
+          "path": "scripts/licenses/upstream/open-i18n--rust-unic--5878605364af--LICENSE-MIT",
+          "source": "https://raw.githubusercontent.com/open-i18n/rust-unic/5878605364af97a3358368a6eaef02104af2e016/LICENSE-MIT",
+          "revision": "5878605364af97a3358368a6eaef02104af2e016",
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+          "size_bytes": 1023,
+          "scope": "dependency supplement from archive-recorded upstream Git revision"
+        },
+        {
+          "path": "scripts/licenses/upstream/open-i18n--rust-unic--5878605364af--LICENSE-APACHE",
+          "source": "https://raw.githubusercontent.com/open-i18n/rust-unic/5878605364af97a3358368a6eaef02104af2e016/LICENSE-APACHE",
+          "revision": "5878605364af97a3358368a6eaef02104af2e016",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "size_bytes": 10847,
+          "scope": "dependency supplement from archive-recorded upstream Git revision"
+        }
+      ]
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "unic-char-range",
+      "version": "0.9.0",
+      "repository": "https://github.com/open-i18n/rust-unic/",
+      "revision": "5878605364af97a3358368a6eaef02104af2e016",
+      "files": [
+        {
+          "path": "scripts/licenses/upstream/open-i18n--rust-unic--5878605364af--LICENSE-MIT",
+          "source": "https://raw.githubusercontent.com/open-i18n/rust-unic/5878605364af97a3358368a6eaef02104af2e016/LICENSE-MIT",
+          "revision": "5878605364af97a3358368a6eaef02104af2e016",
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+          "size_bytes": 1023,
+          "scope": "dependency supplement from archive-recorded upstream Git revision"
+        },
+        {
+          "path": "scripts/licenses/upstream/open-i18n--rust-unic--5878605364af--LICENSE-APACHE",
+          "source": "https://raw.githubusercontent.com/open-i18n/rust-unic/5878605364af97a3358368a6eaef02104af2e016/LICENSE-APACHE",
+          "revision": "5878605364af97a3358368a6eaef02104af2e016",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "size_bytes": 10847,
+          "scope": "dependency supplement from archive-recorded upstream Git revision"
+        }
+      ]
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "unic-common",
+      "version": "0.9.0",
+      "repository": "https://github.com/open-i18n/rust-unic/",
+      "revision": "5878605364af97a3358368a6eaef02104af2e016",
+      "files": [
+        {
+          "path": "scripts/licenses/upstream/open-i18n--rust-unic--5878605364af--LICENSE-MIT",
+          "source": "https://raw.githubusercontent.com/open-i18n/rust-unic/5878605364af97a3358368a6eaef02104af2e016/LICENSE-MIT",
+          "revision": "5878605364af97a3358368a6eaef02104af2e016",
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+          "size_bytes": 1023,
+          "scope": "dependency supplement from archive-recorded upstream Git revision"
+        },
+        {
+          "path": "scripts/licenses/upstream/open-i18n--rust-unic--5878605364af--LICENSE-APACHE",
+          "source": "https://raw.githubusercontent.com/open-i18n/rust-unic/5878605364af97a3358368a6eaef02104af2e016/LICENSE-APACHE",
+          "revision": "5878605364af97a3358368a6eaef02104af2e016",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "size_bytes": 10847,
+          "scope": "dependency supplement from archive-recorded upstream Git revision"
+        }
+      ]
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "unic-ucd-ident",
+      "version": "0.9.0",
+      "repository": "https://github.com/open-i18n/rust-unic/",
+      "revision": "8a6ce83063d90b91ae2ce59eddb803edd393fca9",
+      "files": [
+        {
+          "path": "scripts/licenses/upstream/open-i18n--rust-unic--8a6ce83063d9--LICENSE-MIT",
+          "source": "https://raw.githubusercontent.com/open-i18n/rust-unic/8a6ce83063d90b91ae2ce59eddb803edd393fca9/LICENSE-MIT",
+          "revision": "8a6ce83063d90b91ae2ce59eddb803edd393fca9",
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+          "size_bytes": 1023,
+          "scope": "dependency supplement from archive-recorded upstream Git revision"
+        },
+        {
+          "path": "scripts/licenses/upstream/open-i18n--rust-unic--8a6ce83063d9--LICENSE-APACHE",
+          "source": "https://raw.githubusercontent.com/open-i18n/rust-unic/8a6ce83063d90b91ae2ce59eddb803edd393fca9/LICENSE-APACHE",
+          "revision": "8a6ce83063d90b91ae2ce59eddb803edd393fca9",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "size_bytes": 10847,
+          "scope": "dependency supplement from archive-recorded upstream Git revision"
+        }
+      ]
+    },
+    {
+      "ecosystem": "cargo",
+      "name": "unic-ucd-version",
+      "version": "0.9.0",
+      "repository": "https://github.com/open-i18n/rust-unic/",
+      "revision": "5878605364af97a3358368a6eaef02104af2e016",
+      "files": [
+        {
+          "path": "scripts/licenses/upstream/open-i18n--rust-unic--5878605364af--LICENSE-MIT",
+          "source": "https://raw.githubusercontent.com/open-i18n/rust-unic/5878605364af97a3358368a6eaef02104af2e016/LICENSE-MIT",
+          "revision": "5878605364af97a3358368a6eaef02104af2e016",
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+          "size_bytes": 1023,
+          "scope": "dependency supplement from archive-recorded upstream Git revision"
+        },
+        {
+          "path": "scripts/licenses/upstream/open-i18n--rust-unic--5878605364af--LICENSE-APACHE",
+          "source": "https://raw.githubusercontent.com/open-i18n/rust-unic/5878605364af97a3358368a6eaef02104af2e016/LICENSE-APACHE",
+          "revision": "5878605364af97a3358368a6eaef02104af2e016",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "size_bytes": 10847,
+          "scope": "dependency supplement from archive-recorded upstream Git revision"
+        }
+      ]
+    },
+    {
+      "ecosystem": "npm",
+      "name": "react-remove-scroll-bar",
+      "version": "2.3.8",
+      "files": [
+        {
+          "path": "scripts/licenses/upstream/REACT-REMOVE-SCROLL-BAR-MIT.txt",
+          "source": "https://raw.githubusercontent.com/theKashey/react-remove-scroll-bar/8ca9ba5ea52de03308fe8ced94f7b159a44d28ff/LICENSE",
+          "revision": "8ca9ba5ea52de03308fe8ced94f7b159a44d28ff",
+          "sha256": "a79aae0c0f21990d9d963bb3c5a79cdcea9a46f8523ba55c58d7fe776b6ebc84",
+          "size_bytes": 1093,
+          "scope": "upstream MIT supplement for npm 2.3.8, whose files allowlist omits LICENSE; not a claim that this is its release commit"
+        }
+      ]
+    },
+    {
+      "ecosystem": "swift",
+      "name": "swift-protobuf",
+      "version": "1.33.3",
+      "revision": "c169a5744230951031770e27e475ff6eefe51f9d",
+      "license": "Apache-2.0 with Runtime Library Exception",
+      "authors": [
+        "Apple Inc. and the SwiftProtobuf project authors"
+      ],
+      "files": [
+        {
+          "path": "scripts/licenses/upstream/SWIFT-PROTOBUF-LICENSE.txt",
+          "source": "https://raw.githubusercontent.com/apple/swift-protobuf/c169a5744230951031770e27e475ff6eefe51f9d/LICENSE.txt",
+          "revision": "c169a5744230951031770e27e475ff6eefe51f9d",
+          "sha256": "186c5f0192a754714a7e542233ddaaad28745626e0ad32e358d3f5af00afb84a",
+          "size_bytes": 11757,
+          "scope": "SwiftProtobuf runtime and generated code, including Runtime Library Exception"
+        }
+      ]
+    }
+  ]
+}

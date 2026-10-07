@@ -1,0 +1,33 @@
+syntax = "proto3";
+package seasnail.native.v1;
+
+message MonitorRequest {
+  uint32 schema_version = 1;
+  int32 target_pid = 2;
+  string pasted_text = 3;
+  uint32 timeout_ms = 4;
+}
+
+message MonitorEvent {
+  uint32 schema_version = 1;
+  oneof payload {
+    Ready ready = 2;
+    Changed changed = 3;
+    Finished finished = 4;
+  }
+
+  message Ready { string initial_value = 1; }
+  message Changed { string current_value = 1; }
+  message Finished {
+    Reason reason = 1;
+    enum Reason {
+      REASON_UNSPECIFIED = 0;
+      TIMEOUT = 1;
+      NO_ELEMENT = 2;
+      NO_VALUE = 3;
+      FOCUS_LOST = 4;
+      CANCELLED = 5;
+      INTERNAL_ERROR = 6;
+    }
+  }
+}

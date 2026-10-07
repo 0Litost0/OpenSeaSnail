@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "case_id": "CLEAN-002",
+  "catalog_version": "v1",
+  "build": {
+    "commit": "0000000000000000000000000000000000000000",
+    "dirty": false,
+    "binary_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+    "source_patch": null,
+    "toolchain": "rustc-example",
+    "target": "aarch64-apple-darwin",
+    "profile": "debug",
+    "lock_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+    "features": [],
+    "rustflags": ""
+  },
+  "assets": [
+    {
+      "id": "example-audio",
+      "sha256": "3333333333333333333333333333333333333333333333333333333333333333"
+    }
+  ],
+  "assertion_version": "CLEAN-002-v1",
+  "runtime": {
+    "mode": "deterministic",
+    "scenario": "asr-success-v1"
+  },
+  "provider": {
+    "mode": "http-503",
+    "scenario_version": "v1"
+  },
+  "keychain": {
+    "mode": "persistent-fixture"
+  },
+  "budget_version": "macos-baseline-v1",
+  "fault": null,
+  "credential_refs": []
+}

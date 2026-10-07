@@ -1,0 +1,19 @@
+SeaSnail
+Copyright 2026 SeaSnail contributors.
+
+SeaSnail-owned source code is distributed under the Apache License, Version 2.0.
+Third-party components and models retain their respective licenses and notices.
+See THIRD_PARTY_NOTICES.md and scripts/sherpa/licenses/THIRD-PARTY-NOTICES.md.
+
+The UI components in apps/desktop/src/components/ui and the imported development
+skills in .agents/skills/shadcn and .agents/skills/migrate-radix-to-base derive
+from shadcn/ui. Copyright (c) 2023 shadcn. They retain the MIT license; see
+scripts/licenses/upstream/SHADCN-MIT.txt and scripts/licenses/VENDORED-SOURCES.md.
+
+Geist font: Copyright 2024 The Geist Project Authors. Licensed under the SIL
+Open Font License 1.1; see scripts/licenses/upstream/GEIST-OFL-1.1.txt.
+
+SenseVoiceSmall weights retain their separate upstream model agreement and
+attribution; see scripts/licenses/MODEL-LICENSE.md. Toolkit MIT licenses do not
+relicense model weights.
+SeaSnail names, logos, and app icons are covered by BRAND.md.

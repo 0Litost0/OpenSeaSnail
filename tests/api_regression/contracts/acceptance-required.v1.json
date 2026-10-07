@@ -1,0 +1,27 @@
+{
+  "catalog_version": "v1",
+  "required_case_ids": [
+    "AUTH-001",
+    "AUTH-002",
+    "AUTH-003",
+    "AUTH-004",
+    "TOKEN-001",
+    "TOKEN-002",
+    "DICT-001",
+    "DICT-002",
+    "ASR-001",
+    "ASR-002",
+    "CLEAN-001",
+    "CLEAN-002",
+    "CLEAN-003",
+    "CLEAN-004",
+    "CLEAN-005",
+    "RECOVERY-001",
+    "RECOVERY-002",
+    "SHERPA-001",
+    "SYSTEM-001",
+    "SYSTEM-002",
+    "SYSTEM-003",
+    "SYSTEM-004"
+  ]
+}

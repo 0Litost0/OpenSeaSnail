@@ -1,0 +1,34 @@
+{
+  "version": "quality-v3",
+  "status": "approved",
+  "approval": {
+    "date": "2026-10-07",
+    "authority": "maintainer-authorized-fixture-replacement",
+    "record": "tests/api_regression/docs/quality-approval.v3.md"
+  },
+  "dataset_version": "fleurs-test-v1",
+  "reference_version": "reference-fleurs-v1",
+  "normalization": {
+    "unicode": "NFKC",
+    "case": "casefold",
+    "punctuation": "replace with space for words; remove for characters",
+    "whitespace": "collapse",
+    "orthographic_aliases": {
+      "sea snail": "seasnail"
+    },
+    "semantic_synonyms": false
+  },
+  "samples": {
+    "fleurs-zh-v1": {
+      "metric": "cer",
+      "maximum_error_rate": 0.1,
+      "require_all_key_content": true
+    },
+    "fleurs-en-v1": {
+      "metric": "wer",
+      "maximum_error_rate": 0.15,
+      "require_all_key_content": true
+    }
+  },
+  "scope": "Licensed fixture replacement requested by maintainer; original numerical thresholds and normalization retained. All new reference key phrases are mandatory; no brand-word exception or ASR-output-based sample selection."
+}

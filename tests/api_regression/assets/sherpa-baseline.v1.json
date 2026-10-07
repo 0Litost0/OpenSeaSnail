@@ -1,0 +1,139 @@
+{
+  "version": "sherpa-baseline-v1",
+  "bundle_files": [
+    {
+      "path": "artifact-manifest.json",
+      "sha256": "c2e2548be277f00de73601c12bfe17c4b414bfaa75f46d0c1d4bd4018fc32e73",
+      "bytes": 1757
+    },
+    {
+      "path": "bin/seasnail-sherpa-sidecar",
+      "sha256": "b2521e74bf3470c87c4a6685655c41bafabeb27c1f124671564f3afd59a6b364",
+      "bytes": 68312
+    },
+    {
+      "path": "lib/libonnxruntime.1.dylib",
+      "sha256": "f9006eff07055b3537df5f4beb6867704d0b68d1b53bbe0774042038aa456b8a",
+      "bytes": 26020056
+    },
+    {
+      "path": "lib/libsherpa-onnx-c-api.dylib",
+      "sha256": "f97aaf958846926924b09f3c06e62539ee8088937ddca0672b694ad1ac33ba92",
+      "bytes": 2889736
+    },
+    {
+      "path": "licenses/FUNASR-MIT.txt",
+      "sha256": "4bc3bffe14ebe38cc67309991e04f92866835eac1c5e2e1abd37163f67c6de5f",
+      "bytes": 1062
+    },
+    {
+      "path": "licenses/LICENSE.model-source",
+      "sha256": "221c6df10b0931a5629adad671ea48fb7747e034c414b6d2bfa275bc3dd4ea17",
+      "bytes": 71
+    },
+    {
+      "path": "licenses/NLOHMANN-JSON-MIT.txt",
+      "sha256": "c0d068392ea65358b798b8c165103560f06e9e3b38c4ab4e2d8810a7b931af86",
+      "bytes": 1075
+    },
+    {
+      "path": "licenses/ONNXRUNTIME-MIT.txt",
+      "sha256": "2f07c72751aed99790b8a4869cf2311df85a860b22ded05fa22803587a48922c",
+      "bytes": 1073
+    },
+    {
+      "path": "licenses/ONNXRUNTIME-THIRD-PARTY-NOTICES.txt",
+      "sha256": "0e07b95f3a8d6230037707c5c4a2b554d12c4cb67369669ac255635528ffcee2",
+      "bytes": 325054
+    },
+    {
+      "path": "licenses/SHERPA-ONNX-APACHE-2.0.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "bytes": 11358
+    },
+    {
+      "path": "licenses/SILERO-VAD-MIT.txt",
+      "sha256": "51c19c8be941a3fb00ccf58f0bf9053de9f7237a0b37327896eabad32dffe873",
+      "bytes": 1076
+    },
+    {
+      "path": "licenses/eigen--COPYING.BSD",
+      "sha256": "51928dce36213c5333ba3172e847d735d4c6e9b7ff2722a326c49067155b82eb",
+      "bytes": 1517
+    },
+    {
+      "path": "licenses/eigen--COPYING.MPL2",
+      "sha256": "66a3107d5ad6a058aab753eaac2047ccb2ed0e39465dd0fe5844da3e300d5172",
+      "bytes": 16727
+    },
+    {
+      "path": "licenses/eigen--COPYING.README",
+      "sha256": "db640ff2bd90c6abd6a4d3fbb351e0ee4d555417cf840492054d1cbb2ea85644",
+      "bytes": 264
+    },
+    {
+      "path": "licenses/kaldi-decoder--LICENSE",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "bytes": 11358
+    },
+    {
+      "path": "licenses/kaldi-native-fbank--LICENSE",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "bytes": 11358
+    },
+    {
+      "path": "licenses/kaldifst--LICENSE",
+      "sha256": "a682d6efd1ee5dee08a8e405c233c2c198ea70ae0718129daa83ab58cfe31c5d",
+      "bytes": 11728
+    },
+    {
+      "path": "licenses/kissfft--BSD-3-Clause",
+      "sha256": "4d6bcab46f27d6d0c878e8305d4bdcfe040d52bf6656b9771f04c9fb9902c0ed",
+      "bytes": 1830
+    },
+    {
+      "path": "licenses/kissfft--COPYING",
+      "sha256": "a2840585f8411be8e6826a31ef15ae65c950bd74a2437a73b013398a934ad0c6",
+      "bytes": 246
+    },
+    {
+      "path": "licenses/license-manifest.json",
+      "sha256": "d10d4e7ac1123eb62322d5ab8c2f99a605cc89a7f4eebbdfe1e802d60cdac90b",
+      "bytes": 3235
+    },
+    {
+      "path": "licenses/nlohmann-json--LICENSE.MIT",
+      "sha256": "46a65cffd1ea955132d95a8dd921640714a8d6b537d2e4e482d31145ae95b603",
+      "bytes": 1076
+    },
+    {
+      "path": "licenses/openfst--COPYING",
+      "sha256": "4300529197035fd3452350718a0b8cee984e9412c9932d7f35fcde849fc97a4b",
+      "bytes": 559
+    },
+    {
+      "path": "licenses/simple-sentencepiece--LICENSE",
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "bytes": 11357
+    },
+    {
+      "path": "model/model.int8.onnx",
+      "sha256": "c71f0ce00bec95b07744e116345e33d8cbbe08cef896382cf907bf4b51a2cd51",
+      "bytes": 239233841
+    },
+    {
+      "path": "model/silero_vad.onnx",
+      "sha256": "9e2449e1087496d8d4caba907f23e0bd3f78d91fa552479bb9c23ac09cbb1fd6",
+      "bytes": 643854
+    },
+    {
+      "path": "model/tokens.txt",
+      "sha256": "f449eb28dc567533d7fa59be34e2abca8784f771850c78a47fb731a31429a1dc",
+      "bytes": 315894
+    }
+  ],
+  "ffmpeg": {
+    "sha256": "1e67bf4f10e04c235624b2b05993c67875a2c18070d2d1f08d27d0b8c83ef814",
+    "bytes": 3765160
+  }
+}

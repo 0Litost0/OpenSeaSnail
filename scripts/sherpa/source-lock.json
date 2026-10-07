@@ -1,0 +1,309 @@
+{
+  "schema_version": 1,
+  "target": {
+    "platform": "macos",
+    "architecture": "arm64",
+    "target_triple": "arm64-apple-darwin"
+  },
+  "sherpa_onnx": {
+    "repository": "https://github.com/k2-fsa/sherpa-onnx.git",
+    "revision": "1cb484af5e69d3c7803c1eb0b3b5ab8041e0e911",
+    "tag": "v1.13.6",
+    "license": {
+      "spdx": "Apache-2.0",
+      "source_path": "LICENSE",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "size_bytes": 11358
+    }
+  },
+  "onnxruntime": {
+    "repository": "https://github.com/microsoft/onnxruntime.git",
+    "revision": "df2ba1cf8108aa63627cf4cdf8f807880b938616",
+    "tag": "v1.27.1",
+    "deployment_target": "13.0",
+    "submodules": [
+      { "path": "cmake/external/emsdk", "revision": "c0bb220cb6e6f4e0fabb6f6db9efd53390ef5e56" },
+      { "path": "cmake/external/libprotobuf-mutator", "revision": "7a2ed51a6b682a83e345ff49fc4cfd7ca47550db" },
+      { "path": "cmake/external/onnx", "revision": "be2b5fde82d9c8874f3d19328bdfe3b6962dc67b" }
+    ],
+    "dependency_manifest": {
+      "path": "cmake/deps.txt",
+      "sha256": "e411468ead299e3386b2e5e9d773e50e1939b5fc0baca599666ca5757eeb3f71",
+      "size_bytes": 7137
+    },
+    "license": {
+      "spdx": "MIT",
+      "source_path": "LICENSE",
+      "sha256": "2f07c72751aed99790b8a4869cf2311df85a860b22ded05fa22803587a48922c",
+      "size_bytes": 1073,
+      "third_party_notices_path": "ThirdPartyNotices.txt",
+      "third_party_notices_sha256": "0e07b95f3a8d6230037707c5c4a2b554d12c4cb67369669ac255635528ffcee2",
+      "third_party_notices_size_bytes": 325054
+    }
+  },
+  "build": {
+    "generator": "CMake",
+    "cmake_minimum_version": "3.15",
+    "sherpa_language_standard": "C++17",
+    "onnxruntime_language_standard": "upstream-v1.27.1-default",
+    "build_shared_libs": true,
+    "options": {
+      "SHERPA_ONNX_ENABLE_C_API": true,
+      "SHERPA_ONNX_ENABLE_BINARY": false,
+      "SHERPA_ONNX_BUILD_C_API_EXAMPLES": false,
+      "SHERPA_ONNX_ENABLE_PYTHON": false,
+      "SHERPA_ONNX_ENABLE_TESTS": false,
+      "SHERPA_ONNX_ENABLE_PORTAUDIO": false,
+      "SHERPA_ONNX_ENABLE_WEBSOCKET": false,
+      "SHERPA_ONNX_ENABLE_TTS": false,
+      "SHERPA_ONNX_ENABLE_SPEAKER_DIARIZATION": false,
+      "SHERPA_ONNX_USE_PRE_INSTALLED_ONNXRUNTIME_IF_AVAILABLE": true
+    },
+    "compile_definitions": ["EIGEN_MPL2_ONLY", "SHERPA_ONNX_DISABLE_COREML"],
+    "patches": []
+  },
+  "onnxruntime_cmake_dependencies": [
+    {
+      "id": "abseil_cpp",
+      "file_name": "onnxruntime-dep-abseil_cpp-20250814.0.zip",
+      "url": "https://github.com/abseil/abseil-cpp/archive/refs/tags/20250814.0.zip",
+      "sha1": "a9eb1d648cbca4d4d788737e971a6a7a63726b07",
+      "sha256": "b2bdcf6682d8cb53df365bcc5d6c318a22e55821d9978a10fdb61404c026daff",
+      "size_bytes": 3194036
+    },
+    {
+      "id": "date",
+      "file_name": "onnxruntime-dep-date-v3.0.1.zip",
+      "url": "https://github.com/HowardHinnant/date/archive/refs/tags/v3.0.1.zip",
+      "sha1": "2dac0c81dc54ebdd8f8d073a75c053b04b56e159",
+      "sha256": "f4300b96f7a304d4ef9bf6e0fa3ded72159f7f2d0f605bdde3e030a0dba7cf9f",
+      "size_bytes": 941286
+    },
+    {
+      "id": "eigen",
+      "file_name": "onnxruntime-dep-eigen-eigen-1d8b82b0740839c0de7f1242a3585e3390ff5f33.zip",
+      "url": "https://github.com/eigen-mirror/eigen/archive/1d8b82b0740839c0de7f1242a3585e3390ff5f33/eigen-1d8b82b0740839c0de7f1242a3585e3390ff5f33.zip",
+      "sha1": "05b19b49e6fbb91246be711d801160528c135e34",
+      "sha256": "6a60d76351f97132669daeeb721d6bf14b008101883ad2d687a3201c5c461eb0",
+      "size_bytes": 4075744
+    },
+    {
+      "id": "flatbuffers",
+      "file_name": "onnxruntime-dep-flatbuffers-v23.5.26.zip",
+      "url": "https://github.com/google/flatbuffers/archive/refs/tags/v23.5.26.zip",
+      "sha1": "59422c3b5e573dd192fead2834d25951f1c1670c",
+      "sha256": "57bd580c0772fd1a726c34ab8bf05325293bc5f9c165060a898afa1feeeb95e1",
+      "size_bytes": 3209602
+    },
+    {
+      "id": "microsoft_gsl",
+      "file_name": "onnxruntime-dep-microsoft_gsl-v4.2.1.zip",
+      "url": "https://github.com/microsoft/GSL/archive/refs/tags/v4.2.1.zip",
+      "sha1": "1094e3bb7a8af763dcb136ccd676e6e75e614eec",
+      "sha256": "c9291d95f5f6e5c561990d06a589b01d89e553d0f366f0ce723dd1788e7a6076",
+      "size_bytes": 84222
+    },
+    {
+      "id": "kleidiai",
+      "file_name": "onnxruntime-dep-kleidiai-v1.20.0.tar.gz",
+      "url": "https://github.com/ARM-software/kleidiai/archive/refs/tags/v1.20.0.tar.gz",
+      "sha1": "6895e72b3d5cf1173358164cb3d64c9d7d33cc84",
+      "sha256": "e4b84c369f0f39af1660ac71c30f74038d4b89e1f20dde070bb96398382a111f",
+      "size_bytes": 2372189
+    },
+    {
+      "id": "mp11",
+      "file_name": "onnxruntime-dep-mp11-boost-1.82.0.zip",
+      "url": "https://github.com/boostorg/mp11/archive/refs/tags/boost-1.82.0.zip",
+      "sha1": "9bc9e01dffb64d9e0773b2e44d2f22c51aace063",
+      "sha256": "81431bdc44c439a324e02c07ed067f8f556419fd86f2d8b486ff568df6aac899",
+      "size_bytes": 232716
+    },
+    {
+      "id": "json",
+      "file_name": "onnxruntime-dep-json-v3.11.3.zip",
+      "url": "https://github.com/nlohmann/json/archive/refs/tags/v3.11.3.zip",
+      "sha1": "5e88795165cc8590138d1f47ce94ee567b85b4d6",
+      "sha256": "04022b05d806eb5ff73023c280b68697d12b93e1b7267a0b22a1a39ec7578069",
+      "size_bytes": 8489998
+    },
+    {
+      "id": "onnx",
+      "file_name": "onnxruntime-dep-onnx-v1.21.0.zip",
+      "url": "https://github.com/onnx/onnx/archive/refs/tags/v1.21.0.zip",
+      "sha1": "321d4acc807c8e0fb0bbcc0424a143dffde1e846",
+      "sha256": "b8b56570d94ecce49fee94e6380db456bb42035722b967015c9dd6459359433e",
+      "size_bytes": 18072652
+    },
+    {
+      "id": "protobuf",
+      "file_name": "onnxruntime-dep-protobuf-v21.12.zip",
+      "url": "https://github.com/protocolbuffers/protobuf/archive/refs/tags/v21.12.zip",
+      "sha1": "7cf2733949036c7d52fda017badcab093fe73bfa",
+      "sha256": "6a31b662deaeb0ac35e6287bda2f3369b19836e6c9f8828d4da444346f420298",
+      "size_bytes": 7180794
+    },
+    {
+      "id": "protoc_mac_universal",
+      "file_name": "onnxruntime-dep-protoc_mac_universal-protoc-21.12-osx-universal_binary.zip",
+      "url": "https://github.com/protocolbuffers/protobuf/releases/download/v21.12/protoc-21.12-osx-universal_binary.zip",
+      "sha1": "23710c3d1c2036d8d65a6a22234372fa2d7af9ef",
+      "sha256": "1acab3d1f774d120d5a38bccb78fd379d35226b254dc258978bc45593478ca4c",
+      "size_bytes": 2822292
+    },
+    {
+      "id": "pytorch_cpuinfo",
+      "file_name": "onnxruntime-dep-pytorch_cpuinfo-403d652dca4c1046e8145950b1c0997a9f748b57.zip",
+      "url": "https://github.com/pytorch/cpuinfo/archive/403d652dca4c1046e8145950b1c0997a9f748b57.zip",
+      "sha1": "30b2a07fe4bae8574f89176e56274cacdd6d135b",
+      "sha256": "357d9824b8d3f4c05f0b2287e45b4e0d982422c27b67b968eb23a643dc52b5e2",
+      "size_bytes": 3853314
+    },
+    {
+      "id": "re2",
+      "file_name": "onnxruntime-dep-re2-2024-07-02.zip",
+      "url": "https://github.com/google/re2/archive/refs/tags/2024-07-02.zip",
+      "sha1": "646e1728269cde7fcef990bf4a8e87b047882e88",
+      "sha256": "a835fe55fbdcd8e80f38584ab22d0840662c67f2feb36bd679402da9641dc71e",
+      "size_bytes": 451539
+    },
+    {
+      "id": "safeint",
+      "file_name": "onnxruntime-dep-safeint-3.0.28.zip",
+      "url": "https://github.com/dcleblanc/SafeInt/archive/refs/tags/3.0.28.zip",
+      "sha1": "23f252040ff6cb9f1fd18575b32fa8fb5928daac",
+      "sha256": "3ffbd9a2fdff45da77da3e7269e9aa512ea43bed5c38ce8fd8f3d1068a032c3f",
+      "size_bytes": 626378
+    }
+  ],
+  "license_bundle_files": [
+    {
+      "component": "FunASR / SenseVoice model",
+      "path": "licenses/FUNASR-MIT.txt",
+      "sha256": "4bc3bffe14ebe38cc67309991e04f92866835eac1c5e2e1abd37163f67c6de5f",
+      "size_bytes": 1062
+    },
+    {
+      "component": "Silero VAD",
+      "path": "licenses/SILERO-VAD-MIT.txt",
+      "sha256": "51c19c8be941a3fb00ccf58f0bf9053de9f7237a0b37327896eabad32dffe873",
+      "size_bytes": 1076
+    },
+    {
+      "component": "ONNX Runtime",
+      "path": "licenses/ONNXRUNTIME-MIT.txt",
+      "sha256": "2f07c72751aed99790b8a4869cf2311df85a860b22ded05fa22803587a48922c",
+      "size_bytes": 1073
+    },
+    {
+      "component": "nlohmann/json",
+      "path": "licenses/NLOHMANN-JSON-MIT.txt",
+      "sha256": "c0d068392ea65358b798b8c165103560f06e9e3b38c4ab4e2d8810a7b931af86",
+      "size_bytes": 1075
+    }
+  ],
+  "source_archives": [
+    {
+      "id": "kaldi-native-fbank",
+      "version": "1.22.3",
+      "file_name": "kaldi-native-fbank-1.22.3.tar.gz",
+      "url": "https://github.com/csukuangfj/kaldi-native-fbank/archive/refs/tags/v1.22.3.tar.gz",
+      "sha256": "9176cc66fc7ce1edf85cf355b06e320c57db6297df74277f575183468893cf61",
+      "size_bytes": 71144,
+      "architecture": "source",
+      "license": { "spdx": "Apache-2.0", "archive_path": "kaldi-native-fbank-1.22.3/LICENSE", "size_bytes": 11358, "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30" }
+    },
+    {
+      "id": "kaldi-decoder",
+      "version": "0.3.0",
+      "file_name": "kaldi-decoder-0.3.0.tar.gz",
+      "url": "https://github.com/k2-fsa/kaldi-decoder/archive/refs/tags/v0.3.0.tar.gz",
+      "sha256": "b9f34cfb4fd3b1344100eead79ef4d37aa15962274b9e3056de345021f76a1b0",
+      "size_bytes": 51199,
+      "architecture": "source",
+      "license": { "spdx": "Apache-2.0", "archive_path": "kaldi-decoder-0.3.0/LICENSE", "size_bytes": 11358, "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30" }
+    },
+    {
+      "id": "simple-sentencepiece",
+      "version": "0.7",
+      "file_name": "simple-sentencepiece-0.7.tar.gz",
+      "url": "https://github.com/pkufool/simple-sentencepiece/archive/refs/tags/v0.7.tar.gz",
+      "sha256": "1748a822060a35baa9f6609f84efc8eb54dc0e74b9ece3d82367b7119fdc75af",
+      "size_bytes": 355335,
+      "architecture": "source",
+      "license": { "spdx": "Apache-2.0", "archive_path": "simple-sentencepiece-0.7/LICENSE", "size_bytes": 11357, "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4" }
+    },
+    {
+      "id": "nlohmann-json",
+      "version": "3.12.0",
+      "file_name": "json-3.12.0.tar.gz",
+      "url": "https://github.com/nlohmann/json/archive/refs/tags/v3.12.0.tar.gz",
+      "sha256": "4b92eb0c06d10683f7447ce9406cb97cd4b453be18d7279320f7b2f025c10187",
+      "size_bytes": 9678593,
+      "architecture": "source",
+      "license": { "spdx": "MIT", "archive_path": "json-3.12.0/LICENSE.MIT", "size_bytes": 1076, "sha256": "46a65cffd1ea955132d95a8dd921640714a8d6b537d2e4e482d31145ae95b603" }
+    },
+    {
+      "id": "kaldifst",
+      "version": "1.8.0",
+      "required_by": "kaldi-decoder-0.3.0",
+      "file_name": "kaldifst-1.8.0.tar.gz",
+      "url": "https://github.com/k2-fsa/kaldifst/archive/refs/tags/v1.8.0.tar.gz",
+      "sha256": "3f247b7e5a2409071202f5e2bc6200060f66728c0a3443c03923ad2723e040b3",
+      "size_bytes": 172147,
+      "architecture": "source",
+      "license": { "spdx": "Apache-2.0", "archive_path": "kaldifst-1.8.0/LICENSE", "size_bytes": 11728, "sha256": "a682d6efd1ee5dee08a8e405c233c2c198ea70ae0718129daa83ab58cfe31c5d" }
+    },
+    {
+      "id": "eigen",
+      "version": "5.0.1",
+      "required_by": "kaldi-decoder-0.3.0",
+      "selection_note": "The top-level Sherpa CMAKE_MODULE_PATH resolves kaldi-decoder's include(eigen) to Sherpa's pinned cmake/eigen.cmake.",
+      "file_name": "eigen-5.0.1.tar.gz",
+      "url": "https://gitlab.com/libeigen/eigen/-/archive/5.0.1/eigen-5.0.1.tar.gz",
+      "sha256": "e9c326dc8c05cd1e044c71f30f1b2e34a6161a3b6ecf445d56b53ff1669e3dec",
+      "size_bytes": 2967272,
+      "architecture": "source",
+      "license": {
+        "spdx": "MPL-2.0 OR BSD-3-Clause",
+        "compile_definition": "EIGEN_MPL2_ONLY",
+        "archive_paths": ["eigen-5.0.1/COPYING.README", "eigen-5.0.1/COPYING.MPL2", "eigen-5.0.1/COPYING.BSD"],
+        "files": [
+          { "archive_path": "eigen-5.0.1/COPYING.README", "size_bytes": 264, "sha256": "db640ff2bd90c6abd6a4d3fbb351e0ee4d555417cf840492054d1cbb2ea85644" },
+          { "archive_path": "eigen-5.0.1/COPYING.MPL2", "size_bytes": 16727, "sha256": "66a3107d5ad6a058aab753eaac2047ccb2ed0e39465dd0fe5844da3e300d5172" },
+          { "archive_path": "eigen-5.0.1/COPYING.BSD", "size_bytes": 1517, "sha256": "51928dce36213c5333ba3172e847d735d4c6e9b7ff2722a326c49067155b82eb" }
+        ]
+      }
+    },
+    {
+      "id": "kissfft",
+      "revision": "febd4caeed32e33ad8b2e0bb5ea77542c40f18ec",
+      "required_by": "kaldi-native-fbank-1.22.3",
+      "file_name": "kissfft-febd4caeed32e33ad8b2e0bb5ea77542c40f18ec.zip",
+      "url": "https://github.com/mborgerding/kissfft/archive/febd4caeed32e33ad8b2e0bb5ea77542c40f18ec.zip",
+      "sha256": "497103e664168ebe39580b757adbe616f6cf85a16572af581ca7bc42d0ab13fd",
+      "size_bytes": 74252,
+      "architecture": "source",
+      "license": {
+        "spdx": "BSD-3-Clause",
+        "archive_paths": ["kissfft-febd4caeed32e33ad8b2e0bb5ea77542c40f18ec/COPYING", "kissfft-febd4caeed32e33ad8b2e0bb5ea77542c40f18ec/LICENSES/BSD-3-Clause"],
+        "files": [
+          { "archive_path": "kissfft-febd4caeed32e33ad8b2e0bb5ea77542c40f18ec/COPYING", "size_bytes": 246, "sha256": "a2840585f8411be8e6826a31ef15ae65c950bd74a2437a73b013398a934ad0c6" },
+          { "archive_path": "kissfft-febd4caeed32e33ad8b2e0bb5ea77542c40f18ec/LICENSES/BSD-3-Clause", "size_bytes": 1830, "sha256": "4d6bcab46f27d6d0c878e8305d4bdcfe040d52bf6656b9771f04c9fb9902c0ed" }
+        ]
+      }
+    },
+    {
+      "id": "openfst",
+      "version": "1.8.5-2026-07-09",
+      "required_by": "kaldifst-1.8.0",
+      "selection_note": "The top-level Sherpa CMAKE_MODULE_PATH resolves kaldifst's include(openfst) to Sherpa's pinned cmake/openfst.cmake.",
+      "file_name": "openfst-1.8.5-2026-07-09.tar.gz",
+      "url": "https://github.com/csukuangfj/openfst/archive/refs/tags/v1.8.5-2026-07-09.tar.gz",
+      "sha256": "2ff712a32952fcb01d351121a6bc8ccf4fdc6b2aa06ce8df2b3095dedd518c0e",
+      "size_bytes": 1501685,
+      "architecture": "source",
+      "license": { "spdx": "Apache-2.0", "archive_path": "openfst-1.8.5-2026-07-09/COPYING", "size_bytes": 559, "sha256": "4300529197035fd3452350718a0b8cee984e9412c9932d7f35fcde849fc97a4b" }
+    }
+  ]
+}

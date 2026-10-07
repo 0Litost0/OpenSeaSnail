@@ -1,0 +1,1359 @@
+openapi: 3.1.0
+info:
+  title: SeaSnail OpenAPI
+  version: 0.1.0
+  description: |
+    SeaSnail 本地音频转译服务的 HTTP/REST API。本地 UI 与第三方应用统一经此 API 接入（OpenAPI 为唯一集成面）。
+
+    ## 鉴权
+    Scoped Bearer Token，请求头 `Authorization: Bearer <token>`。token 独立于用户密码，可吊销、可多签、**绑 account_id**。
+    可用 scope：
+      - `sessions:read`    读取 / 搜索会话、取原始音频、导出
+      - `sessions:write`  创建会话、编辑转译文本（**仅本地 UI token 可得，不对第三方签发**）
+      - `sessions:delete` 删除会话（可按需签发给第三方）
+      - `tokens:manage`    管理 token（**仅本地 UI token 可得**）
+
+    **多账户模型**：MVP 支持多账户，每账户独立密码 + 独立 master DEK，账户间密钥完全隔离。日常免密只对**活跃账户**成立（其 DEK 缓存于 app 私有 keychain，`last_active_account_id` 记于非敏感 prefs 供重开取回）；切换账户需重新认证（`POST /accounts/{id}/unlock`）。
+
+    - 首个账户：`POST /auth/setup`（免鉴权、仅 loopback、仅"未初始化"态可用）建首个账户并签发该账户 **root token**（`is_root=true` + `account_id`，持有全部 scope），root token secret 存 app 私有 keychain，本地 UI 据此调用。
+    - 后续账户：`POST /accounts`（需任一已解锁账户的 root token）——无全局 root，靠"已解锁即可建新账户"（已确认）。
+    - 切换/解锁：`POST /accounts/{id}/unlock`（免鉴权 + password）→ 解 wrap 该账户 DEK 入 keychain 作活跃 → 签发/恢复该账户 root token。
+    - 第三方 token 经 `POST /tokens` 签发，**绑 account_id**（仅可访问该账户、且仅该账户已解锁时），**非 root 调用方不可被授予 `sessions:write` / `tokens:manage`**（daemon 硬约束），故第三方仅可得 `sessions:read` / `sessions:delete`。
+    - 改密走 `POST /auth/password`（需 root token + 当前密码）。
+
+    本地优先：服务监听本机；bootstrap 不走云端，token 由本地 UI 解锁后在 Integrations 面板生成。
+
+    ## 数据安全
+    入库数据（原始音频 + 转译内容）经加密落库（per-account 独立密钥）；读取 / 导出时由服务解密后返回。
+    **数据访问要求目标账户已解锁**（DEK 在内存）：token 的 account_id 与目标会话 account_id 不符 → 403；目标账户未解锁 → 423。
+    导出为敏感操作，需在请求体中提供用户密码再确认（作用于活跃账户）。
+
+servers:
+  - url: http://127.0.0.1:0/api/v1
+    description: 本地服务（端口由实例决定）
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: ss_live_
+  responses:
+    BadRequest:
+      description: 请求字段或语义无效
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+    Unauthorized:
+      description: 未携带或无效 token
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+    Forbidden:
+      description: 权限不足（缺 scope / 密码错误）
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+    NotFound:
+      description: 资源不存在
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+    Conflict:
+      description: 当前资源状态与请求冲突
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+    Gone:
+      description: 一次性资源已消费、过期或不可再用
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+    PayloadTooLarge:
+      description: 请求体超过接口限制
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+    UnprocessableEntity:
+      description: 请求可解析，但内容或当前配置不满足接口契约
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+    Locked:
+      description: 目标账户未解锁（DEK 不在内存，需先 POST /accounts/{id}/unlock）
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+    ServiceUnavailable:
+      description: 所需本地服务、bundle 或 manifest 暂不可用
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code: { type: string, example: insufficient_scope }
+            message: { type: string }
+          required: [code, message]
+      required: [error]
+    Speaker:
+      type: object
+      properties:
+        id: { type: string, example: A }
+        label: { type: string, example: 说话人 A }
+      required: [id, label]
+    TranscriptUnit:
+      type: object
+      properties:
+        speaker: { type: string, description: '关联 speakers[].id' }
+        start: { type: number, nullable: true, description: 起始秒；UNTIMED 时为空 }
+        end: { type: number, nullable: true, description: 结束秒；UNTIMED 时为空 }
+        text: { type: string }
+      required: [speaker, start, end, text]
+    Transcript:
+      type: object
+      properties:
+        full_text: { type: string }
+        units:
+          type: array
+          items: { $ref: '#/components/schemas/TranscriptUnit' }
+      required: [full_text, units]
+    SessionStatus:
+      type: string
+      enum: [transcribing, cleaning_up, completed, failed]
+    CleanupStatus:
+      type: string
+      enum: [not_requested, disabled, processing, succeeded, failed]
+    TextSource:
+      type: string
+      enum: [raw, cleanup]
+    ProviderType:
+      type: string
+      enum: [openai, openai_compatible_cloud, openai_compatible_self_hosted_public, openai_compatible_self_hosted_private]
+    CredentialState:
+      type: string
+      enum: [not_required, missing, bound, stale]
+    CredentialWriteRequest:
+      oneOf:
+        - type: object
+          properties:
+            mode: { type: string, const: credential }
+            credential:
+              type: string
+              format: password
+              writeOnly: true
+              minLength: 1
+              maxLength: 8192
+          required: [mode, credential]
+          additionalProperties: false
+        - type: object
+          properties:
+            mode: { type: string, const: no_auth }
+          required: [mode]
+          additionalProperties: false
+      description: 专用只写凭据载荷；no_auth 仅适用于允许无认证的自托管配置
+    CredentialStateResponse:
+      type: object
+      description: 凭据写入或删除后的脱敏状态；永不包含凭据
+      properties:
+        credential_state: { $ref: '#/components/schemas/CredentialState' }
+      required: [credential_state]
+    ProviderKind:
+      type: object
+      properties:
+        provider_type: { $ref: '#/components/schemas/ProviderType' }
+        requires_credential: { type: boolean }
+      required: [provider_type, requires_credential]
+    ProviderConfigInput:
+      type: object
+      properties:
+        name: { type: string, maxLength: 128 }
+        provider_type: { $ref: '#/components/schemas/ProviderType' }
+        endpoint: { type: string, maxLength: 2048, description: 不允许 userinfo、query 或 fragment；响应返回规范化值 }
+        model: { type: string, maxLength: 256, description: 用户手动填写；MVP 不调用 /models }
+      required: [name, provider_type, endpoint, model]
+    ProviderConfig:
+      type: object
+      description: 非 secret 配置视图；永不包含 credential 或 API Key
+      properties:
+        id: { type: string, format: uuid }
+        name: { type: string }
+        provider_type: { $ref: '#/components/schemas/ProviderType' }
+        endpoint: { type: string, description: 已规范化且不含 query 的 endpoint }
+        model: { type: string }
+        created_at: { type: string, format: date-time }
+        updated_at: { type: string, format: date-time }
+        credential_state: { $ref: '#/components/schemas/CredentialState' }
+      required: [id, name, provider_type, endpoint, model, created_at, updated_at, credential_state]
+    CleanupSettingsInput:
+      type: object
+      properties:
+        enabled: { type: boolean }
+        selected_provider_config_id: { type: string, format: uuid, nullable: true }
+        custom_prompt: { type: string, maxLength: 32768, nullable: true, description: 仅语义部分；daemon 追加不可编辑协议尾缀 }
+      required: [enabled, selected_provider_config_id, custom_prompt]
+    CleanupSettings:
+      allOf:
+        - $ref: '#/components/schemas/CleanupSettingsInput'
+        - type: object
+          properties:
+            default_prompt:
+              type: string
+              description: 当前 daemon 版本内置的默认语义 prompt；仅供 root 设置界面只读展示
+            protocol_prompt:
+              type: string
+              description: daemon 强制追加且不可编辑的协议尾缀；仅供 root 设置界面只读展示
+            updated_at: { type: string, format: date-time }
+            selected_credential_state:
+              allOf:
+                - $ref: '#/components/schemas/CredentialState'
+              nullable: true
+          required: [default_prompt, protocol_prompt, updated_at, selected_credential_state]
+    ProviderProbe:
+      type: object
+      description: 脱敏 Probe 结果；不包含 endpoint、credential 或上游响应正文
+      properties:
+        model: { type: string }
+        elapsed_ms: { type: integer, minimum: 0 }
+        token_cap: { type: string, enum: [server_bounded, client_only] }
+        structured_output: { type: boolean }
+      required: [model, elapsed_ms, token_cap, structured_output]
+    CleanupTestRequest:
+      type: object
+      description: Prompt Studio 一次性测试输入；prompt_draft 不持久化，省略时使用正式设置中的 prompt
+      properties:
+        provider_config_id: { type: string, format: uuid }
+        text: { type: string, minLength: 1, maxLength: 65536 }
+        prompt_draft: { type: string, maxLength: 32768, nullable: true }
+      required: [provider_config_id, text]
+      additionalProperties: false
+    CleanupTestCorrection:
+      type: object
+      properties:
+        original_text: { type: string, maxLength: 256 }
+        corrected_text: { type: string, maxLength: 256 }
+        kind: { type: string, enum: [phonetic, proper_noun, other_asr] }
+      required: [original_text, corrected_text, kind]
+    CleanupTestResult:
+      type: object
+      description: 已通过 JSON、正文、marker 和 correction 校验的结果；不含上游响应正文
+      properties:
+        cleaned_text: { type: string, maxLength: 131072 }
+        corrections:
+          type: array
+          maxItems: 32
+          items: { $ref: '#/components/schemas/CleanupTestCorrection' }
+        elapsed_ms: { type: integer, minimum: 0 }
+      required: [cleaned_text, corrections, elapsed_ms]
+    Session:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        created_at: { type: string, format: date-time }
+        source: { type: string, enum: [realtime, imported] }
+        language: { type: string, enum: [zh, en, mixed], description: 自动识别 }
+        duration_sec: { type: number }
+        status: { $ref: '#/components/schemas/SessionStatus' }
+        failure_reason: { type: string, nullable: true, description: status=failed 时返回的失败原因 }
+        model: { type: string, description: 使用的 ASR 模型标识 }
+        input_device: { type: string, nullable: true, description: 实时录制时的输入设备 }
+        file_name: { type: string, nullable: true, description: 导入文件名 }
+        context_present: { type: boolean, description: 创建时是否提交了剪贴板上下文；true 时 retry 复用已持久化的 context.pb.enc }
+        speakers:
+          type: array
+          items: { $ref: '#/components/schemas/Speaker' }
+        transcript:
+          allOf:
+            - $ref: '#/components/schemas/Transcript'
+          nullable: true
+          description: status=completed 时返回
+      required: [id, created_at, source, language, status, model]
+    SessionSummary:
+      type: object
+      description: 列表 / 搜索返回的会话摘要（不含 transcript）
+      properties:
+        id: { type: string, format: uuid }
+        created_at: { type: string, format: date-time }
+        source: { type: string, enum: [realtime, imported] }
+        language: { type: string, enum: [zh, en, mixed] }
+        duration_sec: { type: number }
+        status: { $ref: '#/components/schemas/SessionStatus' }
+        model: { type: string }
+        preview: { type: string, description: 转译文本前若干字 }
+        cleanup_status: { $ref: '#/components/schemas/CleanupStatus' }
+        text_source:
+          allOf:
+            - $ref: '#/components/schemas/TextSource'
+          nullable: true
+          description: completed 时最终正文来源；transcribing/cleaning_up 时为 null
+        cleanup_error_code:
+          type: string
+          nullable: true
+          description: 仅 root UI 可见的稳定 cleanup 诊断码
+      required: [id, created_at, source, language, status, cleanup_status]
+    SessionList:
+      type: object
+      properties:
+        items:
+          type: array
+          items: { $ref: '#/components/schemas/SessionSummary' }
+        next_cursor: { type: string, nullable: true, description: 不透明分页游标，透传回 cursor 查询参数 }
+      required: [items]
+    Token:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        account_id: { type: string, description: 所属账户（token 绑定此 account_id，仅可访问该账户且仅该账户已解锁时） }
+        name: { type: string, description: 用户命名 }
+        prefix: { type: string, example: ss_live_abcd…, description: 仅展示前缀 }
+        is_root: { type: boolean, description: 是否 root token（每账户自己的 root，is_root + account_id；仅 setup/unlock 签发，持有 write/manage scope） }
+        scopes:
+          type: array
+          items: { type: string }
+        created_at: { type: string, format: date-time }
+        last_used_at: { type: string, format: date-time, nullable: true }
+      required: [id, account_id, name, scopes, created_at]
+    TokenCreate:
+      type: object
+      properties:
+        name: { type: string }
+        scopes:
+          type: array
+          items: { type: string }
+          description: 从可用 scope 中选；非 root 调用方不可授予 sessions:write / tokens:manage（daemon 硬约束），仅 root 自身持有
+      required: [name, scopes]
+    TokenCreated:
+      allOf:
+        - $ref: '#/components/schemas/Token'
+        - type: object
+          properties:
+            secret: { type: string, description: 完整 token 明文，仅创建时返回一次 }
+          required: [secret]
+    AccountCreate:
+      type: object
+      description: 新建账户（独立密码 + 独立 master DEK，与其它账户密钥完全隔离）
+      properties:
+        username: { type: string }
+        password: { type: string, format: password }
+      required: [username, password]
+    AccountSummary:
+      type: object
+      properties:
+        id: { type: string, description: 不透明、稳定的账户标识（改名不影响密钥） }
+        username: { type: string }
+        created_at: { type: string, format: date-time }
+        is_active: { type: boolean, description: 是否当前活跃账户（DEK 在 keychain） }
+      required: [id, username, created_at, is_active]
+    ExportRequest:
+      type: object
+      properties:
+        password: { type: string, format: password, description: 用户密码（敏感操作再确认） }
+        session_ids:
+          type: array
+          items: { type: string, format: uuid }
+          description: 空 = 导出全部会话
+      required: [password]
+    Model:
+      type: object
+      properties:
+        id: { type: string, example: whisper-base }
+        runtime: { type: string, enum: [whisper, funasr, gguf, sherpa_onnx] }
+        size_bytes: { type: integer }
+        languages: { type: array, items: { type: string } }
+        diarization: { type: string, enum: [builtin, external, none] }
+        status: { type: string, enum: [not_installed, installed, active], description: 当前安装/激活状态 }
+        bundled: { type: boolean, description: 是否随 app 内置 }
+        default: { type: boolean, description: 是否默认模型 }
+        components:
+          type: array
+          description: funasr 后端可选组件（punc/spk）状态；无组件的运行时省略。
+          items: { $ref: '#/components/schemas/Component' }
+      required: [id, runtime, status]
+    Component:
+      type: object
+      properties:
+        id: { type: string, example: punc, description: 组件 id（punc/spk） }
+        bundled: { type: boolean, description: 是否随 app 内置 }
+        downloaded: { type: boolean, description: 已下载（用户目录或内置有该组件 → 可懒挂载） }
+        enabled: { type: boolean, description: 开关（daemon settings，懒加载：下条转写才挂/卸） }
+        toggleable: { type: boolean, description: UI 是否可操作（spk 后置→false；punc→true） }
+        size_bytes: { type: integer, description: 组件体积（M4.1 随包 models-manifest.json 提供权威值） }
+        download_progress: { type: number, format: float, nullable: true, description: 下载进度 0.0–1.0（M4 下载期） }
+      required: [id, bundled, downloaded, enabled, toggleable, size_bytes, download_progress]
+    DictionaryEntry:
+      type: object
+      description: 账户级 Dictionary 词条视图；不暴露 normalized_term、learning_event_id 或历史输入全文
+      properties:
+        id: { type: string, format: uuid }
+        term: { type: string, description: 用户确认的规范写法（保留大小写与兼容字符形式） }
+        source: { type: string, enum: [manual, learned], description: manual=用户明确维护；learned=自动学习获得 }
+        created_at: { type: string, format: date-time }
+        updated_at: { type: string, format: date-time }
+      required: [id, term, source, created_at, updated_at]
+    DictionaryPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items: { $ref: '#/components/schemas/DictionaryEntry' }
+        next_cursor: { type: string, nullable: true, description: 不透明分页游标，透传回 cursor 查询参数；与当前 query 摘要绑定，末页为 null }
+      required: [items]
+    AddDictionaryEntriesRequest:
+      type: object
+      description: 单条或小批量增量添加；整请求校验，任一词条非法或写入后超账户容量则零写入
+      properties:
+        terms:
+          type: array
+          minItems: 1
+          maxItems: 1000
+          items: { type: string, minLength: 1, maxLength: 128, description: 单词条最多 128 个 Unicode scalar value 且 UTF-8 不超过 512 bytes }
+      required: [terms]
+      additionalProperties: false
+    DictionaryMutationResult:
+      type: object
+      description: 增量写入统计；请求内重复及与既有 manual 冲突计入 skipped_count，与既有 learned 冲突提升为 manual
+      properties:
+        added:
+          type: array
+          items: { $ref: '#/components/schemas/DictionaryEntry' }
+        promoted:
+          type: array
+          description: 由 learned 提升为 manual 的词条（learning_event_id 已清空，不再受撤销影响）
+          items: { $ref: '#/components/schemas/DictionaryEntry' }
+        skipped_count: { type: integer, minimum: 0 }
+      required: [added, promoted, skipped_count]
+    ImportDictionaryCsvRequest:
+      type: object
+      description: JSON 包裹的 UTF-8 CSV 文本；固定单列 term 表头，RFC 4180 字段引用与双引号转义，允许 UTF-8 BOM 与 LF/CRLF；解析或校验失败整次零写入
+      properties:
+        csv: { type: string, minLength: 1, maxLength: 1048576, description: CSV 全文（按 UTF-8 计最多 1 MiB）；解析后数据记录最多 1000 条 }
+      required: [csv]
+      additionalProperties: false
+    DictionaryImportResult:
+      allOf:
+        - $ref: '#/components/schemas/DictionaryMutationResult'
+        - type: object
+          properties:
+            parsed_count: { type: integer, minimum: 0, description: CSV 解析出的数据记录数（不含表头与空白物理行） }
+          required: [parsed_count]
+    DictionaryImportPreview:
+      type: object
+      description: |
+        CSV 只读预览统计。valid_count 为通过词条校验并按 normalized_term 去重后的数量；
+        added_count、promoted_count、skipped_count 基于预览时的当前词典计算，正式提交仍会在事务内重新校验。
+      properties:
+        parsed_count: { type: integer, minimum: 0, description: CSV 解析出的数据记录数（不含表头与空白物理行） }
+        valid_count: { type: integer, minimum: 0, description: 校验通过且按 normalized_term 去重后的词条数 }
+        added_count: { type: integer, minimum: 0, description: 按预览时状态预计新增的词条数 }
+        promoted_count: { type: integer, minimum: 0, description: 按预览时状态预计由 learned 提升为 manual 的词条数 }
+        skipped_count: { type: integer, minimum: 0, description: 请求内重复及与既有 manual 冲突而预计跳过的记录数 }
+      required: [parsed_count, valid_count, added_count, promoted_count, skipped_count]
+    InjectionPlan:
+      type: object
+      description: 一次性注入计划；首次读取即消费，再读返回 410。learning_ticket 为自动学习能力票据，原生层在自动学习关闭或不启动观察时直接忽略（到期自然失效）
+      properties:
+        plain: { type: string, description: 合成后的普通全文（含剪贴板上下文标记） }
+        html: { type: string, description: 同位置的安全 HTML（ASR 文本与系统标记已转义、富文本已经过滤）；为空串时原生层降级为纯文本注入 }
+        learning_ticket: { type: string, description: 一次性短期学习票据（base64url；内存绑定账户/Session/本 plan generation，TTL 2 分钟，daemon 重启失效） }
+      required: [plain, html, learning_ticket]
+    LearningSubmission:
+      type: object
+      description: |
+        消费 learning ticket 提交一次学习。mode=cleanup：候选完全取自 ticket 绑定的已验证 Cleanup corrections，candidates 必须省略或为空；
+        mode=user_edit：candidates 为原生层从用户修改中提取的候选词条，daemon 侧再次执行统一词条校验。
+      properties:
+        ticket: { type: string, description: InjectionPlan 返回的 learning_ticket }
+        mode: { type: string, enum: [cleanup, user_edit] }
+        candidates:
+          type: array
+          maxItems: 32
+          items: { type: string, minLength: 1, maxLength: 128 }
+          description: 仅 mode=user_edit 时携带；mode=cleanup 时必须省略或为空
+      required: [ticket, mode]
+      additionalProperties: false
+    LearningResult:
+      type: object
+      description: 学习写入结果；没有实际新增时 learning_event_id=null，调用方不显示成功通知
+      properties:
+        learning_event_id: { type: string, nullable: true, description: 本批学习事件 ID（撤销凭据）；仅在实际新增时返回 }
+        added_terms:
+          type: array
+          items: { type: string }
+          description: 本批真正新增的规范词条（此前已存在的不重复计入）
+      required: [learning_event_id, added_terms]
+    UndoLearningResult:
+      type: object
+      properties:
+        undone_count: { type: integer, minimum: 0, description: 实际删除的词条数；重复撤销返回 0（幂等） }
+      required: [undone_count]
+
+security:
+  - bearerAuth: []
+
+paths:
+  /auth/status:
+    get:
+      summary: 查询初始化状态
+      description: 免鉴权。GUI 启动据此决定走 setup 或正常态。
+      security: []
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  initialized: { type: boolean }
+                required: [initialized]
+  /auth/setup:
+    post:
+      summary: 建首个账户并签发该账户 root token
+      description: |
+        免鉴权，仅 loopback，仅"未初始化"态可用（已有任何账户则返回 410）。
+        建首个账户：接收用户名+密码 → KDF→KEK→随机 master_DEK[acct]→wrapped-DEK[acct] 落盘 + master_DEK[acct] 存 app 私有 keychain（作活跃）
+        + 记 last_active_account_id → 签发该账户 root token（is_root=true + account_id，全 scope），明文 secret 仅返回一次。
+        后续账户改走 POST /accounts（需任一已解锁账户的 root token）。
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username: { type: string }
+                password: { type: string, format: password }
+              required: [username, password]
+      responses:
+        '201':
+          description: 已初始化
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TokenCreated' }
+        '410': { $ref: '#/components/responses/Gone' }
+  /auth/password:
+    post:
+      summary: 修改密码（重 wrap master_DEK[acct]，DEK 与历史内容不变）
+      description: |
+        需 root token（tokens:manage 仅 root 持有）+ 当前密码（知识因子，双重确认）。作用于 caller 的 account_id 账户。
+        校验当前密码（解开 wrapped-DEK[acct] 验证）→ 新密码 KDF 重 wrap master_DEK[acct] 落盘。master_DEK 与历史内容不变。
+        不影响 token：token secret 独立随机、不派生自密码，改密后所有 token 仍有效；要撤销某 token 走 DELETE /tokens/{id}。
+      x-required-scope: tokens:manage
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                current_password: { type: string, format: password }
+                new_password: { type: string, format: password }
+              required: [current_password, new_password]
+      responses:
+        '200': { description: 已修改 }
+        '403': { $ref: '#/components/responses/Forbidden' }
+  /accounts:
+    get:
+      summary: 列出账户
+      description: 需 root token。返回所有账户摘要（含 is_active 标记活跃账户）。
+      x-required-scope: tokens:manage
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/AccountSummary' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+    post:
+      summary: 追加账户（独立密码 + 独立 DEK，切换活跃）
+      description: |
+        需任一已解锁账户的 root token（无全局 root，靠"已解锁即可建新账户"——已确认）。
+        建独立账户：独立密码 → 独立 KEK → 独立 master_DEK[acct] → 独立 wrapped-DEK[acct] 落盘
+        → 切换活跃至新账户（DEK 入 keychain + 记 last_active_account_id）
+        → 签发该新账户 root token，明文 secret 仅返回一次。
+      x-required-scope: tokens:manage
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/AccountCreate' }
+      responses:
+        '201':
+          description: 已创建并切为活跃
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TokenCreated' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+  /accounts/{id}:
+    parameters:
+      - { in: path, name: id, required: true, schema: { type: string } }
+    delete:
+      summary: 删除账户（删该账户全部数据）
+      description: |
+        需 root token。删该账户的 DB + 文件树 + wrapped-DEK + keychain 项。
+        活跃账户删除后回退到 setup/选账户态；活跃账户不可直接删（先切走），否则 409。
+      x-required-scope: tokens:manage
+      responses:
+        '204': { description: 已删除 }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /accounts/{id}/unlock:
+    parameters:
+      - { in: path, name: id, required: true, schema: { type: string } }
+    post:
+      summary: 切换/解锁账户
+      description: |
+        免鉴权（密码作知识因子）+ 仅 loopback。输该账户密码 → KDF→KEK→解 wrapped-DEK[acct] 验证
+        → master_DEK[acct] 入 keychain 作活跃（替换旧活跃项）→ 签发该账户 root token
+        → 更新 last_active_account_id。旧活跃账户 DEK 移出 keychain（其 wrapped-DEK 留盘）。
+        明文 root token secret 仅返回一次，并缓存 keychain 供日常免密。
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password: { type: string, format: password }
+              required: [password]
+      responses:
+        '200':
+          description: 已解锁并切为活跃
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TokenCreated' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /sessions:
+    get:
+      summary: 列出会话
+      x-required-scope: sessions:read
+      parameters:
+        - { in: query, name: cursor, schema: { type: string }, description: 分页游标 }
+        - { in: query, name: limit, schema: { type: integer, default: 50 } }
+        - { in: query, name: source, schema: { type: string, enum: [realtime, imported] } }
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/SessionList' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '423': { $ref: '#/components/responses/Locked' }
+    post:
+      summary: 创建会话（提交音频做转译）
+      description: |
+        仅本地 UI（sessions:write）。multipart 上传音频；服务经 ASR runtime 转译并加密落库。
+        异步：返回 202 + transcribing 状态，轮询 GET /sessions/{id} 直到 status=completed。
+      x-required-scope: sessions:write
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                audio: { type: string, format: binary }
+                source: { type: string, enum: [realtime, imported], description: 可选；缺省 imported（文件导入语义；realtime 由 GUI 显式置位） }
+                language: { type: string, enum: [zh, en, mixed], description: 可选；缺省 mixed（自动识别后置） }
+                input_device: { type: string, description: 可选；实时录制时由 GUI 壳填写的输入设备名称 }
+                clipboard_context: { type: string, format: binary, description: 可选；录音期剪贴板上下文的序列化 ClipboardContextFile（protobuf；application/octet-stream）。仅本地 GUI 壳提交，服务端立即加密落库为 context.pb.enc；缺失时与旧客户端完全兼容 }
+              required: [audio]
+      responses:
+        '202':
+          description: 已接受，转译中
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: { type: string, format: uuid }
+                  status: { type: string, enum: [transcribing] }
+                required: [id, status]
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '413': { $ref: '#/components/responses/PayloadTooLarge' }
+  /sessions/search:
+    get:
+      summary: 搜索会话
+      x-required-scope: sessions:read
+      parameters:
+        - { in: query, name: q, required: true, schema: { type: string } }
+        - { in: query, name: cursor, schema: { type: string } }
+        - { in: query, name: limit, schema: { type: integer, default: 50 } }
+        - { in: query, name: source, schema: { type: string, enum: [realtime, imported] } }
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/SessionList' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '423': { $ref: '#/components/responses/Locked' }
+  /sessions/{id}:
+    parameters:
+      - { in: path, name: id, required: true, schema: { type: string, format: uuid } }
+    get:
+      summary: 获取会话详情（含转译文本、说话人）
+      x-required-scope: sessions:read
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Session' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '423': { $ref: '#/components/responses/Locked' }
+    delete:
+      summary: 删除会话及原始音频
+      x-required-scope: sessions:delete
+      responses:
+        '204': { description: 已删除 }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '423': { $ref: '#/components/responses/Locked' }
+  /sessions/{id}/audio:
+    parameters:
+      - { in: path, name: id, required: true, schema: { type: string, format: uuid } }
+    get:
+      summary: 获取原始音频（解密后返回）
+      x-required-scope: sessions:read
+      responses:
+        '200':
+          description: 音频二进制
+          content:
+            audio/*:
+              schema: { type: string, format: binary }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '423': { $ref: '#/components/responses/Locked' }
+  /sessions/{id}/retry:
+    parameters:
+      - { in: path, name: id, required: true, schema: { type: string, format: uuid } }
+    post:
+      summary: 重试失败会话（对已存音频重新转写）
+      description: |
+        仅本地 UI（sessions:write）。对 status=failed 的会话重新转写已持久化的音频，免重传。
+        status 回到 transcribing，轮询 GET /sessions/{id} 至 completed/failed。活跃 sidecar 占用或退避中返回 409。
+      x-required-scope: sessions:write
+      responses:
+        '202':
+          description: 已接受，转写中
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: { type: string, format: uuid }
+                  status: { type: string, enum: [transcribing] }
+                required: [id, status]
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /sessions/{id}/injection-plan:
+    parameters:
+      - { in: path, name: id, required: true, schema: { type: string, format: uuid } }
+    get:
+      summary: 获取一次性注入计划（自动粘贴专用）
+      description: |
+        Tauri 原生层专用（root token，禁止经 WebView 通用 API 代理）。返回合成后的 plain/html 全文，
+        原生层据此写剪贴板并模拟 Cmd+V；首次读取即标记消费，再次读取返回 410。
+        响应附带 learning_ticket：自动粘贴成功且自动学习开启时，原生观察层凭它在有限观察窗口内
+        提交一次学习；不启动观察时直接忽略，ticket 到期自然失效。
+      x-internal: true
+      x-required-root: true
+      responses:
+        '200':
+          description: 注入计划（一次性，已标记消费）
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/InjectionPlan' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '410': { $ref: '#/components/responses/Gone' }
+        '423': { $ref: '#/components/responses/Locked' }
+  /export:
+    post:
+      summary: 导出（明文目录树归档）
+      description: |
+        作用于活跃账户：校验其密码（解开 wrapped-DEK[acct] 验证）后，按与存储同构的目录树（account/date/session/）
+        导出明文：原始音频 + 转译文本（JSON，含说话人 + 时间戳）。返回 zip 归档。密码错误返回 403。
+      x-required-scope: sessions:read
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ExportRequest' }
+      responses:
+        '200':
+          description: zip 归档
+          content:
+            application/zip:
+              schema: { type: string, format: binary }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '423': { $ref: '#/components/responses/Locked' }
+  /tokens:
+    get:
+      summary: 列出 token
+      x-required-scope: tokens:manage
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Token' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+    post:
+      summary: 创建 token
+      x-required-scope: tokens:manage
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/TokenCreate' }
+      responses:
+        '201':
+          description: 已创建
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TokenCreated' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+  /tokens/{id}:
+    parameters:
+      - { in: path, name: id, required: true, schema: { type: string, format: uuid } }
+    delete:
+      summary: 吊销 token
+      x-required-scope: tokens:manage
+      responses:
+        '204': { description: 已吊销 }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /reasoning/providers:
+    get:
+      summary: 列出 cleanup provider 类型及 credential 要求
+      description: 仅 root token；返回 registry 的非敏感能力摘要。
+      x-required-root: true
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/ProviderKind' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '423': { $ref: '#/components/responses/Locked' }
+  /reasoning/provider-configs:
+    get:
+      summary: 列出当前账户的 provider 配置
+      description: 仅 root token；不返回 credential。
+      x-required-root: true
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/ProviderConfig' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '423': { $ref: '#/components/responses/Locked' }
+    post:
+      summary: 创建 provider 配置
+      description: 仅保存非 secret 配置；credential 使用专用 internal IPC 设置。
+      x-required-root: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ProviderConfigInput' }
+      responses:
+        '201':
+          description: 已创建
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ProviderConfig' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '423': { $ref: '#/components/responses/Locked' }
+  /reasoning/provider-configs/{id}:
+    parameters:
+      - { in: path, name: id, required: true, schema: { type: string, format: uuid } }
+    put:
+      summary: 替换 provider 的非 secret 配置
+      description: endpoint/provider type 改变后既有 credential 进入 stale，且当前 cleanup 自动关闭。
+      x-required-root: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ProviderConfigInput' }
+      responses:
+        '200':
+          description: 已更新
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ProviderConfig' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '423': { $ref: '#/components/responses/Locked' }
+    delete:
+      summary: 删除 provider 配置
+      description: 先删除对应 Keychain credential，再删除配置；若当前选中则同步关闭 cleanup。
+      x-required-root: true
+      responses:
+        '204': { description: 已删除 }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '423': { $ref: '#/components/responses/Locked' }
+  /reasoning/provider-configs/{id}/probe:
+    parameters:
+      - { in: path, name: id, required: true, schema: { type: string, format: uuid } }
+    post:
+      summary: 单次验证 provider 可达性与已填写 model
+      description: 30 秒硬超时，不调用 /models、不重试；响应和错误均脱敏。
+      x-required-root: true
+      responses:
+        '200':
+          description: Probe 成功
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ProviderProbe' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/UnprocessableEntity' }
+        '423': { $ref: '#/components/responses/Locked' }
+  /internal/reasoning/provider-configs/{id}/credential:
+    parameters:
+      - { in: path, name: id, required: true, schema: { type: string, format: uuid } }
+    put:
+      summary: 写入 provider credential 或显式选择无认证
+      description: Tauri 与 daemon 的内部 loopback 契约；仅 root token，禁止经 WebView 通用 API 代理，请求体不得记录日志。
+      x-internal: true
+      x-required-root: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/CredentialWriteRequest' }
+      responses:
+        '200':
+          description: 已更新凭据状态
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/CredentialStateResponse' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '423': { $ref: '#/components/responses/Locked' }
+    delete:
+      summary: 删除 provider credential
+      description: Tauri 与 daemon 的内部 loopback 契约；仅 root token，不存在对应的读取接口。
+      x-internal: true
+      x-required-root: true
+      responses:
+        '200':
+          description: 已删除并返回脱敏状态
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/CredentialStateResponse' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '423': { $ref: '#/components/responses/Locked' }
+  /internal/dictionary/learning-events:
+    post:
+      summary: 消费 learning ticket 并提交一次学习
+      description: |
+        Tauri 原生观察层专用（root token，禁止经 WebView 通用 API 代理）。ticket 一次性、短期有效（TTL 2 分钟），
+        内存绑定账户/Session/InjectionPlan generation；账户已切换、Session 非已完成或 generation 不匹配返回 409
+        （learning_ticket_mismatch），过期、已消费或因容量淘汰返回 410（learning_ticket_expired /
+        learning_ticket_consumed），编码非法返回 400（learning_ticket_invalid）。账户锁定沿用全局 423（locked）
+        映射；ticket 在账户校验前已原子消费，任何拒绝均不可重放。
+        mode=cleanup 时候选完全取自 ticket 绑定的已验证 Cleanup corrections（仅 proper_noun/phonetic），
+        附带 candidates 或 mode 非法返回 400；mode=user_edit 的 candidates 最多 32 项，由 daemon 再次执行
+        统一词条校验，词条数量或内容不合法返回 422（dictionary_invalid_term）。
+        同一 Session 的 cleanup 采纳与 user_edit 学习归并为单次学习结果。错误 message 不含词条、ticket 或目标输入框文本。
+      x-internal: true
+      x-required-root: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/LearningSubmission' }
+      responses:
+        '200':
+          description: 学习写入结果；无实际新增时 learning_event_id=null
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/LearningResult' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '410': { $ref: '#/components/responses/Gone' }
+        '422': { $ref: '#/components/responses/UnprocessableEntity' }
+        '423': { $ref: '#/components/responses/Locked' }
+  /internal/dictionary/learning-events/{id}/undo:
+    parameters:
+      - { in: path, name: id, required: true, schema: { type: string }, description: LearningResult 返回的 learning_event_id }
+    post:
+      summary: 撤销一批学习新增
+      description: |
+        Tauri 原生层专用（root token，禁止经 WebView 通用 API 代理）。仅删除该事件真正新增且仍为 learned 的词条
+        （期间被用户编辑或确认提升为 manual 的不受影响）。幂等：重复撤销返回 undone_count=0。
+      x-internal: true
+      x-required-root: true
+      responses:
+        '200':
+          description: 撤销结果（幂等）
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/UndoLearningResult' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '423': { $ref: '#/components/responses/Locked' }
+  /cleanup/settings:
+    get:
+      summary: 读取当前账户的 cleanup 设置
+      description: 仅 root token；无 settings 行时返回默认关闭。
+      x-required-root: true
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/CleanupSettings' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '423': { $ref: '#/components/responses/Locked' }
+    put:
+      summary: 保存当前账户的 cleanup 设置
+      description: 仅在选中配置完整且 credential state 可用时允许启用；自定义 prompt 在保存时完整验证。
+      x-required-root: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/CleanupSettingsInput' }
+      responses:
+        '200':
+          description: 已保存
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/CleanupSettings' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '423': { $ref: '#/components/responses/Locked' }
+  /cleanup/test:
+    post:
+      summary: 执行一次 Prompt Studio cleanup 测试
+      description: 仅 root token；固定 30 秒硬超时，与 Probe 同账户 single-flight。草稿和结果只存在于本次请求，不创建 session/artifact/cache，也不修改正式 prompt。
+      x-required-root: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/CleanupTestRequest' }
+      responses:
+        '200':
+          description: cleanup 测试成功
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/CleanupTestResult' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/UnprocessableEntity' }
+        '423': { $ref: '#/components/responses/Locked' }
+  /dictionary:
+    get:
+      summary: 搜索/分页列出当前账户的 Dictionary 词条
+      description: |
+        仅 root token。排序固定为 manual 在前、learned 在后，同来源按 updated_at DESC, id ASC。
+        query 经统一规范化后对 normalized_term 做包含匹配（SQL LIKE 的 %、_ 与 escape 字符按普通字符处理）。
+        cursor 绑定排序元组与 query 摘要：无法解码、与当前 query 不匹配或指向非法排序值时返回 400。
+      x-required-root: true
+      parameters:
+        - { in: query, name: query, schema: { type: string, maxLength: 128 }, description: 可选；最多 128 个 Unicode scalar value }
+        - { in: query, name: cursor, schema: { type: string }, description: 分页游标（上一页响应的 next_cursor 原样透传） }
+        - { in: query, name: limit, schema: { type: integer, default: 50, minimum: 1, maximum: 200 } }
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/DictionaryPage' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '423': { $ref: '#/components/responses/Locked' }
+  /dictionary/entries:
+    post:
+      summary: 增量添加词条（单条或小批量）
+      description: |
+        仅 root token。整请求校验：任一词条非法（空值/控制字符/纯标点空白/超长）或写入后将超过单账户容量
+        （1,000 条）时返回 422 且零写入（dictionary_invalid_term / dictionary_limit_exceeded）。
+        增量语义：请求内重复与既有 manual 词条计入 skipped_count；与既有 learned 词条冲突时更新其规范写法、
+        提升为 manual 并清空 learning_event_id（计入 promoted）。新增、提升与去重在同一事务内完成，
+        数据库 UNIQUE(normalized_term) 为最终并发去重边界；并发冲突折算到 skipped_count，不暴露 409。
+      x-required-root: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/AddDictionaryEntriesRequest' }
+      responses:
+        '200':
+          description: 增量写入统计（部分词条可能计入 promoted/skipped）
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/DictionaryMutationResult' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '413': { $ref: '#/components/responses/PayloadTooLarge' }
+        '422': { $ref: '#/components/responses/UnprocessableEntity' }
+        '423': { $ref: '#/components/responses/Locked' }
+    delete:
+      summary: 清空当前账户全部用户词条
+      description: 仅 root token；幂等。删除全部 manual 与 learned 词条（未来系统保护词条不经本操作删除）。UI 必须先明确影响并二次确认。
+      x-required-root: true
+      responses:
+        '204': { description: 已清空（幂等） }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '423': { $ref: '#/components/responses/Locked' }
+  /dictionary/entries/{id}:
+    parameters:
+      - { in: path, name: id, required: true, schema: { type: string, format: uuid } }
+    put:
+      summary: 编辑词条的规范写法
+      description: |
+        仅 root token。仅接受 {term}，由服务端执行权威规范化。与另一词条规范化冲突返回 409（dictionary_conflict）。
+        编辑 learned 词条会将其提升为 manual 并清空 learning_event_id（不再受撤销影响）。
+      x-required-root: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                term: { type: string, minLength: 1, maxLength: 128 }
+              required: [term]
+              additionalProperties: false
+      responses:
+        '200':
+          description: 已更新
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/DictionaryEntry' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/UnprocessableEntity' }
+        '423': { $ref: '#/components/responses/Locked' }
+    delete:
+      summary: 删除单条词条
+      description: 仅 root token；幂等，存在或不存在均返回 204。
+      x-required-root: true
+      responses:
+        '204': { description: 已删除（幂等） }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '423': { $ref: '#/components/responses/Locked' }
+  /dictionary/imports/preview:
+    post:
+      summary: 预览 CSV 增量导入结果
+      description: |
+        仅 root token。使用与正式导入相同的 CSV 解析、词条校验、规范化和当前词典状态，返回只读统计，
+        不写入词条或学习事件。预览不锁定数据库状态；正式提交时必须重新校验并以提交结果为准。
+      x-required-root: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ImportDictionaryCsvRequest' }
+      responses:
+        '200':
+          description: 导入预览统计（解析/有效/预计新增/预计提升/预计跳过）
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/DictionaryImportPreview' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '413': { $ref: '#/components/responses/PayloadTooLarge' }
+        '422': { $ref: '#/components/responses/UnprocessableEntity' }
+        '423': { $ref: '#/components/responses/Locked' }
+  /dictionary/imports:
+    post:
+      summary: CSV 增量导入词条
+      description: |
+        仅 root token。body 为 JSON 包裹的 UTF-8 CSV 文本：固定且仅允许单列 term 表头，RFC 4180 字段引用与双引号
+        转义，允许 UTF-8 BOM 与 LF/CRLF，空白物理行忽略。CSV 语法错误、缺少/重复/未知表头、额外列、显式空 term、
+        非法词条或超过 1,000 条数据记录时返回 422（dictionary_csv_invalid / dictionary_invalid_term），
+        整次导入零写入。合法请求在一个事务内增量插入，不删除既有词条；合法重复记录按增量语义计入 skipped_count。
+        客户端可先调用 /dictionary/imports/preview 展示预计统计；正式提交会重新校验，最终以本响应为准。
+      x-required-root: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ImportDictionaryCsvRequest' }
+      responses:
+        '200':
+          description: 导入统计（解析数/新增/提升/跳过）
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/DictionaryImportResult' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '413': { $ref: '#/components/responses/PayloadTooLarge' }
+        '422': { $ref: '#/components/responses/UnprocessableEntity' }
+        '423': { $ref: '#/components/responses/Locked' }
+  /dictionary/export:
+    get:
+      summary: 导出当前账户全部用户词条为 CSV
+      description: |
+        Tauri 原生 command 专用（root token，禁止经 WebView 通用 API 代理）：原生层获取完整 CSV 后弹保存对话框
+        写文件，文件路径不进入 daemon，导出不依赖 UI 当前分页状态。固定输出 term 表头 + RFC 4180 记录，
+        不输出 BOM、内部 ID、来源、时间戳或事件 ID；顺序固定 normalized_term ASC, id ASC；
+        导出内容可由 POST /dictionary/imports 无损重新导入。
+      x-internal: true
+      x-required-root: true
+      responses:
+        '200':
+          description: "UTF-8 CSV（Content-Type: text/csv; charset=utf-8；下载文件名 seasnail-dictionary.csv）"
+          content:
+            text/csv:
+              schema: { type: string }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '423': { $ref: '#/components/responses/Locked' }
+  /models:
+    get:
+      summary: 列出模型（已装 + 可装）
+      x-required-scope: sessions:read
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Model' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+  /models/{id}:
+    parameters:
+      - { in: path, name: id, required: true, schema: { type: string } }
+    post:
+      summary: 激活模型
+      description: |
+        仅本地 UI（sessions:write）。`action=activate` 切换活跃模型（复用模型切换链路）；
+        活跃 sidecar 转写中时返回 409。对已激活模型重复请求会返回当前状态，不重启运行时。
+        最终 release 仅允许激活默认 GGUF 模型；非默认后端仅能由带
+        `debug-backend-switching` 构建标识的内部迁移包显式选择，并在重启后生效。
+        多模型下载、下载进度与卸载属于 P1，尚未暴露 API。
+      x-required-scope: sessions:write
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                action: { type: string, enum: [activate] }
+              required: [action]
+      responses:
+        '202':
+          description: 已接受（下载中 / 切换中）
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Model' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+    put:
+      summary: 开/关可选组件（punc/spk）
+      description: |
+        仅本地 UI（sessions:write）。懒加载：仅持久化 `enabled`，下一条转写才挂载/卸载。
+        未下载即开启 → 422。`{id}`∈{punc,spk} 为可选组件，与 activate（`{id}`∈后端 id）
+        语义不同；同路径不同方法，不撞。
+      x-required-scope: sessions:write
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                enabled: { type: boolean }
+              required: [enabled]
+      responses:
+        '202': { description: 已持久化（懒，下条转写生效） }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '422': { $ref: '#/components/responses/UnprocessableEntity' }
+  /models/{id}/download:
+    parameters:
+      - { in: path, name: id, required: true, schema: { type: string } }
+    post:
+      summary: 按需下载组件（punc/spk）
+      description: |
+        仅本地 UI（sessions:write）。对未下载组件触发后台下载（HTTP Range 断点续传 + 逐文件
+        SHA-256 校验），立即返回 202；进度经 GET /models 的 Component.download_progress 轮询。
+        已下载重复请求幂等返 202；下载进行中再发返 409。`{id}`∈{punc,spk}；spk 本次后置 → 422。
+        与 `/models/{id}` 的 activate(POST)/开关(PUT) 路径段数不同，不撞。
+      x-required-scope: sessions:write
+      responses:
+        '202': { description: 已接受，下载中（轮询 GET /models 取 download_progress） }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/UnprocessableEntity' }
+        '503': { $ref: '#/components/responses/ServiceUnavailable' }

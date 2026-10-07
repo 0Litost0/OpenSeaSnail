@@ -1,0 +1,31 @@
+{
+  "protocol_version": 1,
+  "catalog_id": "sensevoice-small-sherpa-int8",
+  "text": "你好 world",
+  "segments": [
+    {
+      "start_seconds": 0.1,
+      "end_seconds": 0.8,
+      "text": "你好",
+      "decoded_tokens": ["你", "好"],
+      "token_start_seconds": [0.1, 0.4],
+      "language": "zh",
+      "event": null
+    },
+    {
+      "start_seconds": 1.0,
+      "end_seconds": 1.8,
+      "text": " world",
+      "decoded_tokens": [" world"],
+      "token_start_seconds": null,
+      "language": "en",
+      "event": null
+    }
+  ],
+  "transforms": {
+    "use_itn": true,
+    "rule_fsts": false,
+    "homophone_replacer": false,
+    "post_decode_text_modified": false
+  }
+}

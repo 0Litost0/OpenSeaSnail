@@ -1,0 +1,17 @@
+--- a/crates/daemon/src/application/transcription.rs
++++ b/crates/daemon/src/application/transcription.rs
+@@ -883,6 +883,14 @@
+             }
+         },
+         CleanupExecution::Failed { artifact } => {
++            // MUT-CLEAN-FALLBACK-001: incorrectly persist an error placeholder as raw/final text.
++            let mut wrong_fallback = transcript.clone();
++            wrong_fallback.full_text = "MUTATION_WRONG_FALLBACK".into();
++            wrong_fallback.units.truncate(1);
++            wrong_fallback.units[0].text = wrong_fallback.full_text.clone();
++            if storage.write_transcript(&job.session_id, job.created_at, &wrong_fallback).is_err() {
++                return;
++            }
+             let error_code = cleanup_failure_code(&artifact.error_code);
+             match write_cleanup_preserving_core(
+                 &storage,

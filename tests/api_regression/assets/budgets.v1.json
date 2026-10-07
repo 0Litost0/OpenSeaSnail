@@ -1,0 +1,33 @@
+{
+  "version": "macos-baseline-v1",
+  "status": "approved",
+  "approval": {
+    "date": "2026-10-06",
+    "authority": "user",
+    "record": "tests/api_regression/docs/quality-approval.v2.md"
+  },
+  "platform": {
+    "os": "darwin",
+    "arch": "arm64"
+  },
+  "milliseconds": {
+    "startup": 30000,
+    "model_ready": 90000,
+    "api_request": 5000,
+    "business_case": 60000,
+    "graceful_stop": 10000,
+    "force_stop_wait": 3000,
+    "directory_cleanup": 2000,
+    "teardown_total": 15000,
+    "report_check": 5000
+  },
+  "evidence": {
+    "retention_days": 7,
+    "log_bytes_per_attempt": 262144,
+    "published_bytes_per_run": 67108864,
+    "raw_bytes_per_run": 268435456,
+    "zip_expanded_bytes_max": 268435456,
+    "zip_entries_max": 10000
+  },
+  "basis": "Initial budgets combine prior PoC deadlines/observations with M1 real-model measurements. PoC loads the model before HTTP readiness and cannot separately measure production startup/model readiness. M2/M3 must verify those phases, cleanup and report budgets; exceedance is an explicit failure requiring review, never an automatic extension."
+}

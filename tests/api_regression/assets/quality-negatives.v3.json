@@ -1,0 +1,42 @@
+{
+  "version": "quality-negatives-v3",
+  "rule_version": "quality-v3",
+  "cases": [
+    {
+      "sample_id": "fleurs-zh-v1",
+      "kind": "empty",
+      "text": "",
+      "expected_meets_rule": false
+    },
+    {
+      "sample_id": "fleurs-zh-v1",
+      "kind": "missing-required-term",
+      "text": "“这并不是。这是一个篇章的结束，也是新篇章的开始。”",
+      "expected_meets_rule": false
+    },
+    {
+      "sample_id": "fleurs-zh-v1",
+      "kind": "wrong-transcription",
+      "text": "天气晴朗。今天吃午饭。",
+      "expected_meets_rule": false
+    },
+    {
+      "sample_id": "fleurs-en-v1",
+      "kind": "empty",
+      "text": "",
+      "expected_meets_rule": false
+    },
+    {
+      "sample_id": "fleurs-en-v1",
+      "kind": "missing-required-term",
+      "text": "All , alongside the word Sie for you, always begin with a capital letter, even in the middle of a sentence.",
+      "expected_meets_rule": false
+    },
+    {
+      "sample_id": "fleurs-en-v1",
+      "kind": "wrong-transcription",
+      "text": "The weather is sunny. We are eating lunch.",
+      "expected_meets_rule": false
+    }
+  ]
+}

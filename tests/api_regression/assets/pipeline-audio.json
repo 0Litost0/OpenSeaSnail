@@ -1,0 +1,13 @@
+{
+  "id": "pipeline-v1",
+  "audio_path": "assets/audio/pipeline-v1.wav",
+  "audio_sha256": "552e9639fab793816d5ebfdb95242fa12eb14e8b9836b511763041b683234510",
+  "bytes": 32044,
+  "duration_ms": 1000,
+  "source": {
+    "kind": "procedural-triangle-wave",
+    "generator": "scripts/generate_audio.py:pipeline_wav",
+    "license": "Apache-2.0",
+    "scope": "Non-speech PCM for deterministic upload/normalization/persistence tests; not ASR quality evidence."
+  }
+}

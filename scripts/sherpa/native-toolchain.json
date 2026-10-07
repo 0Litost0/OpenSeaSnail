@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "clang": "Apple clang version 21.0.0 (clang-2100.1.1.101)",
+  "sdk_version": "26.5",
+  "sdk_build": "25F70",
+  "cmake": "4.4.2"
+}

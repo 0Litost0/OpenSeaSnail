@@ -1,0 +1,13 @@
+{
+  "version": "v1",
+  "scenarios": {
+    "disabled": { "expected_requests": 0 },
+    "success": { "http_status": 200, "content": { "cleaned_text": "海螺支持语音转写和词典功能。", "corrections": [] }, "expected_cleanup_status": "succeeded" },
+    "http-503": { "http_status": 503, "expected_cleanup_status": "failed", "expected_error_code": "cleanup_http_server" },
+    "invalid-json": { "http_status": 200, "content": "not JSON", "expected_cleanup_status": "failed", "expected_error_code": "cleanup_response_invalid_json" },
+    "timeout": { "behavior": "accept-request-and-hold-response-until-product-deadline", "expected_cleanup_status": "failed", "expected_error_code": "cleanup_timeout" },
+    "interrupted": { "behavior": "close-connection-without-response", "expected_cleanup_status": "failed", "expected_error_code": "cleanup_transport_error" }
+  },
+  "failure_final_text": "original transcript",
+  "credential_handling": "generated per attempt; compare in memory; retain only authenticated boolean and allowlisted business input"
+}

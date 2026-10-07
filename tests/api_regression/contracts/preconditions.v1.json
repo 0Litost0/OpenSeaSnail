@@ -1,0 +1,120 @@
+{
+  "version": "v1",
+  "preconditions": {
+    "AUTH-001-setup-v1": {
+      "description": "auth；空 home",
+      "setup_boundary": "product-http-api",
+      "independent_attempt": true
+    },
+    "AUTH-002-setup-v1": {
+      "description": "auth；A/B 账户",
+      "setup_boundary": "product-http-api",
+      "independent_attempt": true
+    },
+    "AUTH-003-setup-v1": {
+      "description": "auth；A 与既有数据/token",
+      "setup_boundary": "product-http-api",
+      "independent_attempt": true
+    },
+    "AUTH-004-setup-v1": {
+      "description": "auth；A/B 账户",
+      "setup_boundary": "product-http-api",
+      "independent_attempt": true
+    },
+    "TOKEN-001-setup-v1": {
+      "description": "auth；活跃账户",
+      "setup_boundary": "product-http-api",
+      "independent_attempt": true
+    },
+    "TOKEN-002-setup-v1": {
+      "description": "auth；有效受限 token",
+      "setup_boundary": "product-http-api",
+      "independent_attempt": true
+    },
+    "DICT-001-setup-v1": {
+      "description": "dictionary；A",
+      "setup_boundary": "product-http-api",
+      "independent_attempt": true
+    },
+    "DICT-002-setup-v1": {
+      "description": "dictionary；A/B 各有不同词条",
+      "setup_boundary": "product-http-api",
+      "independent_attempt": true
+    },
+    "ASR-001-setup-v1": {
+      "description": "sessions；确定性 ASR + 规范 WAV",
+      "setup_boundary": "product-http-api",
+      "independent_attempt": true
+    },
+    "ASR-002-setup-v1": {
+      "description": "sessions；确定性 ASR 失败/修复配置",
+      "setup_boundary": "product-http-api",
+      "independent_attempt": true
+    },
+    "CLEAN-001-setup-v1": {
+      "description": "clean；realtime + enabled + 成功 provider",
+      "setup_boundary": "product-http-api",
+      "independent_attempt": true
+    },
+    "CLEAN-002-setup-v1": {
+      "description": "clean；realtime + HTTP 503",
+      "setup_boundary": "product-http-api",
+      "independent_attempt": true
+    },
+    "CLEAN-003-setup-v1": {
+      "description": "clean；realtime + 非法输出",
+      "setup_boundary": "product-http-api",
+      "independent_attempt": true
+    },
+    "CLEAN-004-setup-v1": {
+      "description": "clean；realtime + 超时 provider",
+      "setup_boundary": "product-http-api",
+      "independent_attempt": true
+    },
+    "CLEAN-005-setup-v1": {
+      "description": "clean；分别关闭 enabled、使用 imported",
+      "setup_boundary": "product-http-api",
+      "independent_attempt": true
+    },
+    "RECOVERY-001-setup-v1": {
+      "description": "lifecycle；持久化 Keychain、业务数据与 provider 凭据",
+      "setup_boundary": "product-http-api",
+      "independent_attempt": true
+    },
+    "RECOVERY-002-setup-v1": {
+      "description": "lifecycle；移除 MasterDek/启动时读失败",
+      "setup_boundary": "product-http-api",
+      "independent_attempt": true
+    },
+    "SHERPA-001-setup-v1": {
+      "description": "sherpa；正式样本/制品/质量规则",
+      "setup_boundary": "product-http-api",
+      "independent_attempt": true
+    },
+    "SYSTEM-001-setup-v1": {
+      "description": "framework；代表性 auth/clean/dictionary 用例",
+      "setup_boundary": "product-http-api",
+      "independent_attempt": true
+    },
+    "SYSTEM-002-setup-v1": {
+      "description": "framework；独立子运行控制器",
+      "setup_boundary": "product-http-api",
+      "independent_attempt": true
+    },
+    "SYSTEM-003-setup-v1": {
+      "description": "framework；版本化受控业务故障",
+      "setup_boundary": "product-http-api",
+      "independent_attempt": true
+    },
+    "SYSTEM-004-setup-v1": {
+      "description": "framework；新增代表性用例示例",
+      "setup_boundary": "product-http-api",
+      "independent_attempt": true
+    },
+    "PROVIDER-001-setup-v1": {
+      "description": "provider-eval；显式配置真实 provider/model",
+      "setup_boundary": "product-http-api",
+      "independent_attempt": true
+    }
+  }
+}

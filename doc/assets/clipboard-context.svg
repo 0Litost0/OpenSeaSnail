@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 290" role="img" aria-labelledby="title desc">
+<title id="title">Clipboard context in three steps</title><desc id="desc">Start dictation, copy a link while recording, and stop to receive speech with the copied link in the result. Fictional example.</desc>
+<rect width="960" height="290" rx="20" fill="#f5f7fa"/>
+<g font-family="system-ui, sans-serif" fill="#182333">
+<text x="30" y="40" font-size="20" font-weight="700">Speak. Copy. Keep the context.</text>
+<g fill="#fff" stroke="#d8dfe8"><rect x="30" y="64" width="270" height="195" rx="12"/><rect x="345" y="64" width="270" height="195" rx="12"/><rect x="660" y="64" width="270" height="195" rx="12"/></g>
+<g font-size="15" font-weight="700"><text x="48" y="97">1 · Start recording</text><text x="363" y="97">2 · Copy while recording</text><text x="678" y="97">3 · Stop and paste</text></g>
+<g font-size="16"><text x="48" y="145">“Please refer to this link.”</text><text x="363" y="145">https://example.com</text><text x="678" y="136">Please refer to this link.</text><text x="678" y="166">(Clipboard context:</text><text x="678" y="194">https://example.com)</text></g>
+<g font-size="13" fill="#526171"><text x="48" y="235">⌘ ⇧ Space</text><text x="363" y="235">⌘ C</text><text x="678" y="235">⌘ ⇧ Space</text></g>
+<g font-size="25" fill="#526171"><text x="313" y="170">→</text><text x="628" y="170">→</text></g>
+</g></svg>

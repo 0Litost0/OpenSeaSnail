@@ -1,0 +1,13 @@
+{
+  "version": "v1",
+  "providers": {
+    "fixture-local-openai": {
+      "provider_type": "openai_compatible_self_hosted_private",
+      "endpoint_ref": "SEASNAIL_API_TEST_EVAL_ENDPOINT",
+      "credential_ref": "SEASNAIL_API_TEST_EVAL_CREDENTIAL",
+      "model": "fixture-eval-model",
+      "note": "contract verification entry for a local OpenAI-compatible service; does not constitute real provider quality evidence"
+    }
+  },
+  "local_override": "assets/provider-eval.local.json (not committed) may declare additional real providers with the same entry shape; endpoint and credential values always resolve from the named environment variables at run time, never from files or arguments"
+}

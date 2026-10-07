@@ -1,0 +1,8 @@
+extends: []
+rules:
+  operation-summary:
+    description: 所有 OpenAPI 操作都必须说明用途。
+    given: $.paths[*][get,post,put,delete]
+    then:
+      field: summary
+      function: truthy

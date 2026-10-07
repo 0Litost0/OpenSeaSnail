@@ -1,0 +1,8 @@
+node_modules/
+artifacts/
+target/
+.venv/
+test-results/
+assets/provider-eval.local.json
+
+examples/.isolated-*/

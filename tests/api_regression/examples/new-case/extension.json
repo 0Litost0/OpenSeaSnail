@@ -1,0 +1,45 @@
+{
+  "scope": "isolated-extension-v1",
+  "cases": [
+    {
+      "case_id": "DICT-003",
+      "purpose": "登记的独立示例资产和规则驱动词典用例",
+      "suite": "dictionary",
+      "level": "deterministic",
+      "required": false,
+      "quick": false,
+      "requirement_ref": "docs/requirements.md",
+      "design_ref": "docs/design.md",
+      "precondition_refs": [
+        "DICT-003-setup-v1"
+      ],
+      "asset_refs": [
+        "examples/new-case/terms.json",
+        "examples/new-case/rules.json"
+      ],
+      "assertion_ref": "DICT-003-v1",
+      "cleanup_strategy": "attempt-owned-bounded-teardown",
+      "special_cleanup": ""
+    }
+  ],
+  "preconditions": {
+    "DICT-003-setup-v1": {
+      "description": "isolated new-case example; fresh account",
+      "setup_boundary": "product-http-api",
+      "independent_attempt": true
+    }
+  },
+  "assertions": {
+    "DICT-003-v1": {
+      "version": "v1",
+      "business_promise": "登记的独立示例资产和规则驱动词典用例",
+      "steps_and_expectations": [
+        "登记的独立示例资产和规则驱动词典用例"
+      ],
+      "design_case_id": "DICT-003"
+    }
+  },
+  "spec_files": [
+    "dictionary.spec.ts"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "protocol_version": 1,
+  "error": {
+    "code": "busy",
+    "retryable": true,
+    "message": "one transcription is already in progress"
+  }
+}
