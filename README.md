@@ -1,3 +1,10 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="apps/desktop/src/assets/brand/seasnail-logo-inverse.svg">
+    <img src="apps/desktop/src/assets/brand/seasnail-logo.svg" alt="SeaSnail logo" width="320">
+  </picture>
+</p>
+
 # SeaSnail
 
 **Local voice dictation for your Mac.** Speak, bring in clipboard context, and paste the result into the app where you write.

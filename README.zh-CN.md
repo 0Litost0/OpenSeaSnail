@@ -1,3 +1,10 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="apps/desktop/src/assets/brand/seasnail-logo-inverse.svg">
+    <img src="apps/desktop/src/assets/brand/seasnail-logo.svg" alt="SeaSnail logo" width="320">
+  </picture>
+</p>
+
 # SeaSnail
 
 **面向 Mac 的本地语音听写工具。**说话、带入剪贴板上下文，将结果粘贴到你正在使用的应用。
