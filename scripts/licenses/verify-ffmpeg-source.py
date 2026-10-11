@@ -14,7 +14,7 @@ def verify(root):
     data = json.loads(manifest.read_text())
     # The generated manifest must agree with the repository's independently
     # reviewed source pin, not merely be internally self-consistent.
-    build_script = Path(__file__).resolve().parents[1] / "ffmpeg/build-macos-arm64.sh"
+    build_script = Path(__file__).resolve().parents[1] / "dev_package/phases/build-ffmpeg-macos-arm64.sh"
     source_pin = re.search(r'^SHA256="([0-9a-f]{64})"$', build_script.read_text(), re.M).group(1)
     if data["archive_sha256"] != source_pin:
         raise ValueError("FFmpeg source does not match the repository's locked archive")

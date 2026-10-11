@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "python_minimum": "3.11.0",
+  "rust_minimum_verified": "1.97.1",
+  "clt_verified_hosts": ["26.6.2"],
+  "xcode_vendor_host_range": {"minimum": "26.2.0", "maximum_major": 26},
+  "disk_initial_bytes": 25769803776,
+  "disk_phase_bytes": {
+    "locked_inputs": 2147483648,
+    "cargo_dependency_sources": 1073741824,
+    "ffmpeg": 1073741824,
+    "sherpa_native": 3221225472,
+    "frontend": 1073741824,
+    "swift": 2147483648,
+    "rust": 12884901888,
+    "delivery": 2147483648
+  },
+  "evidence": "feature/one-command-dev-package/doc/m0/resource-policy.json",
+  "scope": "M0 verified toolchain; serial stages; existing standard caches; empty global caches require M7 verification"
+}

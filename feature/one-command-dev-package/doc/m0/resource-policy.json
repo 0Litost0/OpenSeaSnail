@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "status": "M0 design draft; production checks not implemented",
+  "scope": "Current audited macOS arm64 toolchain; serial stages; existing standard Cargo/pnpm caches; one active run; no minimum-space proof",
+  "formula": "ceil(max(final allocated subtree, available subtree samples) * 1.5 / GiB), at least 1 GiB per grouped phase",
+  "margin_fraction": 0.5,
+  "rounding_unit_bytes": 1073741824,
+  "phases": [
+    {
+      "phase": "locked_inputs",
+      "observed_allocated_bytes": 990306304,
+      "evidence": [
+        "cold-inputs-source-long-timeout.json"
+      ],
+      "reserved_bytes": 2147483648
+    },
+    {
+      "phase": "cargo_dependency_sources",
+      "observed_allocated_bytes": 319877120,
+      "evidence": [
+        "cargo-source-footprint.json"
+      ],
+      "reserved_bytes": 1073741824
+    },
+    {
+      "phase": "ffmpeg",
+      "observed_allocated_bytes": 163500032,
+      "evidence": [
+        "ffmpeg-isolated-a.json"
+      ],
+      "reserved_bytes": 1073741824
+    },
+    {
+      "phase": "sherpa_native",
+      "observed_allocated_bytes": 1835835392,
+      "evidence": [
+        "sherpa-staging-prepare.json"
+      ],
+      "reserved_bytes": 3221225472
+    },
+    {
+      "phase": "frontend",
+      "observed_allocated_bytes": 348475392,
+      "evidence": [
+        "frontend-isolated-build.json"
+      ],
+      "reserved_bytes": 1073741824
+    },
+    {
+      "phase": "swift",
+      "observed_allocated_bytes": 990384128,
+      "evidence": [
+        "swift-locked-cold.json"
+      ],
+      "reserved_bytes": 2147483648
+    },
+    {
+      "phase": "rust",
+      "observed_allocated_bytes": 8532774912,
+      "evidence": [
+        "rust-release-cold.json"
+      ],
+      "reserved_bytes": 12884901888
+    },
+    {
+      "phase": "delivery",
+      "observed_allocated_bytes": 903766016,
+      "evidence": [
+        "zip-create.json",
+        "zip-extract.json",
+        "app-zip-validation.json"
+      ],
+      "reserved_bytes": 2147483648
+    }
+  ],
+  "initial_same_volume_required_free_bytes": 25769803776,
+  "stage_recheck": "Before each long stage, sum budgets of this and remaining phases per destination volume, including cache volumes; do not subtract unverified cached artifacts. Stop if free bytes fall below the remaining reservation. Recheck before App/ZIP/extraction with the full delivery reservation. Changed source/toolchain or parallel jobs require new measurements.",
+  "limitations": [
+    "Five-second samples are lower bounds, not true peak measurements; headroom is an explicit policy choice.",
+    "Swift grouped observation is final build+cache footprint; its prior sampling covered the whole experiment, not this subtree.",
+    "Cargo source footprint is a read-only measurement of resolved macOS dependency sources; empty global Cargo/pnpm caches were not measured. M7 must verify and revise this policy for that scenario.",
+    "Rust observation deliberately includes debug, tests and release; no claim that a package-only build needs this full amount.",
+    "Native observation includes a source copy also covered by locked_inputs; this double count is conservative.",
+    "The final delivery tree includes App, ZIP and extracted App; retained old delivery must be accounted separately if it exceeds this reservation."
+  ]
+}

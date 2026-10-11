@@ -12,6 +12,10 @@ import sys
 import tempfile
 
 SCRIPT_DIR = Path(__file__).resolve().parent
+DOWNLOAD_MAX_TIME_SECONDS = 3600
+DOWNLOAD_LOW_SPEED_SECONDS = 120
+DOWNLOAD_LOW_SPEED_BYTES_PER_SECOND = 1024
+SOURCE_PREPARATION_TIMEOUT_SECONDS = 3600
 
 
 def verify(path, row):
@@ -46,7 +50,11 @@ def download(cache, row):
         subprocess.run([
             "curl", "--fail", "--silent", "--show-error", "--location",
             "--proto", "=https", "--proto-redir", "=https",
-            "--connect-timeout", "30", "--max-time", "600",
+            # The 163 MB model needs about 21 minutes at the observed 128 KB/s.
+            # Bound total duration separately from connection and stalled transfers.
+            "--connect-timeout", "30", "--max-time", str(DOWNLOAD_MAX_TIME_SECONDS),
+            "--speed-time", str(DOWNLOAD_LOW_SPEED_SECONDS),
+            "--speed-limit", str(DOWNLOAD_LOW_SPEED_BYTES_PER_SECOND),
             "--max-filesize", str(row["size_bytes"]),
             "--output", str(temporary), "--url", row["url"],
         ], check=True)
@@ -61,12 +69,12 @@ def download(cache, row):
             temporary.unlink(missing_ok=True)
 
 
-def git(path, *arguments, capture=False):
+def git(path, *arguments, capture=False, timeout=300):
     return subprocess.run(["git", "-C", str(path), *arguments], check=True,
-                          text=True, timeout=300, stdout=subprocess.PIPE if capture else None).stdout
+                          text=True, timeout=timeout, stdout=subprocess.PIPE if capture else None).stdout
 
 
-def checkout(sources, name, row):
+def checkout(sources, name, row, *, cleanup_temporary=True):
     if not row["repository"].startswith("https://") or not re.fullmatch(r"[0-9a-f]{40}", row["revision"]):
         raise ValueError("Sources require an HTTPS repository and a full pinned commit")
     target = sources / name
@@ -85,19 +93,19 @@ def checkout(sources, name, row):
     # Clone in a temporary sibling so interrupted downloads cannot poison reuse.
     temporary = Path(tempfile.mkdtemp(dir=sources, prefix=f".{name}."))
     try:
-        subprocess.run(["git", "clone", "--depth", "1", "--branch", row["tag"], "--filter=blob:none", "--no-checkout", "--", row["repository"], str(temporary)], check=True, timeout=300)
+        subprocess.run(["git", "clone", "--depth", "1", "--branch", row["tag"], "--filter=blob:none", "--no-checkout", "--", row["repository"], str(temporary)], check=True, timeout=SOURCE_PREPARATION_TIMEOUT_SECONDS)
         if git(temporary, "rev-parse", "HEAD", capture=True).strip() != row["revision"]:
             raise ValueError(f"Upstream tag no longer matches the locked commit: {name}")
         if name == "onnxruntime":
             # Unit tests are disabled in the locked production build. Avoid
             # fetching large upstream test models; all build sources stay pinned.
-            git(temporary, "sparse-checkout", "set", "--no-cone", "/*", "!/onnxruntime/test/testdata/")
-        git(temporary, "checkout", "--detach", row["revision"])
+            git(temporary, "sparse-checkout", "set", "--no-cone", "/*", "!/onnxruntime/test/testdata/", timeout=SOURCE_PREPARATION_TIMEOUT_SECONDS)
+        git(temporary, "checkout", "--detach", row["revision"], timeout=SOURCE_PREPARATION_TIMEOUT_SECONDS)
         for submodule in row.get("submodules", []):
-            git(temporary, "submodule", "update", "--init", "--recursive", "--depth", "1", "--", submodule["path"])
+            git(temporary, "submodule", "update", "--init", "--recursive", "--depth", "1", "--", submodule["path"], timeout=SOURCE_PREPARATION_TIMEOUT_SECONDS)
         temporary.rename(target)
     finally:
-        if temporary.exists():
+        if cleanup_temporary and temporary.exists():
             shutil.rmtree(temporary)
 
 

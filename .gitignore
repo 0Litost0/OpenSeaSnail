@@ -47,3 +47,6 @@ __pycache__/
 
 # Local pnpm cache; never include it in the source snapshot.
 /.pnpm-store/
+
+# Managed unified development-tool state, transactions and isolated build trees.
+/build/dev-package/

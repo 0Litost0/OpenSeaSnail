@@ -1,0 +1,1705 @@
+{
+  "date": "2026-10-11",
+  "recorded_at": "2026-10-11T08:18:01.714293+00:00",
+  "checkout_head": "0199d5b2a97d98696a3acc2ac3716b2723b5eb09",
+  "scope": "M0 experiments and authorized download timeout adjustment only; no unified tool implementation",
+  "task_status": {
+    "ST-M0.1": "verified",
+    "ST-M0.2": "verified",
+    "ST-M0.3": "verified_with_measured_resource_policy_draft",
+    "ST-M0.4": "audited_and_experimented"
+  },
+  "environment": {
+    "macOS": "26.6.2 (25G83)",
+    "architecture": "arm64",
+    "apple_tool_environment": "CommandLineTools",
+    "clang": "21.0.0 (clang-2100.1.1.101)",
+    "SDK": "26.5 / 25F70",
+    "CMake": "4.4.2",
+    "Python": "3.13.15",
+    "selected_Node": "24.19.0",
+    "pnpm": "9.15.9",
+    "Rust": "1.97.1",
+    "dependency_declared_Rust_requirement": "1.88 (not tested as project baseline)",
+    "Swift": "6.3.3"
+  },
+  "results": {
+    "sherpa_core_hashes_unchanged": true,
+    "ffmpeg_independent_directory_binary_sha256": "ec6d4045b32fd04ff0b25c6c1455e1009ce3d3173f7cef8eb116213ff9b71b38",
+    "vitest_passed_tests": 172,
+    "rust_enumerated_tests": 760,
+    "rust_ignored_tests_not_executed": 10,
+    "rust_harness_JSON_supported": false,
+    "workspace_doctests_enumerated": 0,
+    "daemon_sessions_pipeline_passed": 40,
+    "normalizer_mp3_business_assertions_executed": false,
+    "unit_suite_declared_complete": false,
+    "API_acceptance_executed": false,
+    "API_preflight_expected_error": "sherpa_ffmpeg_hash_mismatch",
+    "controlled_process_cases_passed": 5
+  },
+  "protection": [
+    {
+      "manifest": "tracked-inputs-before.json",
+      "checked_files": 630,
+      "changed_files": []
+    },
+    {
+      "manifest": "existing-artifacts-before.json",
+      "checked_files": 35,
+      "changed_files": []
+    }
+  ],
+  "app_zip_validation": {
+    "experiment_only": true,
+    "zip_roundtrip_equal": true,
+    "entries": 431,
+    "app_file_bytes": 345443165,
+    "zip_bytes": 210672292,
+    "zip_sha256": "83c94a12245e52436787fd4e3341f748122280327c9db4b3b1658b69049ef3fe",
+    "app_inventory_sha256": "6eb99f8cfbfabecc933b63c37855712d6f0f2b90e49ee99195d11d3fd2539e61",
+    "app_version": "0.1.0",
+    "minimum_system_version": "13.0",
+    "native": [
+      {
+        "path": "Contents/MacOS/SeaSnail",
+        "arch": "arm64",
+        "build_info": "dist/dev-package/m0-20261011/delivery/SeaSnail.app/Contents/MacOS/SeaSnail:\nLoad command 11\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform MACOS\n    minos 13.0\n      sdk 26.5\n   ntools 1\n     tool LD\n  version 1267.0\n"
+      },
+      {
+        "path": "Contents/MacOS/seasnail-daemon",
+        "arch": "arm64",
+        "build_info": "dist/dev-package/m0-20261011/delivery/SeaSnail.app/Contents/MacOS/seasnail-daemon:\nLoad command 11\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform MACOS\n    minos 13.0\n      sdk 26.5\n   ntools 1\n     tool LD\n  version 1267.0\n"
+      },
+      {
+        "path": "Contents/MacOS/seasnail-post-paste-monitor",
+        "arch": "arm64",
+        "build_info": "dist/dev-package/m0-20261011/delivery/SeaSnail.app/Contents/MacOS/seasnail-post-paste-monitor:\nLoad command 11\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform MACOS\n    minos 13.0\n      sdk 26.5\n   ntools 1\n     tool LD\n  version 1267.0\n"
+      },
+      {
+        "path": "Contents/Resources/asr/sensevoice-small/sherpa_onnx/int8/bin/seasnail-sherpa-sidecar",
+        "arch": "arm64",
+        "build_info": "dist/dev-package/m0-20261011/delivery/SeaSnail.app/Contents/Resources/asr/sensevoice-small/sherpa_onnx/int8/bin/seasnail-sherpa-sidecar:\nLoad command 10\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform MACOS\n    minos 13.0\n      sdk 26.5\n   ntools 1\n     tool LD\n  version 1267.0\n"
+      },
+      {
+        "path": "Contents/Resources/asr/sensevoice-small/sherpa_onnx/int8/lib/libonnxruntime.1.dylib",
+        "arch": "arm64",
+        "build_info": "dist/dev-package/m0-20261011/delivery/SeaSnail.app/Contents/Resources/asr/sensevoice-small/sherpa_onnx/int8/lib/libonnxruntime.1.dylib:\nLoad command 10\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform MACOS\n    minos 13.0\n      sdk 26.5\n   ntools 1\n     tool LD\n  version 1267.0\n"
+      },
+      {
+        "path": "Contents/Resources/asr/sensevoice-small/sherpa_onnx/int8/lib/libsherpa-onnx-c-api.dylib",
+        "arch": "arm64",
+        "build_info": "dist/dev-package/m0-20261011/delivery/SeaSnail.app/Contents/Resources/asr/sensevoice-small/sherpa_onnx/int8/lib/libsherpa-onnx-c-api.dylib:\nLoad command 10\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform MACOS\n    minos 13.0\n      sdk 26.5\n   ntools 1\n     tool LD\n  version 1267.0\n"
+      },
+      {
+        "path": "Contents/Resources/ffmpeg",
+        "arch": "arm64",
+        "build_info": "dist/dev-package/m0-20261011/delivery/SeaSnail.app/Contents/Resources/ffmpeg:\nLoad command 11\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform MACOS\n    minos 13.0\n      sdk 26.5\n   ntools 1\n     tool LD\n  version 1267.0\n"
+      }
+    ],
+    "business_acceptance_executed": false
+  },
+  "resource_observations": {
+    "sampling_seconds": 5,
+    "sampled_values_are_lower_bounds_on_peaks": true,
+    "concurrent_volume_free_space_not_stage_attributable": true,
+    "cold_download_complete": false,
+    "formal_disk_threshold_established": false,
+    "final_scope_allocated_bytes": 12780158976,
+    "final_subtree_allocated_bytes": {
+      "native-work": 1822777344,
+      "rust-target": 8533549056,
+      "swift-build": 790761472,
+      "swift-cache": 199622656,
+      "frontend-cold": 348475392,
+      "delivery": 903766016,
+      "cold-inputs": 70529024
+    },
+    "experiments": [
+      {
+        "name": "api-result-adapter",
+        "elapsed_seconds": 0.65,
+        "exit_code": 0,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011",
+        "sampled_max_allocated_bytes": 1525702656,
+        "scope_is_entire_experiment": true,
+        "sample_count": 1
+      },
+      {
+        "name": "app-assembly",
+        "elapsed_seconds": 7.94,
+        "exit_code": 0,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/delivery",
+        "sampled_max_allocated_bytes": 332992512,
+        "scope_is_entire_experiment": false,
+        "sample_count": 2
+      },
+      {
+        "name": "cargo-check",
+        "elapsed_seconds": 83.42,
+        "exit_code": 0,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011",
+        "sampled_max_allocated_bytes": 1305436160,
+        "scope_is_entire_experiment": true,
+        "sample_count": 17
+      },
+      {
+        "name": "cargo-test-enumeration-build",
+        "elapsed_seconds": 61.45,
+        "exit_code": 0,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011",
+        "sampled_max_allocated_bytes": 6379048960,
+        "scope_is_entire_experiment": true,
+        "sample_count": 12
+      },
+      {
+        "name": "cold-inputs",
+        "elapsed_seconds": 820.37,
+        "exit_code": 1,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011",
+        "sampled_max_allocated_bytes": 11459346432,
+        "scope_is_entire_experiment": true,
+        "sample_count": 138
+      },
+      {
+        "name": "daemon-ffmpeg-tests",
+        "elapsed_seconds": 13.67,
+        "exit_code": 0,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011",
+        "sampled_max_allocated_bytes": 10925178880,
+        "scope_is_entire_experiment": true,
+        "sample_count": 3
+      },
+      {
+        "name": "doctor",
+        "elapsed_seconds": 0.63,
+        "exit_code": 0,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011",
+        "sampled_max_allocated_bytes": 90112,
+        "scope_is_entire_experiment": true,
+        "sample_count": 1
+      },
+      {
+        "name": "ffmpeg-13-cold-v2",
+        "elapsed_seconds": 39.21,
+        "exit_code": 0,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/ffmpeg-work",
+        "sampled_max_allocated_bytes": 132567040,
+        "scope_is_entire_experiment": false,
+        "sample_count": 8
+      },
+      {
+        "name": "ffmpeg-13-cold",
+        "elapsed_seconds": 38.87,
+        "exit_code": 1,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/ffmpeg-work",
+        "sampled_max_allocated_bytes": 132329472,
+        "scope_is_entire_experiment": false,
+        "sample_count": 8
+      },
+      {
+        "name": "ffmpeg-13-macho",
+        "elapsed_seconds": 0.12,
+        "exit_code": 0,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011",
+        "sampled_max_allocated_bytes": 2369212416,
+        "scope_is_entire_experiment": true,
+        "sample_count": 1
+      },
+      {
+        "name": "ffmpeg-isolated-a",
+        "elapsed_seconds": 57.47,
+        "exit_code": 0,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/ffmpeg-isolated-a",
+        "sampled_max_allocated_bytes": 163500032,
+        "scope_is_entire_experiment": false,
+        "sample_count": 12
+      },
+      {
+        "name": "ffmpeg-isolated-b",
+        "elapsed_seconds": 53.37,
+        "exit_code": 0,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/ffmpeg-isolated-b",
+        "sampled_max_allocated_bytes": 132567040,
+        "scope_is_entire_experiment": false,
+        "sample_count": 11
+      },
+      {
+        "name": "ffmpeg-normalized-a",
+        "elapsed_seconds": 68.38,
+        "exit_code": 0,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/ffmpeg-normalized-a",
+        "sampled_max_allocated_bytes": 133029888,
+        "scope_is_entire_experiment": false,
+        "sample_count": 14
+      },
+      {
+        "name": "ffmpeg-normalized-b",
+        "elapsed_seconds": 67.51,
+        "exit_code": 0,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/ffmpeg-normalized-b",
+        "sampled_max_allocated_bytes": 163508224,
+        "scope_is_entire_experiment": false,
+        "sample_count": 14
+      },
+      {
+        "name": "ffmpeg-source-validation",
+        "elapsed_seconds": 0.1,
+        "exit_code": 0,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011",
+        "sampled_max_allocated_bytes": 2377842688,
+        "scope_is_entire_experiment": true,
+        "sample_count": 1
+      },
+      {
+        "name": "framework-formats-v2",
+        "elapsed_seconds": 1.94,
+        "exit_code": 0,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011",
+        "sampled_max_allocated_bytes": 9573765120,
+        "scope_is_entire_experiment": true,
+        "sample_count": 1
+      },
+      {
+        "name": "framework-formats",
+        "elapsed_seconds": 29.28,
+        "exit_code": 0,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011",
+        "sampled_max_allocated_bytes": 7409995776,
+        "scope_is_entire_experiment": true,
+        "sample_count": 6
+      },
+      {
+        "name": "frontend-build",
+        "elapsed_seconds": 14.64,
+        "exit_code": 0,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011",
+        "sampled_max_allocated_bytes": 10926252032,
+        "scope_is_entire_experiment": true,
+        "sample_count": 3
+      },
+      {
+        "name": "frontend-frozen-cold",
+        "elapsed_seconds": 8.27,
+        "exit_code": 0,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/frontend-cold",
+        "sampled_max_allocated_bytes": 347234304,
+        "scope_is_entire_experiment": false,
+        "sample_count": 2
+      },
+      {
+        "name": "frontend-isolated-build",
+        "elapsed_seconds": 27.67,
+        "exit_code": 0,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/frontend-cold",
+        "sampled_max_allocated_bytes": 347611136,
+        "scope_is_entire_experiment": false,
+        "sample_count": 6
+      },
+      {
+        "name": "frontend-typecheck",
+        "elapsed_seconds": 12.78,
+        "exit_code": 0,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011",
+        "sampled_max_allocated_bytes": 1939447808,
+        "scope_is_entire_experiment": true,
+        "sample_count": 3
+      },
+      {
+        "name": "lock-process-tree-v2",
+        "elapsed_seconds": 3.43,
+        "exit_code": 1,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011",
+        "sampled_max_allocated_bytes": 1451028480,
+        "scope_is_entire_experiment": true,
+        "sample_count": 1
+      },
+      {
+        "name": "lock-process-tree-v3",
+        "elapsed_seconds": 1.48,
+        "exit_code": 0,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011",
+        "sampled_max_allocated_bytes": 1346056192,
+        "scope_is_entire_experiment": true,
+        "sample_count": 1
+      },
+      {
+        "name": "lock-process-tree",
+        "elapsed_seconds": 6.25,
+        "exit_code": 1,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011",
+        "sampled_max_allocated_bytes": 1320435712,
+        "scope_is_entire_experiment": true,
+        "sample_count": 2
+      },
+      {
+        "name": "native-load-probe",
+        "elapsed_seconds": 3.14,
+        "exit_code": 0,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011",
+        "sampled_max_allocated_bytes": 12235255808,
+        "scope_is_entire_experiment": true,
+        "sample_count": 1
+      },
+      {
+        "name": "native-toolchain",
+        "elapsed_seconds": 0.14,
+        "exit_code": 0,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011",
+        "sampled_max_allocated_bytes": 98304,
+        "scope_is_entire_experiment": true,
+        "sample_count": 1
+      },
+      {
+        "name": "normalizer-bundled-ffmpeg",
+        "elapsed_seconds": 32.38,
+        "exit_code": 0,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011",
+        "sampled_max_allocated_bytes": 8637882368,
+        "scope_is_entire_experiment": true,
+        "sample_count": 6
+      },
+      {
+        "name": "normalizer-missing-ffmpeg",
+        "elapsed_seconds": 1.36,
+        "exit_code": 0,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011",
+        "sampled_max_allocated_bytes": 11345485824,
+        "scope_is_entire_experiment": true,
+        "sample_count": 1
+      },
+      {
+        "name": "relocated-sidecar-smoke",
+        "elapsed_seconds": 9.1,
+        "exit_code": 0,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011",
+        "sampled_max_allocated_bytes": 12403970048,
+        "scope_is_entire_experiment": true,
+        "sample_count": 2
+      },
+      {
+        "name": "rust-after-frontend",
+        "elapsed_seconds": 22.48,
+        "exit_code": 0,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011",
+        "sampled_max_allocated_bytes": 12780040192,
+        "scope_is_entire_experiment": true,
+        "sample_count": 4
+      },
+      {
+        "name": "rust-release-cold",
+        "elapsed_seconds": 280.36,
+        "exit_code": 0,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011",
+        "sampled_max_allocated_bytes": 10745827328,
+        "scope_is_entire_experiment": true,
+        "sample_count": 43
+      },
+      {
+        "name": "sherpa-cold-new-path",
+        "elapsed_seconds": 638.68,
+        "exit_code": 0,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/native-work",
+        "sampled_max_allocated_bytes": 1539723264,
+        "scope_is_entire_experiment": false,
+        "sample_count": 102
+      },
+      {
+        "name": "sherpa-staging-prepare",
+        "elapsed_seconds": 110.0,
+        "exit_code": 0,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/native-work",
+        "sampled_max_allocated_bytes": 1835835392,
+        "scope_is_entire_experiment": false,
+        "sample_count": 19
+      },
+      {
+        "name": "swift-locked-cold",
+        "elapsed_seconds": 377.07,
+        "exit_code": 0,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011",
+        "sampled_max_allocated_bytes": 10560417792,
+        "scope_is_entire_experiment": true,
+        "sample_count": 64
+      },
+      {
+        "name": "swift-protocol-smoke",
+        "elapsed_seconds": 13.97,
+        "exit_code": 0,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011",
+        "sampled_max_allocated_bytes": 11557814272,
+        "scope_is_entire_experiment": true,
+        "sample_count": 3
+      },
+      {
+        "name": "swift-self-test",
+        "elapsed_seconds": 1.41,
+        "exit_code": 0,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011",
+        "sampled_max_allocated_bytes": 10927316992,
+        "scope_is_entire_experiment": true,
+        "sample_count": 1
+      },
+      {
+        "name": "verify-existing-inputs",
+        "elapsed_seconds": 104.73,
+        "exit_code": 0,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011",
+        "sampled_max_allocated_bytes": 1315778560,
+        "scope_is_entire_experiment": true,
+        "sample_count": 21
+      },
+      {
+        "name": "vitest-json",
+        "elapsed_seconds": 13.27,
+        "exit_code": 0,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011",
+        "sampled_max_allocated_bytes": 1460244480,
+        "scope_is_entire_experiment": true,
+        "sample_count": 3
+      },
+      {
+        "name": "workspace-doctest-list",
+        "elapsed_seconds": 6.27,
+        "exit_code": 0,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011",
+        "sampled_max_allocated_bytes": 11208200192,
+        "scope_is_entire_experiment": true,
+        "sample_count": 1
+      },
+      {
+        "name": "zip-create",
+        "elapsed_seconds": 10.7,
+        "exit_code": 0,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/delivery",
+        "sampled_max_allocated_bytes": 565579776,
+        "scope_is_entire_experiment": false,
+        "sample_count": 3
+      },
+      {
+        "name": "zip-extract",
+        "elapsed_seconds": 1.48,
+        "exit_code": 0,
+        "measurement_scope": "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/delivery",
+        "sampled_max_allocated_bytes": 565579776,
+        "scope_is_entire_experiment": false,
+        "sample_count": 1
+      }
+    ]
+  },
+  "experiments": [
+    {
+      "experiment": "api-result-adapter",
+      "command": [
+        "node",
+        "--test",
+        "tests/api_regression/scripts/test_results.mjs"
+      ],
+      "started_at": "2026-10-11T07:41:11.661377+00:00",
+      "elapsed_seconds": 0.65,
+      "exit_code": 0
+    },
+    {
+      "experiment": "app-assembly",
+      "command": [
+        "/bin/bash",
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/build-app-experiment.sh",
+        "--skip-rust-build",
+        "--asr-backend",
+        "sherpa_onnx",
+        "--asr-root",
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/native-work/artifact-published",
+        "--ffmpeg",
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/ffmpeg-isolated-a/bundle/ffmpeg",
+        "--output",
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/delivery/SeaSnail.app"
+      ],
+      "started_at": "2026-10-11T07:55:47.125548+00:00",
+      "elapsed_seconds": 7.94,
+      "exit_code": 0
+    },
+    {
+      "experiment": "cargo-check",
+      "command": [
+        "cargo",
+        "check",
+        "--workspace",
+        "--locked",
+        "--offline"
+      ],
+      "started_at": "2026-10-11T07:37:14.732708+00:00",
+      "elapsed_seconds": 83.42,
+      "exit_code": 0
+    },
+    {
+      "experiment": "cargo-test-enumeration-build",
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--no-run",
+        "--locked",
+        "--offline",
+        "--message-format=json"
+      ],
+      "started_at": "2026-10-11T07:41:10.486581+00:00",
+      "elapsed_seconds": 61.45,
+      "exit_code": 0
+    },
+    {
+      "experiment": "cold-inputs",
+      "command": [
+        "python3",
+        "scripts/sherpa/fetch-inputs.py",
+        "--root",
+        "dist/dev-package/m0-20261011/cold-inputs"
+      ],
+      "started_at": "2026-10-11T07:38:08.407888+00:00",
+      "elapsed_seconds": 820.37,
+      "exit_code": 1
+    },
+    {
+      "experiment": "daemon-ffmpeg-tests",
+      "command": [
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/rust-target/debug/deps/sessions_pipeline-e8311b82db33ce5b",
+        "--test-threads=1"
+      ],
+      "started_at": "2026-10-11T07:49:16.026397+00:00",
+      "elapsed_seconds": 13.67,
+      "exit_code": 0
+    },
+    {
+      "experiment": "doctor",
+      "command": [
+        "python3",
+        "scripts/doctor.py"
+      ],
+      "started_at": "2026-10-11T07:37:11.477144+00:00",
+      "elapsed_seconds": 0.63,
+      "exit_code": 0
+    },
+    {
+      "experiment": "ffmpeg-13-cold-v2",
+      "command": [
+        "/bin/bash",
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/ffmpeg-13-experiment.sh",
+        "--cache-dir",
+        "/Users/litost/project/github/OpenSeaSnail/third_party/ffmpeg/macos-arm64/cache",
+        "--output",
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/ffmpeg-work/bundle"
+      ],
+      "started_at": "2026-10-11T07:40:38.531508+00:00",
+      "elapsed_seconds": 39.21,
+      "exit_code": 0
+    },
+    {
+      "experiment": "ffmpeg-13-cold",
+      "command": [
+        "/bin/bash",
+        "dist/dev-package/m0-20261011/ffmpeg-13-experiment.sh",
+        "--cache-dir",
+        "third_party/ffmpeg/macos-arm64/cache",
+        "--output",
+        "dist/dev-package/m0-20261011/ffmpeg-work/bundle"
+      ],
+      "started_at": "2026-10-11T07:39:39.480819+00:00",
+      "elapsed_seconds": 38.87,
+      "exit_code": 1
+    },
+    {
+      "experiment": "ffmpeg-13-macho",
+      "command": [
+        "xcrun",
+        "vtool",
+        "-show-build",
+        "dist/dev-package/m0-20261011/ffmpeg-work/bundle/ffmpeg"
+      ],
+      "started_at": "2026-10-11T07:41:29.980373+00:00",
+      "elapsed_seconds": 0.12,
+      "exit_code": 0
+    },
+    {
+      "experiment": "ffmpeg-isolated-a",
+      "command": [
+        "/bin/bash",
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/ffmpeg-13-experiment.sh",
+        "--cache-dir",
+        "/Users/litost/project/github/OpenSeaSnail/third_party/ffmpeg/macos-arm64/cache",
+        "--output",
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/ffmpeg-isolated-a/bundle"
+      ],
+      "started_at": "2026-10-11T07:49:11.706525+00:00",
+      "elapsed_seconds": 57.47,
+      "exit_code": 0
+    },
+    {
+      "experiment": "ffmpeg-isolated-b",
+      "command": [
+        "/bin/bash",
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/ffmpeg-13-experiment.sh",
+        "--cache-dir",
+        "/Users/litost/project/github/OpenSeaSnail/third_party/ffmpeg/macos-arm64/cache",
+        "--output",
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/ffmpeg-isolated-b/bundle"
+      ],
+      "started_at": "2026-10-11T07:50:09.234293+00:00",
+      "elapsed_seconds": 53.37,
+      "exit_code": 0
+    },
+    {
+      "experiment": "ffmpeg-normalized-a",
+      "command": [
+        "/bin/bash",
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/ffmpeg-13-experiment.sh",
+        "--cache-dir",
+        "/Users/litost/project/github/OpenSeaSnail/third_party/ffmpeg/macos-arm64/cache",
+        "--output",
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/ffmpeg-normalized-a/bundle"
+      ],
+      "started_at": "2026-10-11T07:45:47.723948+00:00",
+      "elapsed_seconds": 68.38,
+      "exit_code": 0
+    },
+    {
+      "experiment": "ffmpeg-normalized-b",
+      "command": [
+        "/bin/bash",
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/ffmpeg-13-experiment.sh",
+        "--cache-dir",
+        "/Users/litost/project/github/OpenSeaSnail/third_party/ffmpeg/macos-arm64/cache",
+        "--output",
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/ffmpeg-normalized-b/bundle"
+      ],
+      "started_at": "2026-10-11T07:46:56.188631+00:00",
+      "elapsed_seconds": 67.51,
+      "exit_code": 0
+    },
+    {
+      "experiment": "ffmpeg-source-validation",
+      "command": [
+        "python3",
+        "scripts/licenses/verify-ffmpeg-source.py",
+        "dist/dev-package/m0-20261011/ffmpeg-work/bundle"
+      ],
+      "started_at": "2026-10-11T07:41:30.159255+00:00",
+      "elapsed_seconds": 0.1,
+      "exit_code": 0
+    },
+    {
+      "experiment": "framework-formats-v2",
+      "command": [
+        "python3",
+        "feature/one-command-dev-package/doc/m0/result_format_experiment.py"
+      ],
+      "started_at": "2026-10-11T07:44:35.923413+00:00",
+      "elapsed_seconds": 1.94,
+      "exit_code": 0
+    },
+    {
+      "experiment": "framework-formats",
+      "command": [
+        "python3",
+        "feature/one-command-dev-package/doc/m0/result_format_experiment.py"
+      ],
+      "started_at": "2026-10-11T07:43:02.003649+00:00",
+      "elapsed_seconds": 29.28,
+      "exit_code": 0
+    },
+    {
+      "experiment": "frontend-build",
+      "command": [
+        "pnpm",
+        "--dir",
+        "apps/desktop",
+        "build"
+      ],
+      "started_at": "2026-10-11T07:49:17.183995+00:00",
+      "elapsed_seconds": 14.64,
+      "exit_code": 0
+    },
+    {
+      "experiment": "frontend-frozen-cold",
+      "command": [
+        "pnpm",
+        "--dir",
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/frontend-cold",
+        "install",
+        "--frozen-lockfile"
+      ],
+      "started_at": "2026-10-11T07:49:58.969100+00:00",
+      "elapsed_seconds": 8.27,
+      "exit_code": 0
+    },
+    {
+      "experiment": "frontend-isolated-build",
+      "command": [
+        "pnpm",
+        "--dir",
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/frontend-cold",
+        "build"
+      ],
+      "started_at": "2026-10-11T07:51:17.953759+00:00",
+      "elapsed_seconds": 27.67,
+      "exit_code": 0
+    },
+    {
+      "experiment": "frontend-typecheck",
+      "command": [
+        "pnpm",
+        "--dir",
+        "apps/desktop",
+        "typecheck"
+      ],
+      "started_at": "2026-10-11T07:41:12.374800+00:00",
+      "elapsed_seconds": 12.78,
+      "exit_code": 0
+    },
+    {
+      "experiment": "lock-process-tree-v2",
+      "command": [
+        "python3",
+        "feature/one-command-dev-package/doc/m0/lock_experiment.py"
+      ],
+      "started_at": "2026-10-11T07:40:04.752215+00:00",
+      "elapsed_seconds": 3.43,
+      "exit_code": 1
+    },
+    {
+      "experiment": "lock-process-tree-v3",
+      "command": [
+        "python3",
+        "feature/one-command-dev-package/doc/m0/lock_experiment.py"
+      ],
+      "started_at": "2026-10-11T07:40:36.949885+00:00",
+      "elapsed_seconds": 1.48,
+      "exit_code": 0
+    },
+    {
+      "experiment": "lock-process-tree",
+      "command": [
+        "python3",
+        "feature/one-command-dev-package/doc/m0/lock_experiment.py"
+      ],
+      "started_at": "2026-10-11T07:39:25.128185+00:00",
+      "elapsed_seconds": 6.25,
+      "exit_code": 1
+    },
+    {
+      "experiment": "native-load-probe",
+      "command": [
+        "dist/dev-package/m0-20261011/native-work/probe/install/bin/seasnail-sherpa-probe",
+        "--model",
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/native-work/artifact-published/model/model.int8.onnx",
+        "--tokens",
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/native-work/artifact-published/model/tokens.txt",
+        "--load-only"
+      ],
+      "started_at": "2026-10-11T07:55:56.972074+00:00",
+      "elapsed_seconds": 3.14,
+      "exit_code": 0
+    },
+    {
+      "experiment": "native-toolchain",
+      "command": [
+        "python3",
+        "scripts/sherpa/reproducible-build.py",
+        "--check-toolchain"
+      ],
+      "started_at": "2026-10-11T07:37:12.141357+00:00",
+      "elapsed_seconds": 0.14,
+      "exit_code": 0
+    },
+    {
+      "experiment": "normalizer-bundled-ffmpeg",
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "seasnail-runtime",
+        "--test",
+        "normalizer_real",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "started_at": "2026-10-11T07:43:31.322303+00:00",
+      "elapsed_seconds": 32.38,
+      "exit_code": 0
+    },
+    {
+      "experiment": "normalizer-missing-ffmpeg",
+      "command": [
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/rust-target/debug/deps/normalizer_real-5d5f318cce42f6f7",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "started_at": "2026-10-11T07:50:20.128315+00:00",
+      "elapsed_seconds": 1.36,
+      "exit_code": 0
+    },
+    {
+      "experiment": "relocated-sidecar-smoke",
+      "command": [
+        "python3",
+        "scripts/sherpa/run-sidecar-smoke.py",
+        "--sidecar",
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/native-work/artifact-published/bin/seasnail-sherpa-sidecar",
+        "--model",
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/native-work/artifact-published/model/model.int8.onnx",
+        "--tokens",
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/native-work/artifact-published/model/tokens.txt",
+        "--vad",
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/native-work/artifact-published/model/silero_vad.onnx",
+        "--wav",
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/native-work/fixtures/zh.wav"
+      ],
+      "started_at": "2026-10-11T07:56:43.855146+00:00",
+      "elapsed_seconds": 9.1,
+      "exit_code": 0
+    },
+    {
+      "experiment": "rust-after-frontend",
+      "command": [
+        "cargo",
+        "build",
+        "--workspace",
+        "--release",
+        "--locked",
+        "--offline"
+      ],
+      "started_at": "2026-10-11T07:57:30.898915+00:00",
+      "elapsed_seconds": 22.48,
+      "exit_code": 0
+    },
+    {
+      "experiment": "rust-release-cold",
+      "command": [
+        "cargo",
+        "build",
+        "--workspace",
+        "--release",
+        "--locked",
+        "--offline"
+      ],
+      "started_at": "2026-10-11T07:43:30.904997+00:00",
+      "elapsed_seconds": 280.36,
+      "exit_code": 0
+    },
+    {
+      "experiment": "sherpa-cold-new-path",
+      "command": [
+        "scripts/sherpa/build-probe-macos-arm64.sh",
+        "--source",
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/native-work/sources/sherpa-onnx",
+        "--onnxruntime-source",
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/native-work/sources/onnxruntime",
+        "--cache",
+        "/Users/litost/project/github/OpenSeaSnail/third_party/sherpa/macos-arm64/cache",
+        "--output",
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/native-work/probe"
+      ],
+      "started_at": "2026-10-11T07:42:12.479775+00:00",
+      "elapsed_seconds": 638.68,
+      "exit_code": 0
+    },
+    {
+      "experiment": "sherpa-staging-prepare",
+      "command": [
+        "scripts/sherpa/prepare-macos-arm64.sh",
+        "--source",
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/native-work/sources/sherpa-onnx",
+        "--onnxruntime-source",
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/native-work/sources/onnxruntime",
+        "--cache",
+        "/Users/litost/project/github/OpenSeaSnail/third_party/sherpa/macos-arm64/cache",
+        "--native-install",
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/native-work/probe/install",
+        "--output",
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/native-work/artifact-staging"
+      ],
+      "started_at": "2026-10-11T07:53:14.517741+00:00",
+      "elapsed_seconds": 110.0,
+      "exit_code": 0
+    },
+    {
+      "experiment": "swift-locked-cold",
+      "command": [
+        "swift",
+        "build",
+        "--package-path",
+        "apps/desktop/native/post-paste-monitor",
+        "--scratch-path",
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/swift-build",
+        "--cache-path",
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/swift-cache",
+        "--manifest-cache",
+        "local",
+        "--force-resolved-versions",
+        "--disable-keychain",
+        "-c",
+        "release"
+      ],
+      "started_at": "2026-10-11T07:40:40.112864+00:00",
+      "elapsed_seconds": 377.07,
+      "exit_code": 0
+    },
+    {
+      "experiment": "swift-protocol-smoke",
+      "command": [
+        "cargo",
+        "run",
+        "--locked",
+        "--offline",
+        "--release",
+        "-p",
+        "seasnail-proto",
+        "--example",
+        "post_paste_monitor_smoke",
+        "--",
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/swift-build/release/seasnail-post-paste-monitor"
+      ],
+      "started_at": "2026-10-11T07:51:45.667197+00:00",
+      "elapsed_seconds": 13.97,
+      "exit_code": 0
+    },
+    {
+      "experiment": "swift-self-test",
+      "command": [
+        "dist/dev-package/m0-20261011/swift-build/release/seasnail-post-paste-monitor",
+        "--self-test"
+      ],
+      "started_at": "2026-10-11T07:49:31.886763+00:00",
+      "elapsed_seconds": 1.41,
+      "exit_code": 0
+    },
+    {
+      "experiment": "verify-existing-inputs",
+      "command": [
+        "scripts/sherpa/verify-locks.sh",
+        "--cache",
+        "third_party/sherpa/macos-arm64/cache",
+        "--source",
+        "third_party/sherpa/macos-arm64/sources/sherpa-onnx",
+        "--onnxruntime-source",
+        "third_party/sherpa/macos-arm64/sources/onnxruntime"
+      ],
+      "started_at": "2026-10-11T07:37:28.294266+00:00",
+      "elapsed_seconds": 104.73,
+      "exit_code": 0
+    },
+    {
+      "experiment": "vitest-json",
+      "command": [
+        "pnpm",
+        "--dir",
+        "apps/desktop",
+        "exec",
+        "vitest",
+        "run",
+        "--reporter=json",
+        "--outputFile=/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/vitest-report.json"
+      ],
+      "started_at": "2026-10-11T07:40:06.296435+00:00",
+      "elapsed_seconds": 13.27,
+      "exit_code": 0
+    },
+    {
+      "experiment": "workspace-doctest-list",
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--doc",
+        "--locked",
+        "--offline",
+        "--",
+        "--list"
+      ],
+      "started_at": "2026-10-11T07:50:21.552362+00:00",
+      "elapsed_seconds": 6.27,
+      "exit_code": 0
+    },
+    {
+      "experiment": "zip-create",
+      "command": [
+        "/usr/bin/ditto",
+        "-c",
+        "-k",
+        "--sequesterRsrc",
+        "--keepParent",
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/delivery/SeaSnail.app",
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/delivery/SeaSnail-M0.zip"
+      ],
+      "started_at": "2026-10-11T07:56:45.007439+00:00",
+      "elapsed_seconds": 10.7,
+      "exit_code": 0
+    },
+    {
+      "experiment": "zip-extract",
+      "command": [
+        "/usr/bin/ditto",
+        "-x",
+        "-k",
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/delivery/SeaSnail-M0.zip",
+        "/Users/litost/project/github/OpenSeaSnail/dist/dev-package/m0-20261011/delivery/unpacked"
+      ],
+      "started_at": "2026-10-11T07:56:55.752535+00:00",
+      "elapsed_seconds": 1.48,
+      "exit_code": 0
+    },
+    {
+      "experiment": "download-timeout-policy-check",
+      "command": [
+        "python3",
+        "dist/dev-package/m0-20261011/download-timeout-check.py"
+      ],
+      "started_at": "2026-10-11T08:07:37.007303+00:00",
+      "elapsed_seconds": 1.27,
+      "exit_code": 0
+    },
+    {
+      "experiment": "cold-inputs-long-timeout",
+      "command": [
+        "python3",
+        "scripts/sherpa/fetch-inputs.py",
+        "--root",
+        "dist/dev-package/m0-20261011/cold-inputs"
+      ],
+      "started_at": "2026-10-11T08:07:18.949640+00:00",
+      "elapsed_seconds": 376.39,
+      "exit_code": 1
+    },
+    {
+      "experiment": "download-and-source-timeout-check",
+      "command": [
+        "python3",
+        "dist/dev-package/m0-20261011/download-timeout-check.py"
+      ],
+      "started_at": "2026-10-11T08:14:16.989169+00:00",
+      "elapsed_seconds": 2.45,
+      "exit_code": 0
+    },
+    {
+      "experiment": "cold-inputs-source-long-timeout",
+      "command": [
+        "python3",
+        "scripts/sherpa/fetch-inputs.py",
+        "--root",
+        "dist/dev-package/m0-20261011/cold-inputs"
+      ],
+      "started_at": "2026-10-11T08:14:02.044619+00:00",
+      "elapsed_seconds": 177.53,
+      "exit_code": 0
+    }
+  ],
+  "raw_evidence_directory": "dist/dev-package/m0-20261011",
+  "raw_evidence_files": {
+    "api-baseline-preflight.json": {
+      "bytes": 163,
+      "sha256": "8d2b8aa77fe4e6af4bd6b6fd96463106ea08b4d9ee4661d5698d56b504feaa60"
+    },
+    "api-result-adapter.json": {
+      "bytes": 768,
+      "sha256": "d228569b768de93f41034528195e59b6a708c745698f69211719da6a324fd323"
+    },
+    "api-result-adapter.log": {
+      "bytes": 744,
+      "sha256": "4bc816f4be7ce718c9f9ee4cbb8502b637a035b3269f66eba50d9e94c8160841"
+    },
+    "app-assembly.json": {
+      "bytes": 1563,
+      "sha256": "f40764b06396827b43cebc813df51f1688a77d4ae6586565a86a7e3c872cdfe9"
+    },
+    "app-assembly.log": {
+      "bytes": 321,
+      "sha256": "01d84e50e9faa6000b0c81a399b31a9973fb322f2cd3c27406fbac28c6a76fb9"
+    },
+    "app-file-inventory.json": {
+      "bytes": 105728,
+      "sha256": "ef84e41cf9620f06c8cc230bf6b172bc58ec7e6b49a779dc145417da21b4205c"
+    },
+    "app-zip-validation.json": {
+      "bytes": 3171,
+      "sha256": "0dfab2455866be8b03cced6e73f90137d4a98379133053dba0f68373a65223a9"
+    },
+    "build-app-experiment.sh": {
+      "bytes": 26172,
+      "sha256": "3688fe85cad755bfafef8d6f7d3f9a35d70a5192049df5cb4c4ca9cf11df602c"
+    },
+    "cargo-check.json": {
+      "bytes": 2762,
+      "sha256": "101e27c364f3fd746a0c1e112bc42cde6ee29ad0c4b8b2bfc38795a189f5d99d"
+    },
+    "cargo-check.log": {
+      "bytes": 13519,
+      "sha256": "8be1e26d3b630f780b4ff7464eaa3c702b60ee978a29f7487bdcf16f882de339"
+    },
+    "cargo-metadata.json": {
+      "bytes": 2269153,
+      "sha256": "d5c27b3ff58a9a34455d2383e0af767e1750b06b1e29cd1907834d80df04995f"
+    },
+    "cargo-test-enumeration-build.json": {
+      "bytes": 2309,
+      "sha256": "2649ebf7617d515c21d83171f7e533574744282b8e3323de7177d85a4f4670e7"
+    },
+    "cargo-test-enumeration-build.log": {
+      "bytes": 532143,
+      "sha256": "ed35564af28cf1a1023778f972a9007e08f0aee400a611f163d50bd268ec09c8"
+    },
+    "cmake-relocation.json": {
+      "bytes": 1116,
+      "sha256": "cffa55db6ebb08bb6ecb3571310064178e129d6765de2986c4949fe3eb407821"
+    },
+    "cold-inputs.json": {
+      "bytes": 18256,
+      "sha256": "a1ed455f8c2c17cd1f77fb3ac59da003d113c0ed229905b68c1a3cfa441c5135"
+    },
+    "cold-inputs.log": {
+      "bytes": 2247,
+      "sha256": "e2db4e6a76db6bac03fbbff339f5a4ded0a138783957c31296b1ff261bf8885a"
+    },
+    "daemon-ffmpeg-tests.json": {
+      "bytes": 1197,
+      "sha256": "688ef81c4b5bdc83aa1e065e7e762cefe550ae82835cd18d460aa4b5778c3a43"
+    },
+    "daemon-ffmpeg-tests.log": {
+      "bytes": 2518,
+      "sha256": "75ca8ec8c62a3bb782369f867d0d65027f8c141332f79d3240913b4b9a1b6a11"
+    },
+    "doctor.json": {
+      "bytes": 609,
+      "sha256": "c362e883f7785ab29564b9bca227df35282a7b1fcebaf4fc951b4b6d1a996fe3"
+    },
+    "doctor.log": {
+      "bytes": 648,
+      "sha256": "6ec3719567640531753cb4b4118609316801bf3f1ee11cc4bbb4d8d0a08a66dc"
+    },
+    "environment.json": {
+      "bytes": 14358,
+      "sha256": "4c9f5278b785a257201b6eab5370282ceb7822f7ce6bb2f4d12a567a4f34d95d"
+    },
+    "existing-artifacts-before.json": {
+      "bytes": 4957,
+      "sha256": "d3d25c0a944ce3f992c5407992644938a421da400f31e970e1afd0af2b8c4543"
+    },
+    "ffmpeg-13-cold-v2.json": {
+      "bytes": 1914,
+      "sha256": "c0b4246a00c1d79e45881a7ff2d5953bc052508252822c3fde2696d433669651"
+    },
+    "ffmpeg-13-cold-v2.log": {
+      "bytes": 16874,
+      "sha256": "4b54adb0cd777923e1dfee9a46b83acb0c32a33a3d512a1070702590ca9b7994"
+    },
+    "ffmpeg-13-cold.json": {
+      "bytes": 1778,
+      "sha256": "57a728ec1089de15c31b7e8652dc7c2bbf928a3590f5d2945c32a5ad179cf1d3"
+    },
+    "ffmpeg-13-cold.log": {
+      "bytes": 16692,
+      "sha256": "e11623c0e5683cca1c4b1e4468cf3d41104a5065f740ac52c31328d20bd64746"
+    },
+    "ffmpeg-13-experiment.sh": {
+      "bytes": 6045,
+      "sha256": "1a2e682041119d0a1457212417ebf052c1b068061c55dd207466ad1905484dfc"
+    },
+    "ffmpeg-13-macho.json": {
+      "bytes": 790,
+      "sha256": "c5215053786b85316cf4e4da60bf3b8c0698c0b72c1f96abf0953870175da5f3"
+    },
+    "ffmpeg-13-macho.log": {
+      "bytes": 200,
+      "sha256": "0a3c188794750ea6ec7a37d83b488fa6d2a8f43534218a957c47c0a7adc6be75"
+    },
+    "ffmpeg-comparison.json": {
+      "bytes": 4867,
+      "sha256": "1eeef72481fde1e3359aaca8d683723ce1fb49895dbe232323643b2cf4428d7e"
+    },
+    "ffmpeg-git-parent-probe.json": {
+      "bytes": 88,
+      "sha256": "8c2bf3462132f29cad7092d9c801ae185925f24557259934265b02086c2f2b5e"
+    },
+    "ffmpeg-isolated-a.json": {
+      "bytes": 2557,
+      "sha256": "6bb665452194777c1284118d3a8e9bb276982ecf31cbccb76cce9caeffa8e7f1"
+    },
+    "ffmpeg-isolated-a.log": {
+      "bytes": 16856,
+      "sha256": "a3de4d41a0e7455631235fca885980a87fd1d058fdec333d1c94184f2e8e2066"
+    },
+    "ffmpeg-isolated-b.json": {
+      "bytes": 2508,
+      "sha256": "13a2826f5355cdc8a8efd58add7c63688d0a5bc77eaf28357f0ef247f78ca521"
+    },
+    "ffmpeg-isolated-b.log": {
+      "bytes": 16856,
+      "sha256": "e8eb4476b3f5dc5b67bfc0196b5e7c629498ea3706feeba68af567a6d6902ce5"
+    },
+    "ffmpeg-normalized-a.json": {
+      "bytes": 2687,
+      "sha256": "5cd2e0a3fa868782231e0e4f08124f069b4400592f5067a647fe1ca3b30c86ff"
+    },
+    "ffmpeg-normalized-a.log": {
+      "bytes": 16882,
+      "sha256": "dde2691d2f08f22f660b505da2812c146c61680a161626126c7850c785f47068"
+    },
+    "ffmpeg-normalized-b.json": {
+      "bytes": 2687,
+      "sha256": "aaa2d69b8628039f43c85891983bffefe40d68b953538cea8579774de10e8998"
+    },
+    "ffmpeg-normalized-b.log": {
+      "bytes": 16882,
+      "sha256": "ca88c48b2214990082a51eac968af739a3f7baf0ca643f3a0c6763f4e7eb6852"
+    },
+    "ffmpeg-recipe-replay-v2.sh": {
+      "bytes": 6045,
+      "sha256": "1a2e682041119d0a1457212417ebf052c1b068061c55dd207466ad1905484dfc"
+    },
+    "ffmpeg-recipe-replay.sh": {
+      "bytes": 6047,
+      "sha256": "97017efc89b202927465bf9a7c51ef2cb3a504922b7ad0ae988a1594038b64d2"
+    },
+    "ffmpeg-source-validation.json": {
+      "bytes": 817,
+      "sha256": "222a492159c93c7a0d50725fc2fc8725a8305cf9a0c8003b9a03705257fc9713"
+    },
+    "ffmpeg-source-validation.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "framework-format-details.json": {
+      "bytes": 96366,
+      "sha256": "2b3319c1f1531131580ec7223297e3d9d7d9b252caf2b348b68315ade318c203"
+    },
+    "framework-formats-v2.json": {
+      "bytes": 782,
+      "sha256": "04d0429fbd50ef9ac448a1adf547f123ba7ec0bf600541ccba5cc7ac6ba1d8f0"
+    },
+    "framework-formats-v2.log": {
+      "bytes": 195,
+      "sha256": "219d48c10a13d2ec528819b0a93cd7b3c895efed1f260c5594f41764d7ba8fe0"
+    },
+    "framework-formats.json": {
+      "bytes": 1410,
+      "sha256": "cc540af5f3624dd6ec8e6107142facc33c077e01e21c51dbd45b96c01df21e26"
+    },
+    "framework-formats.log": {
+      "bytes": 195,
+      "sha256": "219d48c10a13d2ec528819b0a93cd7b3c895efed1f260c5594f41764d7ba8fe0"
+    },
+    "frontend-build.json": {
+      "bytes": 1084,
+      "sha256": "1693d359ad380059b88065a74a0af6107b1af9b86551e528852d23681a68cb5f"
+    },
+    "frontend-build.log": {
+      "bytes": 1328,
+      "sha256": "d87069ce2a802bcdd988f3a0b42901f214c9d941756ab9cd8fe14b5b38eadccb"
+    },
+    "frontend-frozen-cold.json": {
+      "bytes": 1112,
+      "sha256": "a5aba5f2cf31e0114840105bb97284195255c62e6486ef5b7db0e494d79df14f"
+    },
+    "frontend-frozen-cold.log": {
+      "bytes": 1457,
+      "sha256": "caa0a6c4bead697d8acdc94947f5c6b64b836cef2afd03c2a6a085f445f115d8"
+    },
+    "frontend-isolated-build.json": {
+      "bytes": 1597,
+      "sha256": "a3695cf6bc88b1b71200a58ba96f211291caff067852ac9e7e8d9c2c6987e35f"
+    },
+    "frontend-isolated-build.log": {
+      "bytes": 1700,
+      "sha256": "a817c512fb7a3059b9642ac70cabf2280fdd7710f39128bf5ef332fd1f08767d"
+    },
+    "frontend-typecheck.json": {
+      "bytes": 999,
+      "sha256": "21a5bc42f9cd1012d23e813884632bc31ee2062c81c7fa24280a4d7bcfb4cec3"
+    },
+    "frontend-typecheck.log": {
+      "bytes": 86,
+      "sha256": "bd292363f64864d26defb229d6a9cc693f18c9f21fa3c8feb64bdafba94fe176"
+    },
+    "gui-before-frontend-recheck.json": {
+      "bytes": 83,
+      "sha256": "7d5da58a12b9539319004d2620c52308589224b2b044a112437a2cd00f3d5bab"
+    },
+    "gui-frontend-recheck.json": {
+      "bytes": 285,
+      "sha256": "494ee7881aeab343a842f83ab459e584520ee8fe0579aecc353846a7417f5878"
+    },
+    "input-protection-verification.json": {
+      "bytes": 216,
+      "sha256": "aa1731cb52b9e86b7665439a3076058e2b96e65bbf157bb899754a2e878cf2b2"
+    },
+    "lock-process-tree-v2.json": {
+      "bytes": 773,
+      "sha256": "eb733c8a7d04ec0acfbdc283ae5ee3dff369600a152ba116866435da66a68db6"
+    },
+    "lock-process-tree-v2.log": {
+      "bytes": 1236,
+      "sha256": "cda6d9e4fb1950e9622e1c1ec284babc617fd30dfc2a733c4c326c90f4bc823a"
+    },
+    "lock-process-tree-v3.json": {
+      "bytes": 773,
+      "sha256": "64c60542617bbd5cbd244f9cd63265289c59b76c9fbe6c248b04cd5c9e36b529"
+    },
+    "lock-process-tree-v3.log": {
+      "bytes": 759,
+      "sha256": "4a3694b74e9a8e4e1d475c83e05c092482912108e71f333743376564e1b2778b"
+    },
+    "lock-process-tree.json": {
+      "bytes": 802,
+      "sha256": "1471fa010d2800292e069a9a29a76a1468d72636234d958b6930a721cf419bf6"
+    },
+    "lock-process-tree.log": {
+      "bytes": 2283,
+      "sha256": "ff76328f017b7ecacb30fbacddafef0bcabb6d1f5526bae62ac1cd3ff693c449"
+    },
+    "native-load-probe.json": {
+      "bytes": 1209,
+      "sha256": "3dc549fb3485dc7c1bde06504743248e63d67ca1cf8e4a474110e3eb6b97ac9b"
+    },
+    "native-load-probe.log": {
+      "bytes": 56,
+      "sha256": "3b9684b1e3aa31636cacb03e6a68dfeb71cb37767a9f1dfe73224eab83a71916"
+    },
+    "native-macho-inventory.json": {
+      "bytes": 13013,
+      "sha256": "af11b39b16f582fcc009d9df031f91d8ddaa47ff7aff58892fd72dbcf744220b"
+    },
+    "native-toolchain.json": {
+      "bytes": 672,
+      "sha256": "6ac1ef574c1fac43e76f34fb7a5ebecdfad963f264e4990ef8713f1e1b4d1ed6"
+    },
+    "native-toolchain.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "normalizer-bundled-ffmpeg.json": {
+      "bytes": 1590,
+      "sha256": "2ae45d4625786b66da120c44238694d47b3521afcb5a3738665137118d1c571c"
+    },
+    "normalizer-bundled-ffmpeg.log": {
+      "bytes": 2748,
+      "sha256": "46b146b156db6133c692d79e464ead57bf76104d4b948b72c0a66bac3739d133"
+    },
+    "normalizer-missing-ffmpeg.json": {
+      "bytes": 1007,
+      "sha256": "dff0e75fab46fc8b577e5960ac58f16da5fbaade685082c129b35021aa8bf3fa"
+    },
+    "normalizer-missing-ffmpeg.log": {
+      "bytes": 356,
+      "sha256": "f8e911bb39d5a7f48259292e327d7c3e28f7803de78671bf77dcecb0ec627584"
+    },
+    "relocated-sidecar-smoke.json": {
+      "bytes": 1715,
+      "sha256": "edde6f93982e2ee751e60125df54e6b642d6c403548c18607a4f8f7cb32a421b"
+    },
+    "relocated-sidecar-smoke.log": {
+      "bytes": 96,
+      "sha256": "0f2f622c3ee58edaee600d7c0b05b361b2e7f56b62598747cba174cd40524d5e"
+    },
+    "resource-observations.json": {
+      "bytes": 13795,
+      "sha256": "2493d474e4073bfbc61fe66c382028821d434de4315540f84e521ebae936becf"
+    },
+    "rust-after-frontend.json": {
+      "bytes": 1379,
+      "sha256": "a6b576824bb22b772db306e76ae34a1da392a79cca89b309018f823245d640a4"
+    },
+    "rust-after-frontend.log": {
+      "bytes": 167,
+      "sha256": "53a38ffcc843ada03284f9ded37c113a4438dfe511c6ef3ab14e5ead38ef1fee"
+    },
+    "rust-declared-baseline.json": {
+      "bytes": 16118,
+      "sha256": "ef8778ddce2a7572022a7e04ad72436c46cbe3ca506c8338f724c933f1018504"
+    },
+    "rust-release-cold.json": {
+      "bytes": 6246,
+      "sha256": "606f9338545ccdd4bee4dff524193f0f42b27ed80f68da1b8c520ff127efca5e"
+    },
+    "rust-release-cold.log": {
+      "bytes": 13509,
+      "sha256": "b2963260491d4de6c5072fc357472f6c8e6996f24ee4eac40c774bc697bb218c"
+    },
+    "sherpa-cold-new-path.json": {
+      "bytes": 14104,
+      "sha256": "c138a0a993bc93f68e15a336116961bdf1ee01de7c2a3131d85fca2f8d785452"
+    },
+    "sherpa-cold-new-path.log": {
+      "bytes": 521797,
+      "sha256": "f4642e69b04bfc186408a3659a045a260fba79362aac071a5b938e8e74b3bba1"
+    },
+    "sherpa-native-comparison.json": {
+      "bytes": 933,
+      "sha256": "faf6dc39693982e068c4610686f809dff6520354016e9b16d402b38a9b178923"
+    },
+    "sherpa-staging-prepare.json": {
+      "bytes": 3782,
+      "sha256": "c50cbc8e5fd0c742a357ccc3a3e0d92d9540509743879ccd857c4408d6afffa8"
+    },
+    "sherpa-staging-prepare.log": {
+      "bytes": 5080,
+      "sha256": "0c790d6c55facb413cf2eca075582e3fbd80b40c3a2dbcf878a0d4082e153c77"
+    },
+    "swift-locked-cold.json": {
+      "bytes": 9161,
+      "sha256": "71aff1d67fca5958d371288575f66aae9e522247cf2752775667cc49084b5c22"
+    },
+    "swift-locked-cold.log": {
+      "bytes": 14708,
+      "sha256": "dbda162d1a5876a3f548b8bf12bc33a7c5d08043d048afe5a310724cab13d8e6"
+    },
+    "swift-protocol-smoke.json": {
+      "bytes": 1449,
+      "sha256": "514f4225747657022c77b871636f65eadb4a8dc78e25848fd1a87b39fd3b1890"
+    },
+    "swift-protocol-smoke.log": {
+      "bytes": 1317,
+      "sha256": "29e98a55d4a58951dbc2614a7d7a13dcc3cca6f0543224aa887b616738464cd2"
+    },
+    "swift-self-test.json": {
+      "bytes": 913,
+      "sha256": "1c4e69d750b93a38d6d7e03af7e53a3f32a2212c172e2adadeab2b4e968c1b4d"
+    },
+    "swift-self-test.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "tracked-inputs-before.json": {
+      "bytes": 73511,
+      "sha256": "9723d577db0652caaec11e013bcf256f428caf4cf8674c923ed33fbb5f8d2f09"
+    },
+    "verify-existing-inputs.json": {
+      "bytes": 3398,
+      "sha256": "58993c832e6192f976cbb548795a01ea8f9b38d8c88360e93d99bbc5a17cff10"
+    },
+    "verify-existing-inputs.log": {
+      "bytes": 3629,
+      "sha256": "3edd1b82f3eb909f382417025b542b46c8ea4b615771e0b2cf72f343efe1994b"
+    },
+    "vitest-json.json": {
+      "bytes": 1144,
+      "sha256": "e530ad584242bf347135c915b30e5905cde91815935825a0ee5c0a45ccbba9c9"
+    },
+    "vitest-json.log": {
+      "bytes": 113,
+      "sha256": "e90d6777b0ca32da7cd07a8b73aa1192e6246d825d289cc30848c653a0df254c"
+    },
+    "vitest-report.json": {
+      "bytes": 59425,
+      "sha256": "37ec1f1ee4799b5033c1184b650244f9c0b8cd3e093491905155274b3e4b972a"
+    },
+    "workspace-doctest-list.json": {
+      "bytes": 1019,
+      "sha256": "1f34a46f5f2d3f5fa5192a20fd38a89ac83d4149c26ab3d343631686256c9441"
+    },
+    "workspace-doctest-list.log": {
+      "bytes": 542,
+      "sha256": "380414adce347281c8720484513409bc341dc0c931d60764d2d7b6477f51b553"
+    },
+    "zip-create.json": {
+      "bytes": 1346,
+      "sha256": "033eddd54b9304e3135ae68d6d1278ee6d94bffe74ae49676ce78093e0e66d35"
+    },
+    "zip-create.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "zip-extract.json": {
+      "bytes": 1050,
+      "sha256": "dcea870ef1ae8a21b18787086f7ae7767b00a673a8f61debbaa0b278b99d5ac6"
+    },
+    "zip-extract.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "cargo-source-footprint.json": {
+      "bytes": 234,
+      "sha256": "42a81a19f8f56464357797150de8b0dc56e9c2781f9308a1a90e3d1b1b758120"
+    },
+    "cold-inputs-long-timeout.json": {
+      "bytes": 10195,
+      "sha256": "35e4f8170819c1b84cb203129896884ef044cfa1aa4e4f901d3005f876660632"
+    },
+    "cold-inputs-long-timeout.log": {
+      "bytes": 1972,
+      "sha256": "987ec598d489434aa549be7b657a56f829378797d5428ce6a141de0f4d6d6437"
+    },
+    "cold-inputs-source-long-timeout.json": {
+      "bytes": 5136,
+      "sha256": "c97a4f80004922df31506a8759e855499a8c63f3aa63fcfabd8d002df946df3d"
+    },
+    "cold-inputs-source-long-timeout.log": {
+      "bytes": 8268,
+      "sha256": "7d809a1a444f323065dd85cb55c9ed7e7d420a7341cb8f157d28c95d38e17cb0"
+    },
+    "download-and-source-timeout-check.json": {
+      "bytes": 923,
+      "sha256": "d19d129988cfa324e78c2f26101fbde6a89f54d629b139f3d302ee27716d412a"
+    },
+    "download-and-source-timeout-check.log": {
+      "bytes": 328,
+      "sha256": "3dc8a73a1acd07f6d182f55ff1f6ab2db3f0b39efc6b1ba3d9e5b6e2b2890d15"
+    },
+    "download-timeout-check.py": {
+      "bytes": 3104,
+      "sha256": "f7080b72bbe41089a6228e7bf35f152049fd8152556541521424598d72b97323"
+    },
+    "download-timeout-policy-check.json": {
+      "bytes": 915,
+      "sha256": "d1b4fce4025859fac69c031fc46acac74b438d5d9bf3f77bd23b77122138280b"
+    },
+    "download-timeout-policy-check.log": {
+      "bytes": 228,
+      "sha256": "d1602664a365870bd20b44acdc23c6b6a6b4bad2b025edf2f984b3b80315caba"
+    },
+    "finish-timeout-evidence.py": {
+      "bytes": 6729,
+      "sha256": "df7884bd4b405e4a101d8790f5c5adab66218b46f404ea1432babec6bc293bfd"
+    },
+    "input-protection-after-timeout.json": {
+      "bytes": 420,
+      "sha256": "af131febf6b857483feb93cccabf9a3b50cb4aac2dee5357575973cfbffb2734"
+    },
+    "resource-observations-after-timeout.json": {
+      "bytes": 1117,
+      "sha256": "ed927a2831aa5d91dcf8edb6c9e0cac27c3bb2ef729093298736a1d441e1014c"
+    }
+  },
+  "unverified": [
+    "macOS 13 real system execution",
+    "full Xcode build",
+    "other CLT/Python/Rust combinations",
+    "default unit workflow without implicit skips",
+    "API quick/acceptance with reviewed new FFmpeg baseline",
+    "M7 empty global Cargo/pnpm cache resource budget and production disk gate"
+  ],
+  "protection_after_timeout": [
+    {
+      "manifest": "tracked-inputs-before.json",
+      "checked_files": 630,
+      "changed_files": [
+        "scripts/sherpa/fetch-inputs.py"
+      ]
+    },
+    {
+      "manifest": "existing-artifacts-before.json",
+      "checked_files": 35,
+      "changed_files": []
+    }
+  ],
+  "resource_observations_after_timeout": {
+    "previous_resource_snapshot": "resource-observations.json",
+    "cold_download_complete": true,
+    "cold_preparation_elapsed_seconds": 177.53,
+    "cold_preparation_sampled_max_bytes": 990306304,
+    "cold_inputs_final_bytes": 973467648,
+    "cold_cache_final_bytes": 234180608,
+    "cold_sources_final_bytes": 739287040,
+    "final_scope_allocated_bytes": 13682417664,
+    "disk_budget_policy_established": true,
+    "production_disk_gate_implemented": false,
+    "draft_policy": "feature/one-command-dev-package/doc/m0/resource-policy.json",
+    "initial_same_volume_required_free_bytes": 25769803776,
+    "archive_timeout_seconds": 3600,
+    "source_preparation_timeout_seconds": 3600,
+    "local_git_query_timeout_seconds": 300,
+    "connect_timeout_seconds": 30,
+    "low_speed_seconds": 120,
+    "low_speed_bytes_per_second": 1024,
+    "history": [
+      "cold-inputs failed on archive max-time 600; model partial deleted",
+      "cold-inputs-long-timeout downloaded verified model, then Git clone timeout 300; temporary source removed",
+      "cold-inputs-source-long-timeout completed verified preparation; existing verified inputs reused"
+    ]
+  },
+  "resource_policy": {
+    "schema_version": 1,
+    "status": "M0 design draft; production checks not implemented",
+    "scope": "Current audited macOS arm64 toolchain; serial stages; existing standard Cargo/pnpm caches; one active run; no minimum-space proof",
+    "formula": "ceil(max(final allocated subtree, available subtree samples) * 1.5 / GiB), at least 1 GiB per grouped phase",
+    "margin_fraction": 0.5,
+    "rounding_unit_bytes": 1073741824,
+    "phases": [
+      {
+        "phase": "locked_inputs",
+        "observed_allocated_bytes": 990306304,
+        "evidence": [
+          "cold-inputs-source-long-timeout.json"
+        ],
+        "reserved_bytes": 2147483648
+      },
+      {
+        "phase": "cargo_dependency_sources",
+        "observed_allocated_bytes": 319877120,
+        "evidence": [
+          "cargo-source-footprint.json"
+        ],
+        "reserved_bytes": 1073741824
+      },
+      {
+        "phase": "ffmpeg",
+        "observed_allocated_bytes": 163500032,
+        "evidence": [
+          "ffmpeg-isolated-a.json"
+        ],
+        "reserved_bytes": 1073741824
+      },
+      {
+        "phase": "sherpa_native",
+        "observed_allocated_bytes": 1835835392,
+        "evidence": [
+          "sherpa-staging-prepare.json"
+        ],
+        "reserved_bytes": 3221225472
+      },
+      {
+        "phase": "frontend",
+        "observed_allocated_bytes": 348475392,
+        "evidence": [
+          "frontend-isolated-build.json"
+        ],
+        "reserved_bytes": 1073741824
+      },
+      {
+        "phase": "swift",
+        "observed_allocated_bytes": 990384128,
+        "evidence": [
+          "swift-locked-cold.json"
+        ],
+        "reserved_bytes": 2147483648
+      },
+      {
+        "phase": "rust",
+        "observed_allocated_bytes": 8532774912,
+        "evidence": [
+          "rust-release-cold.json"
+        ],
+        "reserved_bytes": 12884901888
+      },
+      {
+        "phase": "delivery",
+        "observed_allocated_bytes": 903766016,
+        "evidence": [
+          "zip-create.json",
+          "zip-extract.json",
+          "app-zip-validation.json"
+        ],
+        "reserved_bytes": 2147483648
+      }
+    ],
+    "initial_same_volume_required_free_bytes": 25769803776,
+    "stage_recheck": "Before each long stage, sum budgets of this and remaining phases per destination volume, including cache volumes; do not subtract unverified cached artifacts. Stop if free bytes fall below the remaining reservation. Recheck before App/ZIP/extraction with the full delivery reservation. Changed source/toolchain or parallel jobs require new measurements.",
+    "limitations": [
+      "Five-second samples are lower bounds, not true peak measurements; headroom is an explicit policy choice.",
+      "Swift grouped observation is final build+cache footprint; its prior sampling covered the whole experiment, not this subtree.",
+      "Cargo source footprint is a read-only measurement of resolved macOS dependency sources; empty global Cargo/pnpm caches were not measured. M7 must verify and revise this policy for that scenario.",
+      "Rust observation deliberately includes debug, tests and release; no claim that a package-only build needs this full amount.",
+      "Native observation includes a source copy also covered by locked_inputs; this double count is conservative.",
+      "The final delivery tree includes App, ZIP and extracted App; retained old delivery must be accounted separately if it exceeds this reservation."
+    ]
+  }
+}
