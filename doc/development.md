@@ -9,7 +9,7 @@ Run commands from the repository root. Native builds require macOS 13+ and Apple
 Install Xcode Command Line Tools (`xcode-select --install`), Rust stable via rustup, Node.js 22.x ≥22.22.2 / 24.x ≥24.15 / 26+, pnpm 9+, Python 3.11+, jq, and CMake. Python 3.11 supplies the TOML reader used for App license collection. Full native builds require the exact reviewed compiler/SDK/CMake versions in [Sherpa inputs](../scripts/sherpa/BUILD-INPUTS.md); UI/Rust-only development does not. If cargo is missing after rustup installation, run `source "$HOME/.cargo/env"`.
 
 ```sh
-git clone https://github.com/0Litost0/SeaSnail.git
+git clone https://github.com/0Litost0/OpenSeaSnail.git
 cd SeaSnail
 python3 scripts/doctor.py
 ```

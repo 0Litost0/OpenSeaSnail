@@ -4,7 +4,7 @@
 
 SeaSnail currently targets macOS 13+ on Apple Silicon. Intel Macs, Windows, and Linux are not supported by the native packaging workflow.
 
-Check the specific [Release](https://github.com/0Litost0/SeaSnail/releases) for available assets, checksums, signature status, and known issues. If there is no published build, use the [source development guide](development.md); do not assume a release exists.
+Check the specific [Release](https://github.com/0Litost0/OpenSeaSnail/releases) for available assets, checksums, signature status, and known issues. If there is no published build, use the [source development guide](development.md); do not assume a release exists.
 
 1. Download the macOS arm64 archive from a trusted release and verify its SHA-256 against the release's checksum file (`shasum -a 256 <downloaded-file>`).
 2. Unzip, move SeaSnail.app to Applications, and open it. For an unsigned build that macOS blocks, use the system's explicit approval flow only after checking the origin. Follow the instructions for your macOS version and that release; a checksum alone does not establish publisher identity.

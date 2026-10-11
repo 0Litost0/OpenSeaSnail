@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>SeaSnail social preview</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1280px; height: 640px; overflow: hidden; }
+  body {
+    font-family: -apple-system, "SF Pro Display", "Helvetica Neue", sans-serif;
+    background: #f4f4f5;
+    color: #18181b;
+    display: flex;
+    flex-direction: column;
+  }
+  /* macOS window chrome */
+  .titlebar {
+    height: 56px;
+    flex: none;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    gap: 9px;
+    background: #fafafa;
+    border-bottom: 1px solid #e4e4e7;
+  }
+  .dot { width: 14px; height: 14px; border-radius: 50%; }
+  .dot.red { background: #ff5f57; }
+  .dot.yellow { background: #febc2e; }
+  .dot.green { background: #28c840; }
+  .titlebar .app-name { margin-left: 14px; font-size: 19px; font-weight: 600; color: #52525b; }
+  /* content */
+  .content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 56px;
+  }
+  .card {
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    border: 1px solid #e4e4e7;
+    border-radius: 24px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 16px 40px rgba(0, 0, 0, 0.05);
+    padding: 52px 60px;
+    display: flex;
+    align-items: center;
+    gap: 64px;
+  }
+  /* brand column */
+  .brand { flex: 1.15; min-width: 0; }
+  .logo { width: 396px; height: auto; display: block; }
+  .tagline { margin-top: 30px; font-size: 38px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.22; }
+  .tagline .nb { white-space: nowrap; }
+  .sub { margin-top: 12px; font-size: 25px; color: #71717a; }
+  .chips { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip {
+    font-size: 18px;
+    color: #3f3f46;
+    border: 1px solid #d4d4d8;
+    border-radius: 999px;
+    padding: 6px 15px;
+    background: #ffffff;
+    white-space: nowrap;
+  }
+  /* mini sessions mock */
+  .mock {
+    flex: 1;
+    min-width: 0;
+    background: #fafafa;
+    border: 1px solid #e4e4e7;
+    border-radius: 18px;
+    padding: 22px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .mock-title { font-size: 19px; font-weight: 700; }
+  .mock-sub { font-size: 14.5px; color: #71717a; margin-top: -8px; }
+  .mock-search {
+    height: 38px;
+    border: 1px solid #d4d4d8;
+    border-radius: 10px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    font-size: 15px;
+    color: #a1a1aa;
+  }
+  .mock-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-top: 1px solid #e4e4e7;
+    padding-top: 14px;
+  }
+  .mock-time { font-size: 15px; color: #52525b; white-space: nowrap; }
+  .badge { font-size: 13.5px; border-radius: 999px; padding: 3px 11px; white-space: nowrap; }
+  .badge-outline { border: 1px solid #d4d4d8; color: #3f3f46; background: #ffffff; }
+  .badge-fill { background: #f0f0f1; color: #3f3f46; }
+  .badge-dot { background: #e7f6ee; color: #15803d; }
+  .mock-text { font-size: 15px; color: #18181b; margin-left: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .mock-status {
+    margin-top: 4px;
+    display: flex;
+    gap: 10px;
+  }
+  .status-pill {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13.5px;
+    color: #3f3f46;
+    border: 1px solid #e4e4e7;
+    border-radius: 999px;
+    padding: 5px 13px;
+    background: #ffffff;
+  }
+  .status-pill .rec { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; }
+</style>
+</head>
+<body>
+  <div class="titlebar">
+    <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+    <span class="app-name">SeaSnail</span>
+  </div>
+  <div class="content">
+    <div class="card">
+      <div class="brand">
+        <img class="logo" src="../apps/desktop/src/assets/brand/seasnail-logo.svg" alt="SeaSnail logo">
+        <div class="tagline"><span class="nb">Open-source, privacy-first</span><br>voice typing.</div>
+        <div class="sub">Offline speech recognition on your Mac.</div>
+        <div class="chips">
+          <span class="chip">macOS 13+ · Apple Silicon</span>
+          <span class="chip">On-device ASR</span>
+          <span class="chip">Encrypted local storage</span>
+          <span class="chip">Apache-2.0</span>
+        </div>
+      </div>
+      <div class="mock">
+        <div class="mock-title">Sessions</div>
+        <div class="mock-sub">Search, filter, and select a session.</div>
+        <div class="mock-search">Search transcript text</div>
+        <div class="mock-row">
+          <span class="mock-time">10/11/26, 11:04 AM</span>
+          <span class="badge badge-outline">Live</span>
+          <span class="badge badge-fill">Completed</span>
+          <span class="mock-text">Meeting notes draft…</span>
+        </div>
+        <div class="mock-row">
+          <span class="mock-time">10/11/26, 10:52 AM</span>
+          <span class="badge badge-outline">Live</span>
+          <span class="badge badge-dot">Pasted</span>
+          <span class="mock-text">Sounds good, ship it.</span>
+        </div>
+        <div class="mock-status">
+          <span class="status-pill"><span class="rec"></span>Ready</span>
+          <span class="status-pill">✓&nbsp;Service connected</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -4,7 +4,7 @@
 
 当前原生打包流程支持 macOS 13+、Apple Silicon，不支持 Intel Mac、Windows 或 Linux。
 
-先查看具体 [Release](https://github.com/0Litost0/SeaSnail/releases) 的可用资产、校验值、签名状态和已知问题。没有公开构建时，请按[源码开发指南](development.zh-CN.md)操作。
+先查看具体 [Release](https://github.com/0Litost0/OpenSeaSnail/releases) 的可用资产、校验值、签名状态和已知问题。没有公开构建时，请按[源码开发指南](development.zh-CN.md)操作。
 
 1. 从可信的 Release 下载 macOS arm64 包，通过 `shasum -a 256 <下载文件>` 与该版本提供的校验值比对。
 2. 解压，把 SeaSnail.app 移入 Applications 并打开。若 macOS 阻止未签名包，仅在核实来源后使用系统提供的显式放行流程；以当前系统与该版本说明为准。校验值本身不证明发布者身份。

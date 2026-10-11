@@ -33,7 +33,7 @@ source "$HOME/.cargo/env"
 获取代码并安装前端依赖：
 
 ```bash
-git clone https://github.com/0Litost0/SeaSnail.git SeaSnail
+git clone https://github.com/0Litost0/OpenSeaSnail.git SeaSnail
 cd SeaSnail
 pnpm --dir apps/desktop install --frozen-lockfile
 pnpm --dir apps/desktop generate:openapi
