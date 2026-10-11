@@ -1,0 +1,839 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SeaSnail — Open-source, privacy-first voice typing for macOS</title>
+<meta name="description" content="SeaSnail turns your speech into text with offline, on-device speech recognition. Global shortcut dictation, clipboard context, encrypted local history. Free and open source for macOS 13+ on Apple Silicon.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://0litost0.github.io/OpenSeaSnail/">
+<!-- TODO: verify this site in Google Search Console, then paste the verification meta tag here. -->
+<!-- <meta name="google-site-verification" content="PASTE_TOKEN_HERE"> -->
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SeaSnail">
+<meta property="og:title" content="SeaSnail — Open-source, privacy-first voice typing for macOS">
+<meta property="og:description" content="Offline, on-device speech recognition. Global shortcut dictation, clipboard context, encrypted local history. Free and open source for Apple Silicon Macs.">
+<meta property="og:url" content="https://0litost0.github.io/OpenSeaSnail/">
+<meta property="og:image" content="https://0litost0.github.io/OpenSeaSnail/assets/social-preview.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SeaSnail — Open-source, privacy-first voice typing for macOS">
+<meta name="twitter:description" content="Offline, on-device speech recognition with encrypted local history. Open source, macOS 13+ on Apple Silicon.">
+<meta name="twitter:image" content="https://0litost0.github.io/OpenSeaSnail/assets/social-preview.png">
+
+<link rel="icon" type="image/svg+xml" href="assets/seasnail-mark.svg">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "SeaSnail",
+  "alternateName": "OpenSeaSnail",
+  "operatingSystem": "macOS 13 or later (Apple Silicon)",
+  "applicationCategory": "UtilitiesApplication",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "license": "https://www.apache.org/licenses/LICENSE-2.0",
+  "url": "https://0litost0.github.io/OpenSeaSnail/",
+  "downloadUrl": "https://github.com/0Litost0/OpenSeaSnail/releases",
+  "codeRepository": "https://github.com/0Litost0/OpenSeaSnail",
+  "description": "Open-source, privacy-first voice typing for macOS. Offline on-device speech recognition, global shortcut dictation, clipboard context, and encrypted local history.",
+  "featureList": "Global shortcut dictation; Offline on-device speech recognition; Clipboard context; Encrypted local history; Personal dictionary; Optional AI cleanup; OpenAPI with scoped tokens",
+  "author": { "@type": "Organization", "name": "OpenSeaSnail", "url": "https://github.com/0Litost0/OpenSeaSnail" }
+}
+</script>
+
+<style>
+  :root {
+    --bg: #f4f4f5;
+    --card: #ffffff;
+    --border: #e4e4e7;
+    --border-strong: #d4d4d8;
+    --text: #18181b;
+    --text-2: #52525b;
+    --text-3: #71717a;
+    --text-4: #a1a1aa;
+    --accent: #18181b;
+    --green: #16a34a;
+    --green-bg: #e7f6ee;
+    --red: #ef4444;
+    --radius: 14px;
+    --shadow: 0 1px 2px rgba(0,0,0,0.04), 0 12px 32px rgba(0,0,0,0.06);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { display: block; }
+  a { color: inherit; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- nav ---------- */
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(250,250,250,0.85);
+    backdrop-filter: saturate(1.4) blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner { display: flex; align-items: center; gap: 12px; height: 60px; }
+  .nav-brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 17px; text-decoration: none; }
+  .nav-brand img { width: 26px; height: 26px; }
+  .nav-links { margin-left: auto; display: flex; align-items: center; gap: 22px; font-size: 14.5px; }
+  .nav-links a { color: var(--text-2); text-decoration: none; }
+  .nav-links a:hover { color: var(--text); }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font: inherit; font-size: 14.5px; font-weight: 600;
+    padding: 9px 18px; border-radius: 10px;
+    border: 1px solid var(--border-strong);
+    background: var(--card); color: var(--text);
+    text-decoration: none; cursor: pointer;
+    transition: transform .06s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .btn:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+  .btn:active { transform: translateY(1px); }
+  .btn-primary { background: var(--accent); color: #fafafa; border-color: var(--accent); }
+  .btn-primary:hover { background: #27272a; }
+  .btn-sm { padding: 7px 14px; font-size: 13.5px; }
+  .btn[disabled] { opacity: .45; cursor: not-allowed; box-shadow: none; }
+
+  /* ---------- hero ---------- */
+  header.hero { padding: 84px 0 56px; text-align: center; }
+  .hero-logo { width: 300px; max-width: 70vw; margin: 0 auto 34px; }
+  .hero h1 { font-size: clamp(30px, 4.6vw, 46px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; }
+  .hero .sub { margin: 18px auto 0; max-width: 640px; font-size: 18.5px; color: var(--text-3); }
+  .hero-cta { margin-top: 32px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .hero-chips { margin-top: 26px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .chip {
+    font-size: 13px; color: var(--text-2);
+    border: 1px solid var(--border-strong); border-radius: 999px;
+    padding: 5px 13px; background: var(--card); white-space: nowrap;
+  }
+
+  /* ---------- sections ---------- */
+  section { padding: 64px 0; }
+  .section-title { font-size: 27px; font-weight: 700; letter-spacing: -0.01em; }
+  .section-sub { margin-top: 8px; font-size: 16px; color: var(--text-3); max-width: 640px; }
+  .section-head { margin-bottom: 34px; }
+
+  /* ---------- demo ---------- */
+  #demo { background: linear-gradient(#f4f4f5, #ececef); }
+  .demo-stage {
+    display: grid;
+    grid-template-columns: 1.75fr 1fr;
+    gap: 20px;
+    align-items: stretch;
+  }
+  /* fake app window */
+  .window {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .titlebar {
+    height: 44px; flex: none;
+    display: flex; align-items: center; gap: 7px;
+    padding: 0 16px;
+    background: #fafafa;
+    border-bottom: 1px solid var(--border);
+  }
+  .dot { width: 11px; height: 11px; border-radius: 50%; }
+  .dot.red { background: #ff5f57; } .dot.yellow { background: #febc2e; } .dot.green { background: #28c840; }
+  .titlebar .app-name { margin-left: 10px; font-size: 13.5px; font-weight: 600; color: var(--text-2); }
+  .app-body { display: flex; flex: 1; min-height: 380px; }
+  /* sidebar */
+  .sidebar {
+    flex: none; width: 54px;
+    background: #f4f4f5;
+    border-right: 1px solid var(--border);
+    display: flex; flex-direction: column; align-items: center;
+    padding: 12px 0; gap: 6px;
+  }
+  .sidebar .side-logo { width: 30px; height: 30px; margin-bottom: 8px; }
+  .side-icon {
+    width: 36px; height: 36px; border-radius: 9px;
+    display: grid; place-items: center; color: var(--text-3);
+  }
+  .side-icon.active { background: #e4e4e7; color: var(--text); }
+  .side-icon svg { width: 19px; height: 19px; }
+  .sidebar .spacer { flex: 1; }
+  /* sessions panel */
+  .app-main { flex: 1; padding: 18px 20px; display: flex; flex-direction: column; min-width: 0; }
+  .panel-title { font-size: 16px; font-weight: 700; }
+  .panel-sub { font-size: 12.5px; color: var(--text-3); margin-top: 2px; }
+  .search-bar {
+    margin-top: 12px; height: 34px;
+    border: 1px solid var(--border-strong); border-radius: 9px; background: var(--card);
+    display: flex; align-items: center; padding: 0 12px;
+    font-size: 13px; color: var(--text-4); gap: 8px;
+  }
+  .session-table { margin-top: 14px; font-size: 13px; }
+  .session-head, .session-row {
+    display: grid;
+    grid-template-columns: 130px 62px 92px 1fr;
+    gap: 10px; align-items: center;
+    padding: 8px 4px;
+  }
+  .session-head { color: var(--text-3); font-weight: 600; border-bottom: 1px solid var(--border); font-size: 12.5px; }
+  .session-row { border-bottom: 1px solid #f0f0f1; color: var(--text-2); }
+  .session-row .preview { color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .session-row.new-row { animation: rowFlash 2.2s ease; background: #f0fdf4; border-radius: 8px; }
+  @keyframes rowFlash { from { background-color: #bbf7d0; } to { background-color: #f0fdf4; } }
+  .badge { font-size: 11.5px; border-radius: 999px; padding: 2px 9px; white-space: nowrap; text-align: center; }
+  .badge-outline { border: 1px solid var(--border-strong); color: var(--text-2); background: var(--card); }
+  .badge-fill { background: #f0f0f1; color: var(--text-2); }
+  .badge-green { background: var(--green-bg); color: var(--green); }
+  .app-statusbar {
+    flex: none; height: 40px;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; gap: 8px; padding: 0 14px;
+    background: #fafafa;
+  }
+  .status-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11.5px; color: var(--text-2);
+    border: 1px solid var(--border); border-radius: 999px;
+    padding: 3px 10px; background: var(--card);
+  }
+  .status-pill .rec { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; }
+
+  /* side stack: fake browser + editor */
+  .side-stack { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+  .browser-card .titlebar .tab { margin-left: 10px; font-size: 12px; color: var(--text-3); }
+  .browser-body { padding: 16px; font-size: 13.5px; }
+  .browser-body .link-line {
+    display: flex; align-items: center; gap: 8px;
+    border: 1px solid var(--border); border-radius: 9px;
+    padding: 9px 12px; background: #fafafa;
+  }
+  .browser-body .url { color: #2563eb; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; font-size: 12.5px; }
+  .copy-btn {
+    flex: none; font: inherit; font-size: 12px; font-weight: 600;
+    border: 1px solid var(--border-strong); border-radius: 7px;
+    background: var(--card); padding: 5px 12px; cursor: pointer; color: var(--text-2);
+  }
+  .copy-btn:hover:not([disabled]) { background: #f4f4f5; }
+  .copy-btn[disabled] { opacity: .45; cursor: not-allowed; }
+  .copy-btn.copied { color: var(--green); border-color: var(--green); background: var(--green-bg); }
+  .editor-body {
+    flex: 1; padding: 16px; font-size: 14px; min-height: 150px;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+    white-space: pre-wrap; color: var(--text);
+  }
+  .editor-body .caret {
+    display: inline-block; width: 2px; height: 1.05em;
+    background: var(--text); vertical-align: -0.15em;
+    animation: blink 1s steps(1) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+  .editor-body .pasted-link { color: #2563eb; text-decoration: underline; }
+
+  /* capsule (floating recording UI) */
+  .capsule {
+    position: absolute;
+    top: 74px; left: 50%;
+    transform: translateX(-50%) translateY(-8px);
+    z-index: 30;
+    display: none;
+    align-items: center; gap: 10px;
+    background: rgba(24,24,27,0.92);
+    color: #fafafa;
+    border-radius: 999px;
+    padding: 10px 18px;
+    font-size: 13.5px; font-weight: 600;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.28);
+    opacity: 0;
+    transition: opacity .25s ease, transform .25s ease;
+    backdrop-filter: blur(8px);
+    white-space: nowrap;
+  }
+  .capsule.show { display: flex; opacity: 1; transform: translateX(-50%) translateY(0); }
+  .capsule .rec-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--red); animation: pulse 1.1s ease infinite; }
+  @keyframes pulse { 50% { opacity: .35; } }
+  .capsule .bars { display: flex; align-items: flex-end; gap: 2.5px; height: 14px; }
+  .capsule .bars i { width: 3px; background: #4ade80; border-radius: 2px; height: 30%; animation: bar 0.9s ease-in-out infinite; }
+  .capsule .bars i:nth-child(2) { animation-delay: .12s; } .capsule .bars i:nth-child(3) { animation-delay: .24s; }
+  .capsule .bars i:nth-child(4) { animation-delay: .36s; } .capsule .bars i:nth-child(5) { animation-delay: .48s; }
+  @keyframes bar { 0%,100% { height: 25%; } 50% { height: 100%; } }
+  .capsule .timer { font-variant-numeric: tabular-nums; color: #d4d4d8; }
+  .capsule .ctx-chip {
+    display: none; align-items: center; gap: 5px;
+    background: rgba(74,222,128,0.18); color: #86efac;
+    border-radius: 999px; padding: 2px 9px; font-size: 12px;
+  }
+  .capsule .ctx-chip.show { display: inline-flex; }
+  .capsule .progress {
+    width: 110px; height: 5px; border-radius: 3px;
+    background: rgba(255,255,255,0.22); overflow: hidden;
+  }
+  .capsule .progress i { display: block; height: 100%; width: 0; background: #4ade80; border-radius: 3px; transition: width .2s linear; }
+  .capsule .spinner {
+    width: 13px; height: 13px; border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.3); border-top-color: #fafafa;
+    animation: spin .7s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .capsule .ok { color: #4ade80; }
+
+  /* demo controls */
+  .demo-controls {
+    margin-top: 22px;
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    position: relative;
+  }
+  /* coach marks (step tooltips) */
+  .coach {
+    position: absolute; z-index: 40;
+    display: none;
+    flex-direction: column; gap: 2px;
+    max-width: 250px;
+    background: rgba(24,24,27,0.94);
+    color: #fafafa;
+    border-radius: 12px;
+    padding: 9px 14px;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.28);
+    animation: coachFloat 1.8s ease-in-out infinite;
+  }
+  .coach.show { display: flex; }
+  @keyframes coachFloat { 50% { transform: translateY(-4px); } }
+  .coach .coach-step { font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #a1a1aa; }
+  .coach .coach-text { font-size: 13px; font-weight: 600; line-height: 1.35; }
+  .coach::after {
+    content: "";
+    position: absolute; top: 100%;
+    border: 6px solid transparent;
+    border-top-color: rgba(24,24,27,0.94);
+  }
+  .coach-shortcut { bottom: calc(100% + 12px); left: 0; }
+  .coach-shortcut::after { left: 42px; }
+  .coach-copy { bottom: calc(100% + 10px); right: 0; }
+  .coach-copy::after { right: 26px; }
+  /* pulse ring on the current copy target */
+  .copy-btn.pulse { animation: copyPulse 1.6s ease-out infinite; }
+  @keyframes copyPulse {
+    0% { box-shadow: 0 0 0 0 rgba(24,24,27,0.32); }
+    70% { box-shadow: 0 0 0 9px rgba(24,24,27,0); }
+    100% { box-shadow: 0 0 0 0 rgba(24,24,27,0); }
+  }
+  .shortcut-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    font: inherit; font-weight: 600; font-size: 15px;
+    background: var(--accent); color: #fafafa;
+    border: none; border-radius: 12px; padding: 11px 20px;
+    cursor: pointer; box-shadow: 0 6px 18px rgba(24,24,27,0.25);
+    transition: transform .06s ease;
+  }
+  .shortcut-btn:active { transform: translateY(1px); }
+  .shortcut-btn.attention { animation: breathe 2.2s ease-in-out infinite; }
+  @keyframes breathe { 50% { box-shadow: 0 6px 26px rgba(24,24,27,0.45); } }
+  kbd {
+    font-family: inherit; font-size: 13px;
+    background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.28);
+    border-radius: 6px; padding: 2px 7px;
+  }
+  .demo-hint { font-size: 14.5px; color: var(--text-2); min-height: 1.5em; }
+  .demo-hint strong { color: var(--text); }
+
+  /* ---------- features ---------- */
+  .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .feature-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 24px; box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  }
+  .feature-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 7px; display: flex; align-items: center; gap: 9px; }
+  .feature-card h3 .f-ico { width: 30px; height: 30px; border-radius: 8px; background: #f4f4f5; border: 1px solid var(--border); display: grid; place-items: center; font-size: 15px; }
+  .feature-card p { font-size: 14px; color: var(--text-3); }
+
+  /* ---------- privacy strip ---------- */
+  .privacy-strip {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 30px 34px; box-shadow: var(--shadow);
+  }
+  .privacy-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px 34px; margin-top: 18px; }
+  .privacy-item { display: flex; gap: 10px; font-size: 14.5px; color: var(--text-2); }
+  .privacy-item .check { color: var(--green); font-weight: 700; flex: none; }
+
+  /* ---------- cta ---------- */
+  #download { text-align: center; }
+  #download .btn-row { margin-top: 26px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .req-note { margin-top: 18px; font-size: 13.5px; color: var(--text-3); }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 30px 0 44px; font-size: 13.5px; color: var(--text-3);
+  }
+  footer .wrap { display: flex; gap: 18px; flex-wrap: wrap; align-items: center; }
+  footer a { color: var(--text-2); text-decoration: none; border-bottom: 1px solid var(--border-strong); }
+  footer a:hover { color: var(--text); }
+  footer .right { margin-left: auto; }
+
+  @media (max-width: 900px) {
+    .demo-stage { grid-template-columns: 1fr; }
+    .feature-grid { grid-template-columns: 1fr 1fr; }
+    .privacy-list { grid-template-columns: 1fr; }
+    .capsule { top: 60px; }
+  }
+  @media (max-width: 620px) {
+    .feature-grid { grid-template-columns: 1fr; }
+    .session-head, .session-row { grid-template-columns: 96px 52px 78px 1fr; gap: 6px; font-size: 12px; }
+    .nav-links .hide-sm { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-inner">
+    <a class="nav-brand" href="#top">
+      <img src="assets/seasnail-mark.svg" alt="SeaSnail logo mark">
+      SeaSnail
+    </a>
+    <div class="nav-links">
+      <a href="#demo" class="hide-sm">Demo</a>
+      <a href="#features" class="hide-sm">Features</a>
+      <a href="#privacy" class="hide-sm">Privacy</a>
+      <a href="#download" class="hide-sm">Download</a>
+      <a class="btn btn-sm" href="https://github.com/0Litost0/OpenSeaSnail" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <img class="hero-logo" src="assets/seasnail-logo.svg" alt="SeaSnail logo">
+    <h1>Open-source, privacy-first<br>voice typing for macOS.</h1>
+    <p class="sub">SeaSnail turns your speech into text with offline, on-device speech recognition — and pastes the result wherever you write. No cloud, no account, no subscription.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#demo">▶&nbsp;&nbsp;Try the interactive demo</a>
+      <a class="btn" href="https://github.com/0Litost0/OpenSeaSnail" rel="noopener">View on GitHub</a>
+    </div>
+    <div class="hero-chips">
+      <span class="chip">macOS 13+ · Apple Silicon</span>
+      <span class="chip">On-device ASR</span>
+      <span class="chip">Encrypted local storage</span>
+      <span class="chip">Apache-2.0</span>
+    </div>
+  </div>
+</header>
+
+<section id="demo">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="section-title">See how it works</h2>
+      <p class="section-sub">A simulated walkthrough of one dictation: start with the shortcut, copy a link while recording, stop, and watch the combined result paste itself.</p>
+    </div>
+
+    <div class="demo-stage" id="demoStage" style="position: relative;">
+      <!-- SeaSnail app window -->
+      <div class="window">
+        <div class="titlebar">
+          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+          <span class="app-name">SeaSnail</span>
+        </div>
+        <div class="app-body">
+          <div class="sidebar">
+            <img class="side-logo" src="assets/seasnail-mark.svg" alt="">
+            <span class="side-icon active" title="Sessions">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="4" y="4" width="16" height="4.5" rx="1.2"/><rect x="4" y="11" width="16" height="4.5" rx="1.2"/><rect x="4" y="18" width="16" height="2.5" rx="1.2"/></svg>
+            </span>
+            <span class="side-icon" title="Dictionary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V4H6.5A2.5 2.5 0 0 0 4 6.5v13z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg>
+            </span>
+            <span class="spacer"></span>
+            <span class="side-icon" title="Settings">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1L7 17M17 7l2.1-2.1"/></svg>
+            </span>
+          </div>
+          <div class="app-main">
+            <div class="panel-title">Sessions</div>
+            <div class="panel-sub">Search, filter, and select a session to read its transcript.</div>
+            <div class="search-bar">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+              Search transcript text
+            </div>
+            <div class="session-table">
+              <div class="session-head"><span>Time</span><span>Source</span><span>Status</span><span>Preview</span></div>
+              <div id="sessionRows">
+                <div class="session-row">
+                  <span>10/11/26, 11:04 AM</span>
+                  <span><span class="badge badge-outline">Live</span></span>
+                  <span><span class="badge badge-fill">Completed</span></span>
+                  <span class="preview">Meeting notes draft…</span>
+                </div>
+                <div class="session-row">
+                  <span>10/7/26, 11:36 PM</span>
+                  <span><span class="badge badge-outline">Live</span></span>
+                  <span><span class="badge badge-fill">Completed</span></span>
+                  <span class="preview">Sounds good, ship it.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="app-statusbar">
+          <span class="status-pill"><span class="rec"></span>Ready</span>
+          <span class="status-pill">✓&nbsp;Service connected</span>
+        </div>
+      </div>
+
+      <!-- side stack: browser + editor -->
+      <div class="side-stack">
+        <div class="window browser-card">
+          <div class="titlebar">
+            <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+            <span class="tab">Safari — Launch checklist</span>
+          </div>
+          <div class="browser-body">
+            <div class="link-line" style="position: relative;">
+              <span class="url">https://example.com/launch-checklist</span>
+              <button class="copy-btn" id="copyBtn" disabled>Copy</button>
+              <div class="coach coach-copy" id="coachCopy">
+                <span class="coach-step">Step 2 of 3</span>
+                <span class="coach-text">Copy this link while recording</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="window" style="flex:1;">
+          <div class="titlebar">
+            <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+            <span class="tab">TextEdit — Untitled</span>
+          </div>
+          <div class="editor-body" id="editorBody"><span class="caret"></span></div>
+        </div>
+      </div>
+
+      <!-- floating capsule -->
+      <div class="capsule" id="capsule" aria-live="polite"></div>
+    </div>
+
+    <div class="demo-controls">
+      <button class="shortcut-btn attention" id="shortcutBtn" aria-label="Toggle recording shortcut">
+        <kbd>⌘</kbd><kbd>⇧</kbd><kbd>Space</kbd>
+        <span id="shortcutLabel">Start dictation</span>
+      </button>
+      <button class="btn btn-sm" id="replayBtn" hidden>↺ Replay</button>
+      <p class="demo-hint" id="demoHint" aria-live="polite">Press the shortcut to start dictating.</p>
+      <div class="coach coach-shortcut show" id="coachShortcut">
+        <span class="coach-step" id="coachShortcutStep">Step 1 of 3</span>
+        <span class="coach-text" id="coachShortcutText">Press the shortcut to start recording</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="section-title">What you can do</h2>
+      <p class="section-sub">A full voice-typing workflow that stays on your Mac.</p>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h3><span class="f-ico">⌘</span>Global shortcut dictation</h3>
+        <p>Press ⌘⇧Space anywhere, speak, press again. The transcription pastes into your focused app, with clipboard and history fallback.</p>
+      </div>
+      <div class="feature-card">
+        <h3><span class="f-ico">📋</span>Clipboard context</h3>
+        <p>Copy text, links, files, or images while recording and they join the composed result — text and links inline, files as local paths.</p>
+      </div>
+      <div class="feature-card">
+        <h3><span class="f-ico">🔒</span>Encrypted local history</h3>
+        <p>Sessions, audio, and context are stored locally with SQLCipher and per-account keys protected by the macOS Keychain.</p>
+      </div>
+      <div class="feature-card">
+        <h3><span class="f-ico">📖</span>Personal dictionary</h3>
+        <p>Teach SeaSnail your names and jargon. It can optionally learn from your corrections after pasting — every learned word is undoable.</p>
+      </div>
+      <div class="feature-card">
+        <h3><span class="f-ico">✨</span>Optional AI cleanup</h3>
+        <p>Off by default. If enabled, only the transcript and dictionary hints go to your own provider — clipboard content is replaced with placeholders first.</p>
+      </div>
+      <div class="feature-card">
+        <h3><span class="f-ico">🔌</span>OpenAPI &amp; scoped tokens</h3>
+        <p>A local OpenAPI interface with scoped integration tokens and encrypted data export, so your workflow can extend beyond the app.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="privacy">
+  <div class="wrap">
+    <div class="privacy-strip">
+      <h2 class="section-title">Privacy is the architecture, not a setting</h2>
+      <div class="privacy-list">
+        <div class="privacy-item"><span class="check">✓</span>Speech recognition runs on-device with a bundled Sherpa ONNX SenseVoice int8 runtime — your audio never leaves the Mac.</div>
+        <div class="privacy-item"><span class="check">✓</span>Accounts are local. Your password is the key to your data; no online registration, no telemetry.</div>
+        <div class="privacy-item"><span class="check">✓</span>Everything at rest is encrypted: SQLCipher database, AEAD-encrypted files, keys in the macOS Keychain.</div>
+        <div class="privacy-item"><span class="check">✓</span>AI cleanup is opt-in, uses providers you configure, and masks clipboard context before any request.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="download">
+  <div class="wrap">
+    <h2 class="section-title">Early stage, built in the open</h2>
+    <p class="section-sub" style="margin-left:auto;margin-right:auto;">SeaSnail is under active development. Current builds are unsigned development builds for macOS 13+ on Apple Silicon — or build from source to see exactly what runs on your machine.</p>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="https://github.com/0Litost0/OpenSeaSnail/releases" rel="noopener">Download from Releases</a>
+      <a class="btn" href="https://github.com/0Litost0/OpenSeaSnail#develop" rel="noopener">Build from source</a>
+    </div>
+    <p class="req-note">Rust · Tauri 2 · React · Sherpa ONNX · SQLCipher — reproducible, hash-pinned builds.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 OpenSeaSnail</span>
+    <a href="https://github.com/0Litost0/OpenSeaSnail" rel="noopener">GitHub</a>
+    <a href="https://github.com/0Litost0/OpenSeaSnail/blob/master/LICENSE" rel="noopener">Apache-2.0</a>
+    <a href="https://github.com/0Litost0/OpenSeaSnail/blob/master/doc/privacy.md" rel="noopener">Privacy</a>
+    <span class="right">Code is Apache-2.0; bundled model weights retain their upstream licenses.</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  var shortcutBtn = document.getElementById("shortcutBtn");
+  var shortcutLabel = document.getElementById("shortcutLabel");
+  var hint = document.getElementById("demoHint");
+  var capsule = document.getElementById("capsule");
+  var copyBtn = document.getElementById("copyBtn");
+  var replayBtn = document.getElementById("replayBtn");
+  var editorBody = document.getElementById("editorBody");
+  var sessionRows = document.getElementById("sessionRows");
+  var coachShortcut = document.getElementById("coachShortcut");
+  var coachShortcutStep = document.getElementById("coachShortcutStep");
+  var coachShortcutText = document.getElementById("coachShortcutText");
+  var coachCopy = document.getElementById("coachCopy");
+
+  function showCoachShortcut(step, text) {
+    coachShortcutStep.textContent = step;
+    coachShortcutText.textContent = text;
+    coachShortcut.classList.add("show");
+  }
+  function hideCoaches() {
+    coachShortcut.classList.remove("show");
+    coachCopy.classList.remove("show");
+    copyBtn.classList.remove("pulse");
+  }
+
+  var TRANSCRIPT = "Let's review the launch checklist tomorrow morning.";
+  var CONTEXT_URL = "https://example.com/launch-checklist";
+
+  var state = "idle";
+  var copied = false;
+  var timerId = null;
+  var elapsed = 0;
+  var timeouts = [];
+
+  function later(fn, ms) { timeouts.push(setTimeout(fn, ms)); }
+  function clearLater() { timeouts.forEach(clearTimeout); timeouts = []; }
+
+  function setHint(html) { hint.innerHTML = html; }
+
+  function fmt(sec) {
+    var m = Math.floor(sec / 60), s = sec % 60;
+    return m + ":" + (s < 10 ? "0" : "") + s;
+  }
+
+  /* ---------- capsule rendering ---------- */
+  function renderCapsule() {
+    if (state === "recording") {
+      capsule.className = "capsule show";
+      capsule.innerHTML =
+        '<span class="rec-dot"></span>' +
+        '<span class="bars"><i></i><i></i><i></i><i></i><i></i></span>' +
+        "<span>Recording</span>" +
+        '<span class="timer" id="capTimer">0:00</span>' +
+        '<span class="ctx-chip' + (copied ? " show" : "") + '" id="ctxChip">📎 1 context</span>';
+    } else if (state === "submitting") {
+      capsule.innerHTML = '<span class="spinner"></span><span>Submitting…</span>';
+    } else if (state === "transcribing") {
+      capsule.innerHTML = '<span>Transcribing</span><span class="progress"><i id="capProg"></i></span>';
+    } else if (state === "pasting") {
+      capsule.innerHTML = '<span class="spinner"></span><span>Auto-pasting…</span>';
+    } else if (state === "done") {
+      capsule.innerHTML = '<span class="ok">✓</span><span>Pasted to TextEdit</span>';
+    }
+  }
+
+  /* ---------- state machine ---------- */
+  function setState(next) {
+    state = next;
+    if (next === "recording") {
+      shortcutLabel.textContent = "Stop & transcribe";
+      shortcutBtn.classList.remove("attention");
+      copyBtn.disabled = false;
+      coachShortcut.classList.remove("show");
+      if (!copied) {
+        coachCopy.classList.add("show");
+        copyBtn.classList.add("pulse");
+      } else {
+        showCoachShortcut("Step 3 of 3", "Press the shortcut again to stop & transcribe");
+      }
+      renderCapsule();
+      elapsed = 0;
+      timerId = setInterval(function () {
+        elapsed += 1;
+        var t = document.getElementById("capTimer");
+        if (t) t.textContent = fmt(elapsed);
+      }, 1000);
+      setHint("Recording… <strong>Click “Copy” on the link</strong> — clipboard context is captured while you dictate. Press the shortcut again when done.");
+    } else if (next === "submitting") {
+      clearInterval(timerId); timerId = null;
+      shortcutBtn.disabled = true;
+      copyBtn.disabled = true;
+      hideCoaches();
+      renderCapsule();
+      setHint("Encrypting and storing the session locally…");
+      later(function () { setState("transcribing"); }, 1000);
+    } else if (next === "transcribing") {
+      renderCapsule();
+      setHint("On-device SenseVoice int8 is transcribing — no network involved.");
+      var prog = document.getElementById("capProg");
+      var start = Date.now(), dur = 2400;
+      var tick = setInterval(function () {
+        var p = Math.min(1, (Date.now() - start) / dur);
+        if (prog) prog.style.width = (p * 100) + "%";
+        if (p >= 1) { clearInterval(tick); setState("pasting"); }
+      }, 80);
+      timeouts.push(tick);
+    } else if (next === "pasting") {
+      renderCapsule();
+      setHint("Pasting into the focused app…");
+      later(function () { setState("done"); }, 900);
+    } else if (next === "done") {
+      renderCapsule();
+      typewriter(function () {
+        addSessionRow();
+        setState("finished");
+      });
+    } else if (next === "finished") {
+      shortcutBtn.disabled = false;
+      shortcutLabel.textContent = "Start dictation";
+      shortcutBtn.classList.add("attention");
+      replayBtn.hidden = false;
+      hideCoaches();
+      setHint("Done — the transcript" + (copied ? " and your copied link" : "") + " pasted, and the session was saved to encrypted history. <strong>Replay</strong> to watch again.");
+      later(function () { capsule.classList.remove("show"); }, 1600);
+    }
+  }
+
+  /* ---------- typewriter paste ---------- */
+  function typewriter(done) {
+    editorBody.innerHTML = "";
+    var caret = document.createElement("span");
+    caret.className = "caret";
+    editorBody.appendChild(caret);
+    var text = copied ? TRANSCRIPT + "\n" + CONTEXT_URL : TRANSCRIPT;
+    var i = 0;
+    var typer = setInterval(function () {
+      if (i >= text.length) {
+        clearInterval(typer);
+        done();
+        return;
+      }
+      var ch = text[i++];
+      var node;
+      if (copied && i > TRANSCRIPT.length + 1) {
+        if (!editorBody.querySelector(".pasted-link")) {
+          node = document.createElement("span");
+          node.className = "pasted-link";
+          editorBody.insertBefore(node, caret);
+        }
+        node = editorBody.querySelector(".pasted-link");
+        node.textContent += ch;
+      } else {
+        node = document.createTextNode(ch);
+        editorBody.insertBefore(node, caret);
+      }
+    }, 26);
+    timeouts.push(typer);
+  }
+
+  /* ---------- session history row ---------- */
+  function addSessionRow() {
+    var row = document.createElement("div");
+    row.className = "session-row new-row";
+    row.innerHTML =
+      "<span>Just now</span>" +
+      '<span><span class="badge badge-outline">Live</span></span>' +
+      '<span><span class="badge badge-green">Pasted</span></span>' +
+      '<span class="preview">' + TRANSCRIPT + "</span>";
+    sessionRows.insertBefore(row, sessionRows.firstChild);
+  }
+
+  /* ---------- reset ---------- */
+  function reset() {
+    clearLater();
+    clearInterval(timerId); timerId = null;
+    state = "idle";
+    copied = false;
+    copyBtn.disabled = true;
+    copyBtn.textContent = "Copy";
+    copyBtn.classList.remove("copied");
+    shortcutBtn.disabled = false;
+    shortcutLabel.textContent = "Start dictation";
+    shortcutBtn.classList.add("attention");
+    replayBtn.hidden = true;
+    capsule.classList.remove("show");
+    editorBody.innerHTML = '<span class="caret"></span>';
+    var newRow = sessionRows.querySelector(".new-row");
+    if (newRow) newRow.remove();
+    hideCoaches();
+    showCoachShortcut("Step 1 of 3", "Press the shortcut to start recording");
+    setHint("Press the shortcut to start dictating.");
+  }
+
+  /* ---------- events ---------- */
+  shortcutBtn.addEventListener("click", function () {
+    if (state === "idle" || state === "finished") {
+      if (state === "finished") reset();
+      setState("recording");
+    } else if (state === "recording") {
+      setState("submitting");
+    }
+  });
+
+  copyBtn.addEventListener("click", function () {
+    if (state !== "recording" || copied) return;
+    copied = true;
+    copyBtn.textContent = "Copied ✓";
+    copyBtn.classList.add("copied");
+    coachCopy.classList.remove("show");
+    copyBtn.classList.remove("pulse");
+    showCoachShortcut("Step 3 of 3", "Press the shortcut again to stop & transcribe");
+    var chip = document.getElementById("ctxChip");
+    if (chip) chip.classList.add("show");
+    setHint("Link captured as context. <strong>Press the shortcut again</strong> to stop and transcribe.");
+  });
+
+  replayBtn.addEventListener("click", reset);
+
+  /* ---------- deep-link states for testing/sharing (?demo=recording|done) ---------- */
+  var qs = new URLSearchParams(location.search).get("demo");
+  if (qs === "recording") { setState("recording"); }
+  else if (qs === "done") {
+    copied = true;
+    setState("recording");
+    setState("submitting");
+  }
+})();
+</script>
+</body>
+</html>

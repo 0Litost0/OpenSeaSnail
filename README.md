@@ -7,11 +7,11 @@
 
 # SeaSnail
 
-**Local voice dictation for your Mac.** Speak, bring in clipboard context, and paste the result into the app where you write.
+**Open-source, privacy-first voice typing for macOS.** SeaSnail turns your speech into text with offline, on-device speech recognition, and pastes the result into the app where you write — optionally enriched with clipboard context.
 
 English · [简体中文](README.zh-CN.md)
 
-SeaSnail runs speech recognition on your device using a bundled Sherpa ONNX SenseVoice int8 runtime. It is an early-stage, open-source desktop application for **macOS 13+ on Apple Silicon**.
+SeaSnail runs speech recognition locally using a bundled Sherpa ONNX SenseVoice int8 runtime — your audio never leaves your Mac. It is an early-stage, open-source dictation app for **macOS 13+ on Apple Silicon**, and a local alternative to cloud voice typing tools like Typeless.
 
 ## What you can do
 
@@ -35,7 +35,7 @@ Audio, transcripts, and clipboard context are stored locally with encryption. A 
 
 ## Install and try
 
-See the repository’s [Releases](https://github.com/0Litost0/SeaSnail/releases) for available builds. Use the platform, signature status, and checksum information on the specific release; this README does not imply that a public binary is already available. You can also [build from source](doc/development.md).
+See the repository’s [Releases](https://github.com/0Litost0/OpenSeaSnail/releases) for available builds. Use the platform, signature status, and checksum information on the specific release; this README does not imply that a public binary is already available. You can also [build from source](doc/development.md).
 
 1. Open SeaSnail and create a local account.
 2. Read each permission explanation before allowing access. Microphone access enables recording; Accessibility enables automatic pasting and related edit learning. Both can be configured later.
@@ -49,8 +49,8 @@ The current build scripts produce **unsigned development apps**, with a developm
 Install Xcode Command Line Tools, Rust stable, pnpm 9+, Python 3, and a supported Node.js version: 22.x ≥22.22.2, 24.x ≥24.15, or 26+. Full runtime builds also need CMake and jq.
 
 ```sh
-git clone https://github.com/0Litost0/SeaSnail.git
-cd SeaSnail
+git clone https://github.com/0Litost0/OpenSeaSnail.git
+cd OpenSeaSnail
 python3 scripts/doctor.py --frontend-only
 pnpm --dir apps/desktop install --frozen-lockfile
 pnpm --dir apps/desktop generate:openapi

@@ -7,11 +7,11 @@
 
 # SeaSnail
 
-**面向 Mac 的本地语音听写工具。**说话、带入剪贴板上下文，将结果粘贴到你正在使用的应用。
+**开源、隐私优先的 macOS 语音输入工具。**SeaSnail 在本机离线完成语音识别，说话、带入剪贴板上下文，并将结果粘贴到你正在使用的应用。
 
 [English](README.md) · 简体中文
 
-SeaSnail 使用随应用交付的 Sherpa ONNX SenseVoice int8 运行时在本机识别语音。项目处于早期开发阶段，目前支持 **macOS 13+、Apple Silicon**。
+SeaSnail 使用随应用交付的 Sherpa ONNX SenseVoice int8 运行时在本地完成语音转文字——录音数据不离开你的 Mac。项目处于早期开发阶段，是 Typeless 等云端语音输入工具的本地开源替代，目前支持 **macOS 13+、Apple Silicon**。
 
 ## 主要功能
 
@@ -35,7 +35,7 @@ SeaSnail 使用随应用交付的 Sherpa ONNX SenseVoice int8 运行时在本机
 
 ## 安装与体验
 
-可用构建见仓库的 [Releases](https://github.com/0Litost0/SeaSnail/releases)。请以具体版本的支持平台、签名状态和校验值为准；此处不代表已有公开二进制发布。也可以[从源码构建](doc/development.zh-CN.md)。
+可用构建见仓库的 [Releases](https://github.com/0Litost0/OpenSeaSnail/releases)。请以具体版本的支持平台、签名状态和校验值为准；此处不代表已有公开二进制发布。也可以[从源码构建](doc/development.zh-CN.md)。
 
 1. 打开 SeaSnail，创建本机账户。
 2. 阅读用途后再授权：麦克风用于录音；辅助功能用于自动粘贴及相关修改学习。可以稍后配置。
@@ -49,8 +49,8 @@ SeaSnail 使用随应用交付的 Sherpa ONNX SenseVoice int8 运行时在本机
 准备 Xcode Command Line Tools、Rust stable、pnpm 9+、Python 3 和受支持的 Node.js：22.x ≥22.22.2、24.x ≥24.15 或 26+。完整运行时构建还需 CMake、jq。
 
 ```sh
-git clone https://github.com/0Litost0/SeaSnail.git
-cd SeaSnail
+git clone https://github.com/0Litost0/OpenSeaSnail.git
+cd OpenSeaSnail
 python3 scripts/doctor.py --frontend-only
 pnpm --dir apps/desktop install --frozen-lockfile
 pnpm --dir apps/desktop generate:openapi
